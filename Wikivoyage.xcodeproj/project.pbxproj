@@ -9,11 +9,13 @@
 /* Begin PBXBuildFile section */
 		B5EB8A8A1B90CACC00CB9E38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB8A891B90CACC00CB9E38 /* AppDelegate.swift */; };
 		B5EB8A8D1B90CACC00CB9E38 /* Wikivoyage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B5EB8A8B1B90CACC00CB9E38 /* Wikivoyage.xcdatamodeld */; };
-		B5EB8A8F1B90CACC00CB9E38 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB8A8E1B90CACC00CB9E38 /* ViewController.swift */; };
+		B5EB8A8F1B90CACC00CB9E38 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB8A8E1B90CACC00CB9E38 /* MainViewController.swift */; };
 		B5EB8A921B90CACC00CB9E38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5EB8A901B90CACC00CB9E38 /* Main.storyboard */; };
 		B5EB8A941B90CACC00CB9E38 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5EB8A931B90CACC00CB9E38 /* Images.xcassets */; };
 		B5EB8A971B90CACC00CB9E38 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5EB8A951B90CACC00CB9E38 /* LaunchScreen.xib */; };
 		B5EB8AA31B90CACD00CB9E38 /* WikivoyageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB8AA21B90CACD00CB9E38 /* WikivoyageTests.swift */; };
+		B5EB8AB71B90F0A900CB9E38 /* LocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB8AB61B90F0A900CB9E38 /* LocationsViewController.swift */; };
+		B5EB8AB91B90F0BB00CB9E38 /* POIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB8AB81B90F0BB00CB9E38 /* POIViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,13 +33,15 @@
 		B5EB8A881B90CACC00CB9E38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5EB8A891B90CACC00CB9E38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5EB8A8C1B90CACC00CB9E38 /* Wikivoyage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Wikivoyage.xcdatamodel; sourceTree = "<group>"; };
-		B5EB8A8E1B90CACC00CB9E38 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B5EB8A8E1B90CACC00CB9E38 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		B5EB8A911B90CACC00CB9E38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B5EB8A931B90CACC00CB9E38 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B5EB8A961B90CACC00CB9E38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		B5EB8A9C1B90CACD00CB9E38 /* WikivoyageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikivoyageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5EB8AA11B90CACD00CB9E38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5EB8AA21B90CACD00CB9E38 /* WikivoyageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikivoyageTests.swift; sourceTree = "<group>"; };
+		B5EB8AB61B90F0A900CB9E38 /* LocationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsViewController.swift; sourceTree = "<group>"; };
+		B5EB8AB81B90F0BB00CB9E38 /* POIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,8 +83,10 @@
 		B5EB8A861B90CACC00CB9E38 /* Wikivoyage */ = {
 			isa = PBXGroup;
 			children = (
+				B5EB8AB61B90F0A900CB9E38 /* LocationsViewController.swift */,
+				B5EB8AB81B90F0BB00CB9E38 /* POIViewController.swift */,
 				B5EB8A891B90CACC00CB9E38 /* AppDelegate.swift */,
-				B5EB8A8E1B90CACC00CB9E38 /* ViewController.swift */,
+				B5EB8A8E1B90CACC00CB9E38 /* MainViewController.swift */,
 				B5EB8A901B90CACC00CB9E38 /* Main.storyboard */,
 				B5EB8A931B90CACC00CB9E38 /* Images.xcassets */,
 				B5EB8A951B90CACC00CB9E38 /* LaunchScreen.xib */,
@@ -215,9 +221,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5EB8A8F1B90CACC00CB9E38 /* ViewController.swift in Sources */,
+				B5EB8AB91B90F0BB00CB9E38 /* POIViewController.swift in Sources */,
+				B5EB8A8F1B90CACC00CB9E38 /* MainViewController.swift in Sources */,
 				B5EB8A8D1B90CACC00CB9E38 /* Wikivoyage.xcdatamodeld in Sources */,
 				B5EB8A8A1B90CACC00CB9E38 /* AppDelegate.swift in Sources */,
+				B5EB8AB71B90F0A900CB9E38 /* LocationsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +423,7 @@
 				B5EB8AA81B90CACD00CB9E38 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B5EB8AA91B90CACD00CB9E38 /* Build configuration list for PBXNativeTarget "WikivoyageTests" */ = {
 			isa = XCConfigurationList;
@@ -423,6 +432,7 @@
 				B5EB8AAB1B90CACD00CB9E38 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
