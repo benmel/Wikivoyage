@@ -42,10 +42,31 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="E6q-Oe-9mZ"/>
+                    <connections>
+                        <segue destination="xr0-D0-naV" kind="show" identifier="ShowLocation" id="dpg-en-xrd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1117" y="315"/>
+        </scene>
+        <!--Location View Controller-->
+        <scene sceneID="Fu0-n8-hDY">
+            <objects>
+                <viewController storyboardIdentifier="LocationViewController" id="xr0-D0-naV" customClass="LocationViewController" customModule="Wikivoyage" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tOW-fp-RyL"/>
+                        <viewControllerLayoutGuide type="bottom" id="nEP-K0-BfC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RHO-oi-4IZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fEw-mI-D4g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1851" y="-510"/>
         </scene>
         <!--Locations View Controller-->
         <scene sceneID="jG6-dL-nI9">
@@ -94,27 +115,8 @@
                             <outlet property="delegate" destination="IRw-dP-6hI" id="8jd-cy-tMc"/>
                         </connections>
                     </tableView>
-                    <connections>
-                        <outlet property="searchDisplayController" destination="jVy-iz-vle" id="0vA-Pl-U8T"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cVe-XP-RZo" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="0YF-2Q-D81">
-                    <connections>
-                        <outlet property="delegate" destination="IRw-dP-6hI" id="hvK-DE-4ka"/>
-                        <outlet property="searchContentsController" destination="IRw-dP-6hI" id="Qa2-1y-4XQ"/>
-                        <outlet property="searchResultsDataSource" destination="IRw-dP-6hI" id="gCL-xS-9ne"/>
-                        <outlet property="searchResultsDelegate" destination="IRw-dP-6hI" id="5pn-Bo-bp8"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="jVy-iz-vle">
-                    <connections>
-                        <outlet property="delegate" destination="IRw-dP-6hI" id="W2s-eI-3zM"/>
-                        <outlet property="searchContentsController" destination="IRw-dP-6hI" id="twM-dp-1mk"/>
-                        <outlet property="searchResultsDataSource" destination="IRw-dP-6hI" id="wJ3-Yn-EUe"/>
-                        <outlet property="searchResultsDelegate" destination="IRw-dP-6hI" id="1gH-VZ-XTi"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1857" y="1039"/>
         </scene>
