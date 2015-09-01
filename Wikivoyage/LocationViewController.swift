@@ -9,14 +9,13 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import WebKit
 
 class LocationViewController: UIViewController {
 
     var pageId: Int!
     var pageTitle: String!
-    var webView: UIWebView!
-    
-    var textView: UITextView!
+    var webView: WKWebView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,21 +23,20 @@ class LocationViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.navigationItem.title = pageTitle
         // Set frame in viewWillLayoutSubviews
-        webView = UIWebView(frame: self.view.frame)
+        webView = WKWebView(frame: self.view.frame)
         self.view.addSubview(webView)
-        
         loadData()
     }
     
     func loadData() {
-        Alamofire.request(.GET, "https://en.wikivoyage.org/w/api.php", parameters: ["action": "parse", "pageid": pageId, "prop": "text", "mobileformat": "", "format": "json"]).responseJSON() {
+        Alamofire.request(.GET, "https://en.wikivoyage.org/w/api.php", parameters: ["action": "parse", "pageid": pageId, "prop": "text", "mobileformat": "", "noimages": "", "format": "json"]).responseJSON() {
             (_, _, data, error) in
             if(error != nil) {
                 NSLog("Error: \(error)")
             } else {
                 let json = JSON(data!)
                 let text = json["parse"]["text"]["*"]
-                self.webView.loadHTMLString(text.string, baseURL: nil)
+                self.webView.loadHTMLString(text.string!, baseURL: nil)
             }
         }
     }
