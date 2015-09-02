@@ -36,6 +36,7 @@
 		94EC4E1D695817031619BEA6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B51BDCEE1B9516F800248A5D /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		B51BDCF01B9519CE00248A5D /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		B5B7687A1B96A93C00EADA1B /* Wikivoyage-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wikivoyage-Bridging-Header.h"; sourceTree = "<group>"; };
 		B5EB8A841B90CACC00CB9E38 /* Wikivoyage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wikivoyage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5EB8A881B90CACC00CB9E38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5EB8A891B90CACC00CB9E38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -113,6 +114,7 @@
 			children = (
 				B5EB8A8E1B90CACC00CB9E38 /* MainViewController.swift */,
 				B51BDCEE1B9516F800248A5D /* LocationViewController.swift */,
+				B5B7687A1B96A93C00EADA1B /* Wikivoyage-Bridging-Header.h */,
 				B5EB8AB61B90F0A900CB9E38 /* LocationsViewController.swift */,
 				B5EB8AB81B90F0BB00CB9E38 /* POIViewController.swift */,
 				B5EB8A891B90CACC00CB9E38 /* AppDelegate.swift */,
@@ -441,7 +443,7 @@
 				INFOPLIST_FILE = Wikivoyage/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Wikivoyage/Wikivoyage-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -453,7 +455,7 @@
 				INFOPLIST_FILE = Wikivoyage/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Wikivoyage/Wikivoyage-Bridging-Header.h";
 			};
 			name = Release;
 		};
