@@ -10,6 +10,9 @@
 		1A4B551DB193EA96E5053ED5 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D082FFE26EA8EC76B824C238 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		B51BDCEF1B9516F800248A5D /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51BDCEE1B9516F800248A5D /* LocationViewController.swift */; };
 		B51BDCF11B9519CE00248A5D /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51BDCF01B9519CE00248A5D /* SearchResult.swift */; };
+		B595D2C11B9F5F390002BEAA /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = B595D2C01B9F5F390002BEAA /* Section.swift */; };
+		B595D2C71B9F91DF0002BEAA /* TableRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B595D2C61B9F91DF0002BEAA /* TableRow.swift */; };
+		B595D2C91B9FA5B40002BEAA /* LocationTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B595D2C81B9FA5B40002BEAA /* LocationTableCell.swift */; };
 		B5EB8A8A1B90CACC00CB9E38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB8A891B90CACC00CB9E38 /* AppDelegate.swift */; };
 		B5EB8A8D1B90CACC00CB9E38 /* Wikivoyage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B5EB8A8B1B90CACC00CB9E38 /* Wikivoyage.xcdatamodeld */; };
 		B5EB8A8F1B90CACC00CB9E38 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB8A8E1B90CACC00CB9E38 /* MainViewController.swift */; };
@@ -36,6 +39,9 @@
 		94EC4E1D695817031619BEA6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B51BDCEE1B9516F800248A5D /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		B51BDCF01B9519CE00248A5D /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		B595D2C01B9F5F390002BEAA /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		B595D2C61B9F91DF0002BEAA /* TableRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableRow.swift; sourceTree = "<group>"; };
+		B595D2C81B9FA5B40002BEAA /* LocationTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableCell.swift; sourceTree = "<group>"; };
 		B5B7687A1B96A93C00EADA1B /* Wikivoyage-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wikivoyage-Bridging-Header.h"; sourceTree = "<group>"; };
 		B5EB8A841B90CACC00CB9E38 /* Wikivoyage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wikivoyage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5EB8A881B90CACC00CB9E38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -113,12 +119,15 @@
 			isa = PBXGroup;
 			children = (
 				B5EB8A8E1B90CACC00CB9E38 /* MainViewController.swift */,
+				B51BDCF01B9519CE00248A5D /* SearchResult.swift */,
 				B51BDCEE1B9516F800248A5D /* LocationViewController.swift */,
-				B5B7687A1B96A93C00EADA1B /* Wikivoyage-Bridging-Header.h */,
+				B595D2C81B9FA5B40002BEAA /* LocationTableCell.swift */,
+				B595D2C01B9F5F390002BEAA /* Section.swift */,
+				B595D2C61B9F91DF0002BEAA /* TableRow.swift */,
 				B5EB8AB61B90F0A900CB9E38 /* LocationsViewController.swift */,
 				B5EB8AB81B90F0BB00CB9E38 /* POIViewController.swift */,
 				B5EB8A891B90CACC00CB9E38 /* AppDelegate.swift */,
-				B51BDCF01B9519CE00248A5D /* SearchResult.swift */,
+				B5B7687A1B96A93C00EADA1B /* Wikivoyage-Bridging-Header.h */,
 				B5EB8A901B90CACC00CB9E38 /* Main.storyboard */,
 				B5EB8A931B90CACC00CB9E38 /* Images.xcassets */,
 				B5EB8A951B90CACC00CB9E38 /* LaunchScreen.xib */,
@@ -306,9 +315,12 @@
 			files = (
 				B5EB8AB91B90F0BB00CB9E38 /* POIViewController.swift in Sources */,
 				B51BDCF11B9519CE00248A5D /* SearchResult.swift in Sources */,
+				B595D2C71B9F91DF0002BEAA /* TableRow.swift in Sources */,
 				B5EB8A8F1B90CACC00CB9E38 /* MainViewController.swift in Sources */,
 				B5EB8A8D1B90CACC00CB9E38 /* Wikivoyage.xcdatamodeld in Sources */,
+				B595D2C91B9FA5B40002BEAA /* LocationTableCell.swift in Sources */,
 				B51BDCEF1B9516F800248A5D /* LocationViewController.swift in Sources */,
+				B595D2C11B9F5F390002BEAA /* Section.swift in Sources */,
 				B5EB8A8A1B90CACC00CB9E38 /* AppDelegate.swift in Sources */,
 				B5EB8AB71B90F0A900CB9E38 /* LocationsViewController.swift in Sources */,
 			);

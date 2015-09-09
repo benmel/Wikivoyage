@@ -11,18 +11,15 @@ import Alamofire
 import SwiftyJSON
 import WebKit
 import HTMLReader
-import Ono
 
 class LocationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var pageId: Int!
     var pageTitle: String!
-    
     var locationTable: UITableView!
-    var tableContent: [String] = []
-    var sectionTitles: [String] = []
-    var sectionIndices: [Int] = []
-    var sectionText = [Int: String]()
+    var sections: [Section] = []
+    var tableContent: [TableRow] = []
+    var webViews = [Int: WKWebView]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,10 +27,6 @@ class LocationViewController: UIViewController, UITableViewDataSource, UITableVi
         // Do any additional setup after loading the view.
         self.navigationItem.title = pageTitle
         
-        // set up collapsible view
-        // set up text views
-        // get section titles
-        // get section text and fill view
         setupTable()
         getSections()
     }
@@ -42,8 +35,10 @@ class LocationViewController: UIViewController, UITableViewDataSource, UITableVi
         locationTable = UITableView()
         locationTable.dataSource = self
         locationTable.delegate = self
+        // Maybe change frame
         locationTable.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-        locationTable.registerClass(UITableViewCell.self, forCellReuseIdentifier: "TableCell")
+        locationTable.registerClass(LocationTableCell.self, forCellReuseIdentifier: "TableCell")
+        
         self.view.addSubview(locationTable)
     }
     
@@ -58,48 +53,94 @@ class LocationViewController: UIViewController, UITableViewDataSource, UITableVi
                 
                 for (index: String, section: JSON) in sections {
                     if section["toclevel"] == 1 {
-                        self.sectionTitles.append(section["line"].stringValue)
-                        self.sectionIndices.append(section["index"].intValue)
+                        let title = section["line"].stringValue
+                        let index = section["index"].intValue
+                        let section = Section(title: title, index: index)
+                        let tableRow = TableRow(type: "title", sectionTextVisible: false, section: section)
+                        self.sections.append(section)
+                        self.tableContent.append(tableRow)
                     }
                 }
                 
-                self.tableContent = self.sectionTitles
                 self.getAllSectionText()
             }
             
             self.locationTable.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
         }
-        
     }
     
     func getAllSectionText() {
-        for section in sectionIndices {
+        for section in sections {
             getSectionText(section)
         }
     }
     
-    func getSectionText(section: Int) {
-        Alamofire.request(.GET, "https://en.wikivoyage.org/w/api.php", parameters: ["action": "parse", "pageid": pageId, "prop": "text", "section": section, "disabletoc": "", "format": "json"]).responseJSON() {
+    func getSectionText(section: Section) {
+        Alamofire.request(.GET, "https://en.wikivoyage.org/w/api.php", parameters: ["action": "parse", "pageid": pageId, "prop": "text", "section": section.index, "disabletoc": "", "format": "json"]).responseJSON() {
             (_, _, data, error) in
             if(error != nil) {
                 NSLog("Error: \(error)")
             } else {
-                let json = JSON(data!)
-                let text = json["parse"]["text"]["*"]
-                self.sectionText[section] = text.stringValue
-                
-//                let text_n = "<div>"+text.stringValue+"</div>"
-//                let test = HTMLDocument(string: text_n)
-//                let n1 = test.firstNodeMatchingSelector("div")
-//                let children = n1?.childElementNodes as! [HTMLElement]
+                let json = JSON(data!)["parse"]["text"]["*"]
+                section.json = json
+            }
+        }
+    }
+    
+    func createWebView(section: Section) {
+        let doc = HTMLDocument(string: section.json!.stringValue)
+        let root = doc.rootElement
+        
+        removeEditNodes(root)
+        removeNodesBeforeAndIncludingH2(root)
+        
+        section.text = root?.firstNodeMatchingSelector("body")?.innerHTML
+        
+        let webView = WKWebView(frame: self.view.frame)
+        webView.loadHTMLString(section.text!, baseURL: nil)
+        self.webViews[section.index] = webView
+    }
+    
+    func removeEditNodes(element: HTMLElement?) {
+        if let editNodes = element?.nodesMatchingSelector("[class='mw-editsection']") as? [HTMLElement] {
+            for node in editNodes {
+                node.removeFromParentNode()
+            }
+        }
+    }
+    
+    func removeNodesBeforeAndIncludingH2(element: HTMLElement?) {
+        if let h2 = element?.firstNodeMatchingSelector("h2"), parent = h2.parentNode {
+            let index = Int(parent.indexOfChild(h2))
+            if index != NSNotFound {
+                for i in 0..<index {
+                    parent.mutableChildren.removeObjectAtIndex(i)
+                }
             }
         }
     }
     
     // Table view data source
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TableCell") as! UITableViewCell
-        cell.textLabel?.text = tableContent[indexPath.row]
+        let content = tableContent[indexPath.row]
+        let cell = tableView.dequeueReusableCellWithIdentifier("TableCell", forIndexPath: indexPath) as! LocationTableCell
+        cell.selectionStyle = .None
+        cell.clipsToBounds = true
+        
+        // Use something else instead of string for type
+        if content.type == "title" {
+            cell.textLabel?.text = content.section.title
+        } else if content.type == "text" {
+            if cell.webView == nil {
+                if webViews[content.section.index] == nil {
+                    createWebView(content.section)
+                }
+                cell.webView = webViews[content.section.index]
+                // test for nil
+                cell.contentView.addSubview(cell.webView)
+            }
+        }
+    
         return cell
     }
     
@@ -109,14 +150,25 @@ class LocationViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // Table view delegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        // Change this
-        let section = sectionIndices[indexPath.row]
-        let text = sectionText[section]
-//        tableContent.insert(text!, atIndex: indexPath.row+1)
-//        let path = NSIndexPath(forRow: indexPath.row+1, inSection: 0)
-//        locationTable.insertRowsAtIndexPaths([path], withRowAnimation: UITableViewRowAnimation.Automatic)
+        
+        // Fixes bug that makes separator line dissapear
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        
+        let content = tableContent[indexPath.row]
+        if content.type == "title" && content.sectionTextVisible == false {
+            content.sectionTextVisible = true
+            let newContent = TableRow(type: "text", sectionTextVisible: true, section: content.section)
+            tableContent.insert(newContent, atIndex: indexPath.row+1)
+            let path = NSIndexPath(forRow: indexPath.row+1, inSection: 0)
+            tableView.insertRowsAtIndexPaths([path], withRowAnimation: UITableViewRowAnimation.Automatic)
+        } else if content.type == "title" && content.sectionTextVisible == true {
+            content.sectionTextVisible = false
+            tableContent.removeAtIndex(indexPath.row+1)
+            let path = NSIndexPath(forRow: indexPath.row+1, inSection: 0)
+            tableView.deleteRowsAtIndexPaths([path], withRowAnimation: UITableViewRowAnimation.Automatic)
+        }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

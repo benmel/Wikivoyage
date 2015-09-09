@@ -10,6 +10,5 @@
 #define Wikivoyage_Wikivoyage_Bridging_Header_h
 
 #import <HTMLReader/HTMLReader.h>
-#import <Ono/Ono.h>
 
 #endif
