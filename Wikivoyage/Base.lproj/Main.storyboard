@@ -43,30 +43,32 @@
                     </view>
                     <navigationItem key="navigationItem" id="E6q-Oe-9mZ"/>
                     <connections>
-                        <segue destination="xr0-D0-naV" kind="show" identifier="ShowLocation" id="dpg-en-xrd"/>
+                        <segue destination="oU4-V0-YK2" kind="show" identifier="ShowWeb" id="fs8-fc-roO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1117" y="315"/>
         </scene>
-        <!--Location View Controller-->
-        <scene sceneID="Fu0-n8-hDY">
+        <!--Location Web View Controller-->
+        <scene sceneID="gwv-NT-RG0">
             <objects>
-                <viewController storyboardIdentifier="LocationViewController" id="xr0-D0-naV" customClass="LocationViewController" customModule="Wikivoyage" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="oU4-V0-YK2" customClass="LocationWebViewController" customModule="Wikivoyage" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="tOW-fp-RyL"/>
-                        <viewControllerLayoutGuide type="bottom" id="nEP-K0-BfC"/>
+                        <viewControllerLayoutGuide type="top" id="CO6-xn-zBw"/>
+                        <viewControllerLayoutGuide type="bottom" id="0Lv-LG-CVL"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="RHO-oi-4IZ">
+                    <view key="view" contentMode="scaleToFill" id="uNZ-nR-ULJ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fEw-mI-D4g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qH6-rr-bc8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1851" y="-510"/>
+            <point key="canvasLocation" x="1857" y="-500"/>
         </scene>
         <!--Locations View Controller-->
         <scene sceneID="jG6-dL-nI9">

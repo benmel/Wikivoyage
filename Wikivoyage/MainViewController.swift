@@ -94,7 +94,7 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let searchResult = searchResults[indexPath.row]
         let result = searchResults[indexPath.row]
-        performSegueWithIdentifier("ShowLocation", sender: searchResult)
+        performSegueWithIdentifier("ShowWeb", sender: searchResult)
         resultsTable.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
@@ -142,8 +142,8 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ShowLocation" {
-            let destination = segue.destinationViewController as! LocationViewController
+        if segue.identifier == "ShowWeb" {
+            let destination = segue.destinationViewController as! LocationWebViewController
             let searchResult = sender as! SearchResult
             destination.pageId = searchResult.pageId
             destination.pageTitle = searchResult.pageTitle

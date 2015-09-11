@@ -9,6 +9,4 @@
 #ifndef Wikivoyage_Wikivoyage_Bridging_Header_h
 #define Wikivoyage_Wikivoyage_Bridging_Header_h
 
-#import <HTMLReader/HTMLReader.h>
-
 #endif
