@@ -43,7 +43,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="E6q-Oe-9mZ"/>
                     <connections>
-                        <segue destination="oU4-V0-YK2" kind="show" identifier="ShowWeb" id="fs8-fc-roO"/>
+                        <segue destination="HAa-UP-UoE" kind="show" identifier="ShowWeb" id="VWZ-SQ-mge"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -51,24 +51,37 @@
             <point key="canvasLocation" x="1117" y="315"/>
         </scene>
         <!--Location Web View Controller-->
-        <scene sceneID="gwv-NT-RG0">
+        <scene sceneID="yCg-jV-9hJ">
             <objects>
-                <viewController id="oU4-V0-YK2" customClass="LocationWebViewController" customModule="Wikivoyage" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="HAa-UP-UoE" customClass="LocationWebViewController" customModule="Wikivoyage" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="CO6-xn-zBw"/>
-                        <viewControllerLayoutGuide type="bottom" id="0Lv-LG-CVL"/>
+                        <viewControllerLayoutGuide type="top" id="heB-8v-beB"/>
+                        <viewControllerLayoutGuide type="bottom" id="Hep-oX-dIM"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="uNZ-nR-ULJ">
+                    <view key="view" contentMode="scaleToFill" id="zoZ-ff-off">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="q9W-Be-qJg">
+                                <rect key="frame" x="0.0" y="64" width="600" height="2"/>
+                            </progressView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="q9W-Be-qJg" secondAttribute="trailing" id="KBT-IK-wKg"/>
+                            <constraint firstItem="q9W-Be-qJg" firstAttribute="leading" secondItem="zoZ-ff-off" secondAttribute="leading" id="UFk-OZ-h46"/>
+                            <constraint firstItem="q9W-Be-qJg" firstAttribute="top" secondItem="heB-8v-beB" secondAttribute="bottom" id="YDo-RI-7nj"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="progressView" destination="q9W-Be-qJg" id="5fK-RO-kPW"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qH6-rr-bc8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UcU-GP-fyg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1857" y="-500"/>
+            <point key="canvasLocation" x="1851" y="-472"/>
         </scene>
         <!--Locations View Controller-->
         <scene sceneID="jG6-dL-nI9">
