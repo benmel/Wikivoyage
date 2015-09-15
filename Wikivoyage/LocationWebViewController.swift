@@ -8,6 +8,8 @@
 
 import UIKit
 import WebKit
+import Alamofire
+import SwiftyJSON
 
 class LocationWebViewController: UIViewController, WKNavigationDelegate, UIGestureRecognizerDelegate {
 
@@ -66,6 +68,18 @@ class LocationWebViewController: UIViewController, WKNavigationDelegate, UIGestu
         webView.loadRequest(request)
     }
     
+    func downloadText() {
+        Alamofire.request(.GET, "http://en.wikivoyage.org/w/api.php", parameters: ["action": "parse", "pageid": pageId, "prop": "text", "mobileformat": "", "noimages": "", "format": "json"]).responseJSON() {
+            (_, _, data, error) in
+            if(error != nil) {
+                NSLog("Error: \(error)")
+            } else {
+                let json = JSON(data!)
+                let text = json["parse"]["text"]["*"]
+            }
+        }
+    }
+    
     // WebView delegate
     func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         // Show nav bar when going to new page
@@ -74,11 +88,21 @@ class LocationWebViewController: UIViewController, WKNavigationDelegate, UIGestu
     
     func webView(webView: WKWebView, didCommitNavigation navigation: WKNavigation!) {
         // Inject style and zoom CSS
-        if let url = webView.URL, host = url.host {
-            if host == "en.m.wikivoyage.org" {
-                if style != nil { webView.evaluateJavaScript(style!, completionHandler: nil) }
-                if zoom != nil { webView.evaluateJavaScript(zoom!, completionHandler: nil) }
+        if isHostWikiURL(webView.URL?.host) {
+            if style != nil { webView.evaluateJavaScript(style!, completionHandler: nil) }
+            if zoom != nil { webView.evaluateJavaScript(zoom!, completionHandler: nil) }
+        }
+    }
+    
+    func isHostWikiURL(url: String?) -> Bool {
+        if let components = url?.componentsSeparatedByString(".") {
+            if contains(components, "wikivoyage") || contains(components, "wikipedia") || contains(components, "wikimedia") && contains(components, "org") {
+                return true
+            } else {
+                return false
             }
+        } else {
+            return false
         }
     }
     

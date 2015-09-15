@@ -8,5 +8,6 @@ styleTag.textContent = 'div#content {border-top:0px;} \
                         a.mw-ui-icon.mw-ui-icon-element.mw-ui-icon-edit-enabled.edit-page.icon-32px {display:none;} \
                         table.article-status {display: none !important} \
                         div#page-secondary-actions {display:none} \
-                        div#footer {display:none';
+                        div#footer {display:none} \
+                        span.mw-editsection {display:none}';
 document.documentElement.appendChild(styleTag);
