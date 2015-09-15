@@ -14,7 +14,7 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
 
     var locationSearchBar: UISearchBar!
     var resultsTable: UITableView!
-    var searchResults: [(title: String?, pageid: Int?)] = []
+    var searchResults: [SearchResult] = []
     
     let searchY: CGFloat = 64
     let searchYStart: CGFloat = 300
@@ -82,7 +82,7 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
     // Table view data source
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TableCell") as! UITableViewCell
-        cell.textLabel?.text = searchResults[indexPath.row].title
+        cell.textLabel?.text = searchResults[indexPath.row].pageTitle
         return cell
     }
     
@@ -91,6 +91,13 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
     }
     
     // Table view delegate
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let searchResult = searchResults[indexPath.row]
+        let result = searchResults[indexPath.row]
+        performSegueWithIdentifier("ShowWeb", sender: searchResult)
+        resultsTable.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         dismissKeyboard()
     }
@@ -125,11 +132,21 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
                 for (index: String, subJson: JSON) in results {
                     let title = subJson["title"].string
                     let pageid = subJson["pageid"].int
-                    self.searchResults.append(title: title, pageid: pageid)
+                    let searchResult = SearchResult(pageId: pageid!, pageTitle: title!)
+                    self.searchResults.append(searchResult)
                 }
             }
             
             self.resultsTable.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowWeb" {
+            let destination = segue.destinationViewController as! LocationWebViewController
+            let searchResult = sender as! SearchResult
+            destination.pageId = searchResult.pageId
+            destination.pageTitle = searchResult.pageTitle
         }
     }
     
