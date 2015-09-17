@@ -72,12 +72,8 @@ class OfflineLocationsViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            let offlinePage = offlinePages[indexPath.row]
-            let offlinePageMR = SavedPage.MR_findFirstByAttribute("id", withValue: offlinePage.id)
-            offlinePageMR.MR_deleteEntity()
+            offlinePages.removeAtIndex(indexPath.row).MR_deleteEntity()
             NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
-            
-            offlinePages.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view

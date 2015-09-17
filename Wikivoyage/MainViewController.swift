@@ -28,6 +28,11 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
         setupTable()
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        searchBarCancelButtonClicked(locationSearchBar)
+    }
+    
     func setupSearchBar() {
         locationSearchBar = UISearchBar()
         locationSearchBar.delegate = self

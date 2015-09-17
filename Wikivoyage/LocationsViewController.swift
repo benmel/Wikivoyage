@@ -72,12 +72,8 @@ class LocationsViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            let savedPage = savedPages[indexPath.row]
-            let savedPageMR = SavedPage.MR_findFirstByAttribute("id", withValue: savedPage.id)
-            savedPageMR.MR_deleteEntity()
+            savedPages.removeAtIndex(indexPath.row).MR_deleteEntity()
             NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
-            
-            savedPages.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
