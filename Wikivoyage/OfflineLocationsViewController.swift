@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MagicalRecord
 
 class OfflineLocationsViewController: UITableViewController {
 
@@ -19,7 +20,7 @@ class OfflineLocationsViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         offlinePages = SavedPage.MR_findAll() as! [SavedPage]
     }
@@ -67,17 +68,21 @@ class OfflineLocationsViewController: UITableViewController {
     }
     */
 
-    /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
+            let offlinePage = offlinePages[indexPath.row]
+            let offlinePageMR = SavedPage.MR_findFirstByAttribute("id", withValue: offlinePage.id)
+            offlinePageMR.MR_deleteEntity()
+            NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
+            
+            offlinePages.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
 
     /*
     // Override to support rearranging the table view.

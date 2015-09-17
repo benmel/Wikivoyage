@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MagicalRecord
 
 class LocationsViewController: UITableViewController {
 
@@ -19,7 +20,7 @@ class LocationsViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         savedPages = SavedPage.MR_findAll() as! [SavedPage]
     }
@@ -67,17 +68,21 @@ class LocationsViewController: UITableViewController {
     }
     */
 
-    /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
+            let savedPage = savedPages[indexPath.row]
+            let savedPageMR = SavedPage.MR_findFirstByAttribute("id", withValue: savedPage.id)
+            savedPageMR.MR_deleteEntity()
+            NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
+            
+            savedPages.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
 
     /*
     // Override to support rearranging the table view.
