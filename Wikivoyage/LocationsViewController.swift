@@ -10,6 +10,8 @@ import UIKit
 
 class LocationsViewController: UITableViewController {
 
+    var savedPages: [SavedPage] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,6 +20,8 @@ class LocationsViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        savedPages = SavedPage.MR_findAll() as! [SavedPage]
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,24 +34,30 @@ class LocationsViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 0
+        return savedPages.count
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("SavedPage", forIndexPath: indexPath) as! UITableViewCell
 
         // Configure the cell...
-
+        let savedPage = savedPages[indexPath.row]
+        cell.textLabel?.text = savedPage.title
+        
         return cell
     }
-    */
+        
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let savedPage = savedPages[indexPath.row]
+        performSegueWithIdentifier("ShowLocation", sender: savedPage)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -84,14 +94,18 @@ class LocationsViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        if segue.identifier == "ShowLocation" {
+            let viewController = segue.destinationViewController as! SavedLocationWebViewController
+            let savedPage = sender as! SavedPage
+            viewController.pageId = Int(savedPage.id)
+            viewController.pageTitle = savedPage.title
+        }
     }
-    */
 
 }
