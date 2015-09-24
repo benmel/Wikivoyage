@@ -60,8 +60,8 @@ class WebViewController: UIViewController, WKNavigationDelegate, UIGestureRecogn
     }
     
     func requestURL() {
-        let newTitle = pageTitle.stringByReplacingOccurrencesOfString(" ", withString: "_", options: nil, range: nil)
-        let url = NSURL(string: "http://en.m.wikivoyage.com/wiki/"+newTitle)
+        let path = pageTitle.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+        let url = NSURL(string: "http://en.m.wikivoyage.com/wiki/"+path!)
         let request = NSURLRequest(URL: url!)
         webView.loadRequest(request)
     }

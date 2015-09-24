@@ -15,7 +15,8 @@ import MagicalRecord
 class LocationWebViewController: WebViewController {
 
     var originalURLSet: Bool = false
-    var originalURL: String?
+    var originalHost: String?
+    var originalPath: String?
     @IBOutlet var saveButton: UIBarButtonItem!
     
     override func viewDidLoad() {
@@ -27,11 +28,12 @@ class LocationWebViewController: WebViewController {
         super.webView(webView, didCommitNavigation: navigation)
         
         if !originalURLSet {
-            originalURL = webView.URL?.absoluteString
+            originalHost = webView.URL?.host
+            originalPath = webView.URL?.path
             originalURLSet = true
         }
-        
-        if webView.URL?.absoluteString == originalURL {
+
+        if webView.URL?.host == originalHost && webView.URL?.path == originalPath {
             saveButton.enabled = true
         } else {
             saveButton.enabled = false
