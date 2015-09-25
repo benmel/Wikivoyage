@@ -1,5 +1,5 @@
 //
-//  POIViewController.swift
+//  OfflineTableViewController.swift
 //  Wikivoyage
 //
 //  Created by Ben Meline on 8/28/15.
@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import MagicalRecord
 
-class POIViewController: UITableViewController {
+class OfflineTableViewController: UITableViewController {
 
+    var offlinePages: [SavedPage] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,7 +20,9 @@ class POIViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        offlinePages = SavedPage.MR_findByAttribute("offline", withValue: true) as! [SavedPage]
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,24 +35,30 @@ class POIViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 0
+        return offlinePages.count
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("OfflinePage", forIndexPath: indexPath) as! UITableViewCell
 
         // Configure the cell...
+        let offlinePage = offlinePages[indexPath.row]
+        cell.textLabel?.text = offlinePage.title
 
         return cell
     }
-    */
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let offlinePage = offlinePages[indexPath.row]
+        performSegueWithIdentifier("ShowLocation", sender: offlinePage)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -57,17 +68,23 @@ class POIViewController: UITableViewController {
     }
     */
 
-    /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
+            let offlinePage = offlinePages[indexPath.row]
+            if offlinePage.favorite == true {
+                offlinePage.offline = false
+                offlinePages.removeAtIndex(indexPath.row)
+            } else {
+                offlinePages.removeAtIndex(indexPath.row).MR_deleteEntity()
+            }
+            NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
 
     /*
     // Override to support rearranging the table view.
@@ -84,14 +101,18 @@ class POIViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        if segue.identifier == "ShowLocation" {
+            let viewController = segue.destinationViewController as! OfflineWebViewController
+            let offlinePage = sender as! SavedPage
+            viewController.html = offlinePage.html
+            viewController.title = offlinePage.title
+        }
     }
-    */
 
 }
