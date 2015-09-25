@@ -6,23 +6,18 @@
 //  Copyright (c) 2015 Ben Meline. All rights reserved.
 //
 
-import UIKit
 import WebKit
 
-class WebViewController: UIViewController, WKNavigationDelegate, UIGestureRecognizerDelegate {
+class WebViewController: UIViewController, WKNavigationDelegate {
     
-    var pageId: Int!
-    var pageTitle: String!
     var webView: WKWebView!
     @IBOutlet var progressView: UIProgressView!
-    
     var style: String?
     var zoom: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupWebView()
-        setupGestureRecognizer()
         getScripts()
         requestURL()
     }
@@ -42,13 +37,6 @@ class WebViewController: UIViewController, WKNavigationDelegate, UIGestureRecogn
         self.view.addConstraints([height, width])
     }
     
-    func setupGestureRecognizer() {
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: "webViewTapped:")
-        gestureRecognizer.delegate = self
-        gestureRecognizer.numberOfTapsRequired = 2
-        self.webView.addGestureRecognizer(gestureRecognizer)
-    }
-    
     func getScripts() {
         if let styleScriptURL = NSBundle.mainBundle().pathForResource("StyleScript", ofType: "js") {
             style = String(contentsOfFile:styleScriptURL, encoding:NSUTF8StringEncoding, error: nil)
@@ -59,19 +47,11 @@ class WebViewController: UIViewController, WKNavigationDelegate, UIGestureRecogn
         }
     }
     
+    // Override this method
     func requestURL() {
-        let path = pageTitle.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-        let url = NSURL(string: "http://en.m.wikivoyage.com/wiki/"+path!)
-        let request = NSURLRequest(URL: url!)
-        webView.loadRequest(request)
     }
     
     // WebView delegate
-    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        // Show nav bar when going to new page
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
     func webView(webView: WKWebView, didCommitNavigation navigation: WKNavigation!) {
         // Inject style and zoom CSS
         if isHostWikiURL(webView.URL?.host) {
@@ -104,52 +84,17 @@ class WebViewController: UIViewController, WKNavigationDelegate, UIGestureRecogn
         progressView.setProgress(0.0, animated: false)
     }
     
-    // Gesture recognizer
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
-    func webViewTapped(recognizer: UITapGestureRecognizer) {
-        if let navigationController = self.navigationController {
-            let change = !navigationController.navigationBarHidden
-            navigationController.setNavigationBarHidden(change, animated: true)
-        }
-    }
-    
-    // Progress view and navigation controller
+    // Progress view and title
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
         webView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
         webView.addObserver(self, forKeyPath: "title", options: .New, context: nil)
-        
-        self.navigationController?.hidesBarsOnSwipe = true
-    }
-    
-    // Disabling back swipe gesture only works in viewWillLayoutSubviews
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        if self.navigationController != nil {
-            if self.navigationController!.respondsToSelector("interactivePopGestureRecognizer") {
-                self.navigationController?.interactivePopGestureRecognizer.enabled = false
-            }
-        }
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        
         webView.removeObserver(self, forKeyPath: "estimatedProgress")
         webView.removeObserver(self, forKeyPath: "title")
-        
-        // Reset navigation controller
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationController?.hidesBarsOnSwipe = false
-        if self.navigationController != nil {
-            if self.navigationController!.respondsToSelector("interactivePopGestureRecognizer") {
-                self.navigationController?.interactivePopGestureRecognizer.enabled = true
-            }
-        }
     }
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
@@ -172,25 +117,4 @@ class WebViewController: UIViewController, WKNavigationDelegate, UIGestureRecogn
             }
         }
     }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return self.navigationController!.navigationBarHidden
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
-    
 }

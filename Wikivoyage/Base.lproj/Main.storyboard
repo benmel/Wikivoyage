@@ -73,28 +73,84 @@
                             <constraint firstItem="q9W-Be-qJg" firstAttribute="top" secondItem="heB-8v-beB" secondAttribute="bottom" id="YDo-RI-7nj"/>
                         </constraints>
                     </view>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="5gH-QD-niu">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="rUY-ir-8ia">
+                    <toolbarItems>
+                        <barButtonItem title="Favorite" id="NY4-wl-BcV">
                             <connections>
-                                <action selector="savePage:" destination="HAa-UP-UoE" id="SGL-x4-DJX"/>
+                                <action selector="favorite:" destination="HAa-UP-UoE" id="fPV-oO-dQQ"/>
                             </connections>
                         </barButtonItem>
-                    </navigationItem>
+                        <barButtonItem title="Download" id="UMo-zy-XbX">
+                            <connections>
+                                <action selector="download:" destination="HAa-UP-UoE" id="3J7-hp-Le7"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="5gH-QD-niu"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="progressView" destination="q9W-Be-qJg" id="5fK-RO-kPW"/>
-                        <outlet property="saveButton" destination="rUY-ir-8ia" id="qNC-pM-bjO"/>
+                        <segue destination="pON-Ou-aaa" kind="presentation" identifier="ShowExternalPage" id="O7c-6p-yKS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UcU-GP-fyg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2125" y="-544"/>
         </scene>
-        <!--Saved Location Web View Controller-->
+        <!--External Web View Controller-->
+        <scene sceneID="P2f-1j-OCA">
+            <objects>
+                <viewController id="BFE-yL-APi" customClass="ExternalWebViewController" customModule="Wikivoyage" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Kdn-do-yMX"/>
+                        <viewControllerLayoutGuide type="bottom" id="an2-q4-fBN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Tco-GQ-ypZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eIL-ya-JOV">
+                                <rect key="frame" x="0.0" y="64" width="600" height="2"/>
+                            </progressView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eIL-ya-JOV" firstAttribute="leading" secondItem="Tco-GQ-ypZ" secondAttribute="leading" id="UxV-Ul-3tk"/>
+                            <constraint firstAttribute="trailing" secondItem="eIL-ya-JOV" secondAttribute="trailing" id="WHy-ks-hHa"/>
+                            <constraint firstItem="eIL-ya-JOV" firstAttribute="top" secondItem="Kdn-do-yMX" secondAttribute="bottom" id="qMs-dt-w6e"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem title="Back" id="5f4-TL-vV8">
+                            <connections>
+                                <action selector="back:" destination="BFE-yL-APi" id="As6-sC-IID"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Forward" id="eS7-os-iBw">
+                            <connections>
+                                <action selector="forward:" destination="BFE-yL-APi" id="7K3-aM-rmL"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="o4Q-ft-XK1">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="iX8-zn-DvO">
+                            <connections>
+                                <action selector="close:" destination="BFE-yL-APi" id="HIi-8p-tqP"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="progressView" destination="eIL-ya-JOV" id="TuF-K4-EXJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hco-Nb-hjW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5129" y="-64"/>
+        </scene>
+        <!--Saved Web View Controller-->
         <scene sceneID="Yry-us-DdM">
             <objects>
-                <viewController id="YBw-x5-haa" customClass="SavedLocationWebViewController" customModule="Wikivoyage" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="YBw-x5-haa" customClass="SavedWebViewController" customModule="Wikivoyage" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YlR-WE-P9R"/>
                         <viewControllerLayoutGuide type="bottom" id="aRP-Nh-zG1"/>
@@ -115,39 +171,51 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="progressView" destination="Wqr-fN-0yi" id="Qpk-kR-2bI"/>
+                        <segue destination="pON-Ou-aaa" kind="presentation" identifier="ShowExternalPage" id="Euy-gq-flz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M3X-go-toB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2947" y="315"/>
         </scene>
-        <!--Offline Location Web View Controller-->
-        <scene sceneID="2pR-NI-dgS">
+        <!--Offline Web View Controller-->
+        <scene sceneID="QgH-0n-E4m">
             <objects>
-                <viewController id="qzS-X7-aJs" customClass="OfflineLocationWebViewController" customModule="Wikivoyage" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ADS-fE-LfM" customClass="OfflineWebViewController" customModule="Wikivoyage" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="td6-aC-Um2"/>
-                        <viewControllerLayoutGuide type="bottom" id="yvR-7m-Drl"/>
+                        <viewControllerLayoutGuide type="top" id="1hJ-bw-a93"/>
+                        <viewControllerLayoutGuide type="bottom" id="mu1-EC-vgr"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="2u0-Rs-kbe">
+                    <view key="view" contentMode="scaleToFill" id="Qgb-cD-HC4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4Br-YB-w3r">
+                                <rect key="frame" x="0.0" y="64" width="600" height="2"/>
+                            </progressView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4Br-YB-w3r" firstAttribute="top" secondItem="1hJ-bw-a93" secondAttribute="bottom" id="D7m-7Y-QMu"/>
+                            <constraint firstItem="4Br-YB-w3r" firstAttribute="leading" secondItem="Qgb-cD-HC4" secondAttribute="leading" id="WQd-KX-toH"/>
+                            <constraint firstAttribute="trailing" secondItem="4Br-YB-w3r" secondAttribute="trailing" id="vf7-gc-aeS"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="progressView" destination="4Br-YB-w3r" id="yGF-4E-5te"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fQA-gx-eQV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cHZ-bs-Xtx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2947" y="1071"/>
         </scene>
-        <!--Locations View Controller-->
+        <!--Saved Table View Controller-->
         <scene sceneID="jG6-dL-nI9">
             <objects>
-                <tableViewController storyboardIdentifier="LocationsViewController" id="NqG-5D-fAt" customClass="LocationsViewController" customModule="Wikivoyage" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="LocationsViewController" id="NqG-5D-fAt" customClass="SavedTableViewController" customModule="Wikivoyage" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="w3z-QV-AWg">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -173,10 +241,10 @@
             </objects>
             <point key="canvasLocation" x="2125" y="315"/>
         </scene>
-        <!--Offline Locations View Controller-->
+        <!--Offline Table View Controller-->
         <scene sceneID="gcF-CE-7yN">
             <objects>
-                <tableViewController storyboardIdentifier="OfflineLocationsViewController" id="IRw-dP-6hI" customClass="OfflineLocationsViewController" customModule="Wikivoyage" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="OfflineLocationsViewController" id="IRw-dP-6hI" customClass="OfflineTableViewController" customModule="Wikivoyage" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Nyk-RD-2gl">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -195,7 +263,7 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <segue destination="qzS-X7-aJs" kind="show" identifier="ShowLocation" id="6XP-hB-Sft"/>
+                        <segue destination="ADS-fE-LfM" kind="show" identifier="ShowLocation" id="kvg-jq-fD2"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cVe-XP-RZo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -212,6 +280,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="fwx-bw-KUf">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="TY5-N2-S7J"/>
                     </connections>
@@ -220,5 +291,29 @@
             </objects>
             <point key="canvasLocation" x="305" y="315"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Fus-2W-ofO">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="pON-Ou-aaa" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZBL-CM-t7M">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="H7r-43-PY2">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="BFE-yL-APi" kind="relationship" relationship="rootViewController" id="zHR-er-IGO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dEQ-Gm-nHd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4211" y="-64"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Euy-gq-flz"/>
+    </inferredMetricsTieBreakers>
 </document>

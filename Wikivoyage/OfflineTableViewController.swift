@@ -1,5 +1,5 @@
 //
-//  LocationsViewController.swift
+//  OfflineTableViewController.swift
 //  Wikivoyage
 //
 //  Created by Ben Meline on 8/28/15.
@@ -9,9 +9,9 @@
 import UIKit
 import MagicalRecord
 
-class LocationsViewController: UITableViewController {
+class OfflineTableViewController: UITableViewController {
 
-    var savedPages: [SavedPage] = []
+    var offlinePages: [SavedPage] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +22,7 @@ class LocationsViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        savedPages = SavedPage.MR_findAll() as! [SavedPage]
+        offlinePages = SavedPage.MR_findAll() as! [SavedPage]
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,22 +41,22 @@ class LocationsViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return savedPages.count
+        return offlinePages.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SavedPage", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("OfflinePage", forIndexPath: indexPath) as! UITableViewCell
 
         // Configure the cell...
-        let savedPage = savedPages[indexPath.row]
-        cell.textLabel?.text = savedPage.title
-        
+        let offlinePage = offlinePages[indexPath.row]
+        cell.textLabel?.text = offlinePage.title
+
         return cell
     }
-        
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let savedPage = savedPages[indexPath.row]
-        performSegueWithIdentifier("ShowLocation", sender: savedPage)
+        let offlinePage = offlinePages[indexPath.row]
+        performSegueWithIdentifier("ShowLocation", sender: offlinePage)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
@@ -72,7 +72,7 @@ class LocationsViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            savedPages.removeAtIndex(indexPath.row).MR_deleteEntity()
+            offlinePages.removeAtIndex(indexPath.row).MR_deleteEntity()
             NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
@@ -102,10 +102,10 @@ class LocationsViewController: UITableViewController {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if segue.identifier == "ShowLocation" {
-            let viewController = segue.destinationViewController as! SavedLocationWebViewController
-            let savedPage = sender as! SavedPage
-            viewController.pageId = Int(savedPage.id)
-            viewController.pageTitle = savedPage.title
+            let viewController = segue.destinationViewController as! OfflineWebViewController
+            let offlinePage = sender as! SavedPage
+            viewController.html = offlinePage.html
+            viewController.title = offlinePage.title
         }
     }
 

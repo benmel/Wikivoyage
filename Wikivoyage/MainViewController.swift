@@ -22,12 +22,10 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
         setupSearchBar()
         setupTable()
     }
-    
+
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         searchBarCancelButtonClicked(locationSearchBar)
