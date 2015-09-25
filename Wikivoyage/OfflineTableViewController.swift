@@ -72,7 +72,13 @@ class OfflineTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            offlinePages.removeAtIndex(indexPath.row).MR_deleteEntity()
+            let offlinePage = offlinePages[indexPath.row]
+            if offlinePage.favorite == true {
+                offlinePage.offline = false
+                offlinePages.removeAtIndex(indexPath.row)
+            } else {
+                offlinePages.removeAtIndex(indexPath.row).MR_deleteEntity()
+            }
             NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {

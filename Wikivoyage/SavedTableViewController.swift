@@ -72,7 +72,13 @@ class SavedTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            savedPages.removeAtIndex(indexPath.row).MR_deleteEntity()
+            let savedPage = savedPages[indexPath.row]
+            if savedPage.offline == true {
+                savedPage.favorite = false
+                savedPages.removeAtIndex(indexPath.row)
+            } else {
+                savedPages.removeAtIndex(indexPath.row).MR_deleteEntity()
+            }
             NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
