@@ -13,6 +13,7 @@ class StaticWebViewController: WebViewController {
     var pageId: Int!
     var pageTitle: String!
     var webViewLoaded: Bool = false
+    var originalURL: NSURL?
         
     override func requestURL() {
         let path = pageTitle.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
@@ -23,19 +24,28 @@ class StaticWebViewController: WebViewController {
     
     // Open links in modal
     func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
+        // Allow navigation if web view not loaded or if request is for same host and path
+        // Cancel navigation if request if for a different page
         if !webViewLoaded {
             decisionHandler(WKNavigationActionPolicy.Allow)
         } else {
-            decisionHandler(WKNavigationActionPolicy.Cancel)
-            if let url = navigationAction.request.URL {
-                self.performSegueWithIdentifier("ShowExternalPage", sender: url)
+            if originalURL?.host == navigationAction.request.URL?.host && originalURL?.path == navigationAction.request.URL?.path {
+                decisionHandler(WKNavigationActionPolicy.Allow)
+            } else {
+                decisionHandler(WKNavigationActionPolicy.Cancel)
+                if let url = navigationAction.request.URL {
+                    self.performSegueWithIdentifier("ShowExternalPage", sender: url)
+                }
             }
         }
     }
     
     override func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
         super.webView(webView, didFinishNavigation: navigation)
-        webViewLoaded = true
+        if !webViewLoaded {
+            originalURL = webView.URL
+            webViewLoaded = true
+        }
     }
     
     // MARK: - Navigation
