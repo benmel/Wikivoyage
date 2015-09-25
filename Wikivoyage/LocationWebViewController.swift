@@ -24,10 +24,14 @@ class LocationWebViewController: StaticWebViewController {
     
     @IBAction func favorite(sender: AnyObject) {
         favoritePage()
+        let button = sender as! UIBarButtonItem
+        button.tintColor = .redColor()
     }
     
     @IBAction func download(sender: AnyObject) {
         downloadPage()
+        let button = sender as! UIBarButtonItem
+        button.tintColor = .redColor()
     }
     
     func favoritePage() {
