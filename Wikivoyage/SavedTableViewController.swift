@@ -22,7 +22,7 @@ class SavedTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        savedPages = SavedPage.MR_findAll() as! [SavedPage]
+        savedPages = SavedPage.MR_findByAttribute("favorite", withValue: true) as! [SavedPage]
     }
 
     override func didReceiveMemoryWarning() {

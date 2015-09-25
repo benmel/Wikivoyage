@@ -22,7 +22,7 @@ class OfflineTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        offlinePages = SavedPage.MR_findAll() as! [SavedPage]
+        offlinePages = SavedPage.MR_findByAttribute("offline", withValue: true) as! [SavedPage]
     }
 
     override func didReceiveMemoryWarning() {

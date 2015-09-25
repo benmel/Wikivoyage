@@ -12,6 +12,16 @@ import MagicalRecord
 
 class LocationWebViewController: StaticWebViewController {
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setToolbarHidden(false, animated: true)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setToolbarHidden(true, animated: true)
+    }
+    
     @IBAction func favorite(sender: AnyObject) {
         favoritePage()
     }
@@ -23,11 +33,13 @@ class LocationWebViewController: StaticWebViewController {
     func favoritePage() {
         let id = NSNumber(integer: self.pageId)
         if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
-            // It exists
+            savedPage.favorite = true
         } else {
             let savedPage = SavedPage.MR_createEntity()
             savedPage.title = self.pageTitle
             savedPage.id = self.pageId
+            savedPage.favorite = true
+            savedPage.offline = false
         }
         
         NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
@@ -45,11 +57,14 @@ class LocationWebViewController: StaticWebViewController {
                 let id = NSNumber(integer: self.pageId)
                 if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
                     savedPage.html = json["parse"]["text"]["*"].stringValue
+                    savedPage.offline = true
                 } else {
                     let savedPage = SavedPage.MR_createEntity()
                     savedPage.title = self.pageTitle
                     savedPage.id = self.pageId
                     savedPage.html = json["parse"]["text"]["*"].stringValue
+                    savedPage.favorite = false
+                    savedPage.offline = true
                 }
                 
                 NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
