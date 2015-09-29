@@ -48,7 +48,8 @@ class OfflineWebViewController: WebViewController {
     override func webView(webView: WKWebView, didCommitNavigation navigation: WKNavigation!) {
         super.webView(webView, didCommitNavigation: navigation)
         // Inject style and zoom CSS
-        if style != nil { webView.evaluateJavaScript(style!, completionHandler: nil) }
+        if zoom != nil { webView.evaluateJavaScript(zoom!, completionHandler: nil) }
         if offline != nil { webView.evaluateJavaScript(offline!, completionHandler: nil) }
+        if style != nil { webView.evaluateJavaScript(style!, completionHandler: nil) }
     }
 }
