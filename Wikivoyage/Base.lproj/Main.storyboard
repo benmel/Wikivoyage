@@ -15,35 +15,13 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aS0-CR-sud">
-                                <rect key="frame" x="217" y="496" width="164" height="30"/>
-                                <state key="normal" title="Offline Locations">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="IRw-dP-6hI" kind="show" id="xfT-ZA-GPp"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVR-4O-lLd">
-                                <rect key="frame" x="242" y="443" width="115" height="30"/>
-                                <state key="normal" title="Saved Locations">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="NqG-5D-fAt" kind="show" id="2sH-br-yH2"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="centerX" secondItem="aS0-CR-sud" secondAttribute="centerX" id="OSu-dO-1cK"/>
-                            <constraint firstAttribute="centerX" secondItem="CVR-4O-lLd" secondAttribute="centerX" id="rmH-UB-1MY"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="E6q-Oe-9mZ"/>
                     <connections>
                         <segue destination="HAa-UP-UoE" kind="show" identifier="ShowWeb" id="VWZ-SQ-mge"/>
+                        <segue destination="NqG-5D-fAt" kind="show" identifier="ShowFavorites" id="Tkt-jy-wz2"/>
+                        <segue destination="IRw-dP-6hI" kind="show" identifier="ShowOffline" id="20L-SZ-4Ng"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
