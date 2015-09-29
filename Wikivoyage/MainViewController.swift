@@ -9,77 +9,236 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import PureLayout
 
 class MainViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
 
+    var topView: UIView!
+    var bottomView: UIView!
+    
     var locationSearchBar: UISearchBar!
+    var searchBarDimensionConstraint: NSLayoutConstraint?
+    var searchBarEdgeConstraint: NSLayoutConstraint?
+    var searchBarTop: Bool = false
+    
+    var searchButton: UIButton!
+    var searchButtonWidth: NSLayoutConstraint?
+    var searchButtonHeight: NSLayoutConstraint?
+    var searchButtonEdgeConstraint: NSLayoutConstraint?
+    
+    var favoriteButton: UIButton!
+    var offlineButton: UIButton!
+    
     var resultsTable: UITableView!
     var searchResults: [SearchResult] = []
     
-    let searchY: CGFloat = 64
-    let searchYStart: CGFloat = 300
-    let searchHeight: CGFloat = 44
+    var didSetupContraints: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViews()
         setupSearchBar()
+        setupSearchButton()
+        setupButtons()
         setupTable()
     }
-
+    
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        searchBarCancelButtonClicked(locationSearchBar)
+        resetSearchBar(locationSearchBar, animated: false)
     }
     
+    override func updateViewConstraints() {
+        
+        if !didSetupContraints {
+
+            // Align top and bottom views
+            topView.autoMatchDimension(.Width, toDimension: .Width, ofView: self.view)
+            bottomView.autoMatchDimension(.Width, toDimension: .Width, ofView: self.view)
+            let views: NSArray = [topView, bottomView]
+            views.autoDistributeViewsAlongAxis(.Vertical, alignedTo: .Vertical, withFixedSpacing: 0)
+            
+            // Align search bar at top
+            locationSearchBar.autoAlignAxisToSuperviewAxis(.Vertical)
+            locationSearchBar.autoMatchDimension(.Width, toDimension: .Width, ofView: topView)
+            locationSearchBar.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            
+            // Align search button
+            searchButton.autoAlignAxisToSuperviewAxis(.Vertical)
+            
+            // Align results table
+            resultsTable.autoAlignAxisToSuperviewAxis(.Vertical)
+            resultsTable.autoPinEdgeToSuperviewEdge(.Left, withInset: 0)
+            resultsTable.autoPinEdgeToSuperviewEdge(.Right, withInset: 0)
+            resultsTable.autoPinToBottomLayoutGuideOfViewController(self, withInset: 0)
+            resultsTable.autoPinEdge(.Top, toEdge: .Bottom, ofView: locationSearchBar)
+            
+            // Align buttons
+            favoriteButton.autoSetDimension(.Width, toSize: 250)
+            favoriteButton.autoAlignAxisToSuperviewAxis(.Vertical)
+            offlineButton.autoSetDimension(.Width, toSize: 250)
+            offlineButton.autoAlignAxisToSuperviewAxis(.Vertical)
+            let buttons: NSArray = [favoriteButton, offlineButton]
+            buttons.autoDistributeViewsAlongAxis(.Vertical, alignedTo: .Vertical, withFixedSpacing: 30)
+            
+            didSetupContraints = true
+        }
+        
+        searchButtonWidth?.autoRemove()
+        searchButtonHeight?.autoRemove()
+        searchButtonEdgeConstraint?.autoRemove()
+        
+        if searchBarTop {
+            searchButtonWidth = searchButton.autoMatchDimension(.Width, toDimension: .Width, ofView: self.view)
+            searchButtonHeight = searchButton.autoSetDimension(.Height, toSize: 44)
+            searchButtonEdgeConstraint = searchButton.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+        } else {
+            searchButtonWidth = searchButton.autoSetDimension(.Width, toSize: 300)
+            searchButtonHeight = searchButton.autoSetDimension(.Height, toSize: 60)
+            searchButtonEdgeConstraint = searchButton.autoPinEdgeToSuperviewEdge(.Bottom)
+        }
+        
+        super.updateViewConstraints()
+    }
+    
+    func setupViews() {
+        topView = UIView.newAutoLayoutView()
+        bottomView = UIView.newAutoLayoutView()
+        self.view.addSubview(topView)
+        self.view.addSubview(bottomView)
+    }
+
     func setupSearchBar() {
-        locationSearchBar = UISearchBar()
+        locationSearchBar = UISearchBar.newAutoLayoutView()
         locationSearchBar.delegate = self
-        locationSearchBar.frame = CGRect(x: 0, y: searchYStart, width: self.view.frame.width, height: searchHeight)
-        self.view.addSubview(locationSearchBar)
+        locationSearchBar.showsCancelButton = true
+        locationSearchBar.alpha = 0
+        topView.addSubview(locationSearchBar)
+    }
+    
+    func setupSearchButton() {
+        searchButton = UIButton.buttonWithType(.Custom) as! UIButton
+        searchButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        searchButton.setTitle("Search", forState: .Normal)
+        searchButton.addTarget(self, action: "searchClicked:", forControlEvents: .TouchUpInside)
+        
+        searchButton.setTitleColor(UIColor.darkTextColor(), forState: .Normal)
+        searchButton.backgroundColor = .redColor()
+        searchButton.layer.cornerRadius = 5
+        
+        topView.addSubview(searchButton)
+    }
+    
+    func setupButtons() {
+        favoriteButton = UIButton.buttonWithType(.System) as! UIButton
+        favoriteButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        favoriteButton.setTitle("Favorite Locations", forState: .Normal)
+        favoriteButton.addTarget(self, action: "favoriteClicked:", forControlEvents: .TouchUpInside)
+        
+        favoriteButton.setTitleColor(UIColor.darkTextColor(), forState: .Normal)
+        favoriteButton.backgroundColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
+        favoriteButton.layer.cornerRadius = 5
+        
+        bottomView.addSubview(favoriteButton)
+        
+        offlineButton = UIButton.buttonWithType(.System) as! UIButton
+        offlineButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        offlineButton.setTitle("Offline Locations", forState: .Normal)
+        offlineButton.addTarget(self, action: "offlineClicked:", forControlEvents: .TouchUpInside)
+        
+        offlineButton.setTitleColor(UIColor.darkTextColor(), forState: .Normal)
+        offlineButton.backgroundColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
+        offlineButton.layer.cornerRadius = 5
+        
+        bottomView.addSubview(offlineButton)
     }
     
     func setupTable() {
-        resultsTable = UITableView()
+        resultsTable = UITableView.newAutoLayoutView()
         resultsTable.dataSource = self
         resultsTable.delegate = self
-        resultsTable.frame = CGRect(x: 0, y: searchYStart + searchHeight, width: self.view.frame.width, height: self.view.frame.height - searchY - searchHeight)
+        resultsTable.alpha = 0
         resultsTable.registerClass(UITableViewCell.self, forCellReuseIdentifier: "TableCell")
+        self.view.addSubview(resultsTable)
+    }
+    
+    func searchClicked(sender: UIButton!) {
+        showSearchBar(locationSearchBar)
+    }
+
+    func favoriteClicked(sender: UIButton!) {
+        performSegueWithIdentifier("ShowFavorites", sender: sender)
+    }
+    
+    func offlineClicked(sender: UIButton!) {
+        performSegueWithIdentifier("ShowOffline", sender: sender)
     }
     
     // Search bar delegate
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        showSearchBar(searchBar)
-    }
-    
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         dismissKeyboard()
         queryTitles(searchBar.text)
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        self.view.endEditing(true)
+        resetSearchBar(searchBar, animated: true)
+    }
+    
+    // Search bar helper methods
+    func resetSearchBar(searchBar: UISearchBar, animated: Bool) {
         searchBar.text = ""
-        dismissSearchBar(searchBar)
+        dismissSearchBar(searchBar, animated: animated)
         searchResults.removeAll()
         resultsTable.reloadData()
     }
     
     func showSearchBar(searchBar: UISearchBar) {
-        UIView.animateWithDuration(0.5, animations: {
-            searchBar.frame.origin.y = self.searchY
-            searchBar.showsCancelButton = true
-            self.view.addSubview(self.resultsTable)
-            self.resultsTable.frame.origin.y = self.searchY + self.searchHeight
-        })
+        searchBarTop = true
+        
+        self.view.setNeedsUpdateConstraints()
+        self.view.updateConstraintsIfNeeded()
+        
+        UIView.animateWithDuration(0.5,
+            animations: {
+                self.view.layoutIfNeeded()
+            }, completion: { finished in
+                UIView.animateWithDuration(0.2,
+                    animations: {
+                        searchBar.alpha = 1
+                        self.resultsTable.alpha = 1
+                        self.searchButton.alpha = 0
+                    }, completion: { finished in
+                        searchBar.becomeFirstResponder()
+                    })
+            })
     }
     
-    func dismissSearchBar(searchBar: UISearchBar) {
-        UIView.animateWithDuration(0.5, animations: {
-            searchBar.frame.origin.y = self.searchYStart
-            searchBar.showsCancelButton = false
-            self.resultsTable.frame.origin.y = self.searchYStart + self.searchHeight
-            self.resultsTable.removeFromSuperview()
-        })
+    func dismissSearchBar(searchBar: UISearchBar, animated: Bool) {
+        searchBarTop = false
+        searchBar.resignFirstResponder()
+        
+        if animated {
+            UIView.animateWithDuration(0.2,
+                animations: {
+                    searchBar.alpha = 0
+                    self.resultsTable.alpha = 0
+                    self.searchButton.alpha = 1
+                }, completion:  { finished in
+                    self.view.setNeedsUpdateConstraints()
+                    self.view.updateConstraintsIfNeeded()
+                    UIView.animateWithDuration(0.5,
+                        animations: {
+                            self.view.layoutIfNeeded()
+                        })
+                })
+        } else {
+            self.view.setNeedsUpdateConstraints()
+            self.view.updateConstraintsIfNeeded()
+            self.view.layoutIfNeeded()
+            searchBar.alpha = 0
+            self.resultsTable.alpha = 0
+            self.searchButton.alpha = 1
+        }
     }
     
     // Table view data source
@@ -107,7 +266,7 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
     
     // Helper functions
     func dismissKeyboard() {
-        self.view.endEditing(true)
+        locationSearchBar.resignFirstResponder()
         enableCancelButton(locationSearchBar)
     }
     
