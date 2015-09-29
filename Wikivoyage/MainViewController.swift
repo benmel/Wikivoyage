@@ -34,7 +34,7 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
     
     var didSetupContraints: Bool = false
     
-    var lastRequest: CFAbsoluteTime!
+    var lastRequestid: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -299,20 +299,20 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
     }
     
     func queryTitles(searchTerm: String) {
-        // Update lastRequest to now
-        lastRequest = CFAbsoluteTimeGetCurrent()
-        let currentRequest = CFAbsoluteTimeGetCurrent()
+        // Update lastRequestid
+        lastRequestid = searchTerm
         
         searchResults.removeAll()
-        Alamofire.request(.GET, "https://en.wikivoyage.org/w/api.php", parameters: ["action": "query", "list": "prefixsearch", "pssearch": searchTerm, "pslimit": "20", "format": "json"]).responseJSON() {
+        Alamofire.request(.GET, "https://en.wikivoyage.org/w/api.php", parameters: ["action": "query", "list": "prefixsearch", "pssearch": searchTerm, "requestid": searchTerm, "pslimit": "20", "format": "json"]).responseJSON() {
             (_, _, data, error) in
             if(error != nil) {
                 NSLog("Error: \(error)")
             } else {
-                if currentRequest >= self.lastRequest {
-                    let json = JSON(data!)
+                let json = JSON(data!)
+                let requestid = json["requestid"].stringValue
+                // Only update results using latest request
+                if requestid == self.lastRequestid {
                     let results = json["query", "prefixsearch"]
-                    
                     for (index: String, subJson: JSON) in results {
                         let title = subJson["title"].string
                         let pageid = subJson["pageid"].int
