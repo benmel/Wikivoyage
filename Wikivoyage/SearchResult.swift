@@ -7,11 +7,15 @@
 //
 
 class SearchResult {
+    var index: Int
     var pageId: Int
     var pageTitle: String
+    var thumbnailURL: String?
     
-    init(pageId: Int, pageTitle: String) {
+    init(index: Int, pageId: Int, pageTitle: String, thumbnailURL: String?) {
+        self.index = index
         self.pageId = pageId
         self.pageTitle = pageTitle
+        self.thumbnailURL = thumbnailURL
     }
 }

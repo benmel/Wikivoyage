@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import PureLayout
+import SDWebImage
 
 class MainViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
 
@@ -33,6 +34,8 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
     var searchResults: [SearchResult] = []
     
     var didSetupContraints: Bool = false
+    
+    var lastRequestid: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -158,7 +161,10 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
         resultsTable.dataSource = self
         resultsTable.delegate = self
         resultsTable.alpha = 0
-        resultsTable.registerClass(UITableViewCell.self, forCellReuseIdentifier: "TableCell")
+        resultsTable.registerClass(SearchResultTableViewCell.self, forCellReuseIdentifier: "TableCell")
+        resultsTable.rowHeight = 60
+        resultsTable.separatorInset = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
+        resultsTable.tableFooterView = UIView(frame: CGRectZero)
         self.view.addSubview(resultsTable)
     }
     
@@ -177,11 +183,25 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
     // Search bar delegate
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         dismissKeyboard()
-        queryTitles(searchBar.text)
+        if !searchBar.text.isEmpty {
+            queryTitles(searchBar.text)
+        }
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         resetSearchBar(searchBar, animated: true)
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        if !searchText.isEmpty {
+            let delay = 0.3
+            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))
+            dispatch_after(time, dispatch_get_main_queue()) {
+                if searchText == self.locationSearchBar.text {
+                    self.queryTitles(searchText)
+                }
+            }
+        }
     }
     
     // Search bar helper methods
@@ -243,12 +263,30 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
     
     // Table view data source
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TableCell") as! UITableViewCell
-        cell.textLabel?.text = searchResults[indexPath.row].pageTitle
+        let cell = tableView.dequeueReusableCellWithIdentifier("TableCell", forIndexPath: indexPath) as! SearchResultTableViewCell
+        
+        cell.title.text = searchResults[indexPath.row].pageTitle
+
+        let placeholder = UIImage(named: "placeholder")
+        if let thumbnailURL = searchResults[indexPath.row].thumbnailURL, url = NSURL(string: thumbnailURL) {
+            cell.thumbnail.sd_setImageWithURL(url, placeholderImage: placeholder!)
+        } else {
+            cell.thumbnail.sd_setImageWithURL(nil, placeholderImage: placeholder!)
+        }
+        
+        cell.setNeedsUpdateConstraints()
+        cell.updateConstraintsIfNeeded()
+        
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchResults.isEmpty {
+            tableView.separatorStyle = .None
+        } else {
+            tableView.separatorStyle = .SingleLine
+        }
+        
         return searchResults.count
     }
     
@@ -258,6 +296,7 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
         let result = searchResults[indexPath.row]
         performSegueWithIdentifier("ShowWeb", sender: searchResult)
         resultsTable.deselectRowAtIndexPath(indexPath, animated: true)
+        dismissKeyboard()
     }
     
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
@@ -282,24 +321,52 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
     }
     
     func queryTitles(searchTerm: String) {
+        // Update lastRequestid
+        lastRequestid = searchTerm
+        
         searchResults.removeAll()
-        Alamofire.request(.GET, "https://en.wikivoyage.org/w/api.php", parameters: ["action": "query", "list": "prefixsearch", "pssearch": searchTerm, "pslimit": "100", "format": "json"]).responseJSON() {
+        
+        let limit = 20
+        let size = 128
+        
+        let parameters: [String: AnyObject] = [
+            "action": "query",
+            "format": "json",
+            "requestid": searchTerm,
+            "generator": "prefixsearch",
+            "gpssearch": searchTerm,
+            "gpslimit": limit,
+            "prop": "pageimages",
+            "piprop": "thumbnail",
+            "pithumbsize": size,
+            "pilimit": limit
+        ]
+        
+        Alamofire.request(.GET, "https://en.wikivoyage.org/w/api.php", parameters: parameters).responseJSON() {
             (_, _, data, error) in
             if(error != nil) {
                 NSLog("Error: \(error)")
             } else {
                 let json = JSON(data!)
-                let results = json["query", "prefixsearch"]
-                
-                for (index: String, subJson: JSON) in results {
-                    let title = subJson["title"].string
-                    let pageid = subJson["pageid"].int
-                    let searchResult = SearchResult(pageId: pageid!, pageTitle: title!)
-                    self.searchResults.append(searchResult)
+                let requestid = json["requestid"].stringValue
+                // Only update results using latest request
+                if requestid == self.lastRequestid {
+                    let results = json["query", "pages"]
+                    
+                    for (index: String, subJson: JSON) in results {
+                        let index = subJson["index"].int
+                        let pageid = subJson["pageid"].int
+                        let title = subJson["title"].string
+                        let thumbnail = subJson["thumbnail"]["source"].string
+                        
+                        let searchResult = SearchResult(index: index!, pageId: pageid!, pageTitle: title!, thumbnailURL: thumbnail)
+                        self.searchResults.append(searchResult)
+                        self.searchResults.sort { $0.index < $1.index }
+                    }
                 }
             }
             
-            self.resultsTable.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
+            self.resultsTable.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.None)
         }
     }
     
