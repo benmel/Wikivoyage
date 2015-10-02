@@ -161,7 +161,10 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
         resultsTable.dataSource = self
         resultsTable.delegate = self
         resultsTable.alpha = 0
-        resultsTable.registerClass(UITableViewCell.self, forCellReuseIdentifier: "TableCell")
+        resultsTable.registerClass(SearchResultTableViewCell.self, forCellReuseIdentifier: "TableCell")
+        resultsTable.rowHeight = 60
+        resultsTable.separatorInset = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
+        resultsTable.tableFooterView = UIView(frame: CGRectZero)
         self.view.addSubview(resultsTable)
     }
     
@@ -260,23 +263,30 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
     
     // Table view data source
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TableCell", forIndexPath: indexPath) as! UITableViewCell
-        cell.textLabel?.text = searchResults[indexPath.row].pageTitle
+        let cell = tableView.dequeueReusableCellWithIdentifier("TableCell", forIndexPath: indexPath) as! SearchResultTableViewCell
         
-        cell.imageView?.contentMode = .ScaleAspectFill
-        cell.imageView?.clipsToBounds = true
+        cell.title.text = searchResults[indexPath.row].pageTitle
 
         let placeholder = UIImage(named: "placeholder")
         if let thumbnailURL = searchResults[indexPath.row].thumbnailURL, url = NSURL(string: thumbnailURL) {
-            cell.imageView?.sd_setImageWithURL(url, placeholderImage: placeholder!)
+            cell.thumbnail.sd_setImageWithURL(url, placeholderImage: placeholder!)
         } else {
-            cell.imageView?.sd_setImageWithURL(nil, placeholderImage: placeholder!)
+            cell.thumbnail.sd_setImageWithURL(nil, placeholderImage: placeholder!)
         }
+        
+        cell.setNeedsUpdateConstraints()
+        cell.updateConstraintsIfNeeded()
         
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchResults.isEmpty {
+            tableView.separatorStyle = .None
+        } else {
+            tableView.separatorStyle = .SingleLine
+        }
+        
         return searchResults.count
     }
     
@@ -317,7 +327,7 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
         searchResults.removeAll()
         
         let limit = 20
-        let size = 256
+        let size = 128
         
         let parameters: [String: AnyObject] = [
             "action": "query",

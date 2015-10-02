@@ -28,6 +28,7 @@
 		B5EB8AA31B90CACD00CB9E38 /* WikivoyageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB8AA21B90CACD00CB9E38 /* WikivoyageTests.swift */; };
 		B5EB8AB71B90F0A900CB9E38 /* SavedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB8AB61B90F0A900CB9E38 /* SavedTableViewController.swift */; };
 		B5EB8AB91B90F0BB00CB9E38 /* OfflineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB8AB81B90F0BB00CB9E38 /* OfflineTableViewController.swift */; };
+		E7194ED01BBE4407009054F0 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7194ECF1BBE4407009054F0 /* SearchResultTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		B5EB8AB61B90F0A900CB9E38 /* SavedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedTableViewController.swift; sourceTree = "<group>"; };
 		B5EB8AB81B90F0BB00CB9E38 /* OfflineTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfflineTableViewController.swift; sourceTree = "<group>"; };
 		D082FFE26EA8EC76B824C238 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7194ECF1BBE4407009054F0 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 			children = (
 				B5ACA5A01BB5F1E800B322D1 /* SavedPage.swift */,
 				B5EB8A8E1B90CACC00CB9E38 /* MainViewController.swift */,
+				E7194ECF1BBE4407009054F0 /* SearchResultTableViewCell.swift */,
 				B51BDCF01B9519CE00248A5D /* SearchResult.swift */,
 				B521D1231BAA206F00C9EE91 /* WebViewController.swift */,
 				B5BE0FB51BB4F22F005805F7 /* StaticWebViewController.swift */,
@@ -332,6 +335,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7194ED01BBE4407009054F0 /* SearchResultTableViewCell.swift in Sources */,
 				B5BE0FB41BB4D2CC005805F7 /* ExternalWebViewController.swift in Sources */,
 				B504E2121BA34EC6006082E6 /* LocationWebViewController.swift in Sources */,
 				B5ACA5A11BB5F1E800B322D1 /* SavedPage.swift in Sources */,
