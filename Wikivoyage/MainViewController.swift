@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import PureLayout
+import SDWebImage
 
 class MainViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
 
@@ -259,8 +260,19 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
     
     // Table view data source
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TableCell") as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("TableCell", forIndexPath: indexPath) as! UITableViewCell
         cell.textLabel?.text = searchResults[indexPath.row].pageTitle
+        
+        cell.imageView?.contentMode = .ScaleAspectFill
+        cell.imageView?.clipsToBounds = true
+
+        let placeholder = UIImage(named: "placeholder")
+        if let thumbnailURL = searchResults[indexPath.row].thumbnailURL, url = NSURL(string: thumbnailURL) {
+            cell.imageView?.sd_setImageWithURL(url, placeholderImage: placeholder!)
+        } else {
+            cell.imageView?.sd_setImageWithURL(nil, placeholderImage: placeholder!)
+        }
+        
         return cell
     }
     
@@ -303,7 +315,24 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
         lastRequestid = searchTerm
         
         searchResults.removeAll()
-        Alamofire.request(.GET, "https://en.wikivoyage.org/w/api.php", parameters: ["action": "query", "list": "prefixsearch", "pssearch": searchTerm, "requestid": searchTerm, "pslimit": "20", "format": "json"]).responseJSON() {
+        
+        let limit = 20
+        let size = 256
+        
+        let parameters: [String: AnyObject] = [
+            "action": "query",
+            "format": "json",
+            "requestid": searchTerm,
+            "generator": "prefixsearch",
+            "gpssearch": searchTerm,
+            "gpslimit": limit,
+            "prop": "pageimages",
+            "piprop": "thumbnail",
+            "pithumbsize": size,
+            "pilimit": limit
+        ]
+        
+        Alamofire.request(.GET, "https://en.wikivoyage.org/w/api.php", parameters: parameters).responseJSON() {
             (_, _, data, error) in
             if(error != nil) {
                 NSLog("Error: \(error)")
@@ -312,17 +341,22 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
                 let requestid = json["requestid"].stringValue
                 // Only update results using latest request
                 if requestid == self.lastRequestid {
-                    let results = json["query", "prefixsearch"]
+                    let results = json["query", "pages"]
+                    
                     for (index: String, subJson: JSON) in results {
-                        let title = subJson["title"].string
+                        let index = subJson["index"].int
                         let pageid = subJson["pageid"].int
-                        let searchResult = SearchResult(pageId: pageid!, pageTitle: title!)
+                        let title = subJson["title"].string
+                        let thumbnail = subJson["thumbnail"]["source"].string
+                        
+                        let searchResult = SearchResult(index: index!, pageId: pageid!, pageTitle: title!, thumbnailURL: thumbnail)
                         self.searchResults.append(searchResult)
+                        self.searchResults.sort { $0.index < $1.index }
                     }
                 }
             }
             
-            self.resultsTable.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
+            self.resultsTable.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.None)
         }
     }
     
