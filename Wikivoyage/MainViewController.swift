@@ -323,9 +323,6 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
     func queryTitles(searchTerm: String) {
         // Update lastRequestid
         lastRequestid = searchTerm
-        
-        searchResults.removeAll()
-        
         let limit = 20
         let size = 128
         
@@ -351,6 +348,7 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
                 let requestid = json["requestid"].stringValue
                 // Only update results using latest request
                 if requestid == self.lastRequestid {
+                    self.searchResults.removeAll(keepCapacity: false)
                     let results = json["query", "pages"]
                     
                     for (index: String, subJson: JSON) in results {
@@ -363,10 +361,10 @@ class MainViewController: UIViewController, UISearchBarDelegate, UITableViewData
                         self.searchResults.append(searchResult)
                         self.searchResults.sort { $0.index < $1.index }
                     }
+                    
+                    self.resultsTable.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.None)
                 }
             }
-            
-            self.resultsTable.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.None)
         }
     }
     
