@@ -17,6 +17,7 @@ class OfflineWebViewController: WebViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         progressView.hidden = true
+        contentsButton.enabled = true
     }
     
     override func requestURL() {

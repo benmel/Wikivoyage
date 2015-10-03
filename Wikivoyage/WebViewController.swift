@@ -8,22 +8,34 @@
 
 import WebKit
 
-class WebViewController: UIViewController, WKNavigationDelegate {
+class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler, UIPopoverPresentationControllerDelegate {
     
     var webView: WKWebView!
-    @IBOutlet var progressView: UIProgressView!
     var style: String?
     var zoom: String?
+    var webHeaders = [WebHeader]()
+    
+    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var contentsButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupWebView()
         getScripts()
         requestURL()
+        contentsButton.enabled = false
     }
     
     func setupWebView() {
-        webView = WKWebView()
+        // Add header script
+        let config = WKWebViewConfiguration()
+        let headerScriptURL = NSBundle.mainBundle().pathForResource("HeaderScript", ofType: "js")
+        let headerScriptContent = String(contentsOfFile:headerScriptURL!, encoding:NSUTF8StringEncoding, error: nil)
+        let headerScript = WKUserScript(source: headerScriptContent!, injectionTime: .AtDocumentEnd, forMainFrameOnly: true)
+        config.userContentController.addUserScript(headerScript)
+        config.userContentController.addScriptMessageHandler(self, name: "didGetHeadings")
+        webView = WKWebView(frame: CGRectZero, configuration: config)
+        
         webView.allowsBackForwardNavigationGestures = true
         webView.navigationDelegate = self
         
@@ -57,6 +69,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         if isHostWikiURL(webView.URL?.host) {
             if style != nil { webView.evaluateJavaScript(style!, completionHandler: nil) }
             if zoom != nil { webView.evaluateJavaScript(zoom!, completionHandler: nil) }
+            contentsButton.enabled = true
         }
     }
     
@@ -84,17 +97,55 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         progressView.setProgress(0.0, animated: false)
     }
     
+    // WebView message handler
+    func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
+        webHeaders.removeAll(keepCapacity: false)
+        if message.name == "didGetHeadings" {
+            if let headings = message.body as? [NSDictionary] {
+                for h in headings {
+                    if let id = h["id"] as? String, title = h["title"] as? String {
+                        let webHeader = WebHeader(id: id, title: title)
+                        webHeaders.append(webHeader)
+                    }
+                }
+            }
+        }
+    }
+    
+    @IBAction func contents(sender: AnyObject) {
+        let vc = WebHeadersTableViewController()
+        let button = sender as! UIBarButtonItem
+        vc.webHeaders = webHeaders
+        vc.modalPresentationStyle = .Popover
+        vc.popoverPresentationController?.delegate = self
+        vc.popoverPresentationController?.barButtonItem = button
+        vc.preferredContentSize = CGSize(width: 180, height: 220)
+        presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
+    }
+    
+    func webHeaderSelected(notification: NSNotification) {
+        let webHeader = notification.object as! WebHeader
+        let scroll = "document.getElementById('\(webHeader.id)').scrollIntoView();"
+        webView.evaluateJavaScript(scroll, completionHandler: nil)
+    }
+    
     // Progress view and title
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         webView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
         webView.addObserver(self, forKeyPath: "title", options: .New, context: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "webHeaderSelected:", name: "WebHeaderSelected", object: nil)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         webView.removeObserver(self, forKeyPath: "estimatedProgress")
         webView.removeObserver(self, forKeyPath: "title")
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "WebHeaderSelected", object: nil)
     }
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {

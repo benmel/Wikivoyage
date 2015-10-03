@@ -63,9 +63,16 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" id="5gH-QD-niu"/>
+                    <navigationItem key="navigationItem" id="5gH-QD-niu">
+                        <barButtonItem key="rightBarButtonItem" title="Contents" id="Nuf-n0-Lca">
+                            <connections>
+                                <action selector="contents:" destination="HAa-UP-UoE" id="MBv-rH-hZm"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="contentsButton" destination="Nuf-n0-Lca" id="H4r-LU-1E4"/>
                         <outlet property="progressView" destination="q9W-Be-qJg" id="5fK-RO-kPW"/>
                         <segue destination="pON-Ou-aaa" kind="presentation" identifier="ShowExternalPage" id="O7c-6p-yKS"/>
                     </connections>
@@ -110,14 +117,20 @@
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="o4Q-ft-XK1">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="iX8-zn-DvO">
+                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="done" id="7z7-fV-SJF">
                             <connections>
-                                <action selector="close:" destination="BFE-yL-APi" id="HIi-8p-tqP"/>
+                                <action selector="close:" destination="BFE-yL-APi" id="fNR-8S-T66"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Contents" id="Mqr-XD-fhG">
+                            <connections>
+                                <action selector="contents:" destination="BFE-yL-APi" id="8oa-OA-wfl"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="contentsButton" destination="Mqr-XD-fhG" id="Iqk-q9-Q0l"/>
                         <outlet property="progressView" destination="eIL-ya-JOV" id="TuF-K4-EXJ"/>
                     </connections>
                 </viewController>
@@ -149,7 +162,15 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="KQv-WC-LCo">
+                        <barButtonItem key="rightBarButtonItem" title="Contents" id="71z-TM-akN">
+                            <connections>
+                                <action selector="contents:" destination="YBw-x5-haa" id="dOu-NU-m6k"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="contentsButton" destination="71z-TM-akN" id="26z-gi-mkG"/>
                         <outlet property="progressView" destination="Wqr-fN-0yi" id="Qpk-kR-2bI"/>
                         <segue destination="pON-Ou-aaa" kind="presentation" identifier="ShowExternalPage" id="Euy-gq-flz"/>
                     </connections>
@@ -182,7 +203,16 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="DPb-gH-CYf">
+                        <barButtonItem key="rightBarButtonItem" title="Contents" id="0YK-VK-26c">
+                            <connections>
+                                <action selector="contents:" destination="ADS-fE-LfM" id="t7w-Vl-9kk"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="contentsButton" destination="0YK-VK-26c" id="4V5-MI-hWS"/>
                         <outlet property="progressView" destination="4Br-YB-w3r" id="yGF-4E-5te"/>
                     </connections>
                 </viewController>
@@ -292,6 +322,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="O7c-6p-yKS"/>
+        <segue reference="Euy-gq-flz"/>
     </inferredMetricsTieBreakers>
 </document>
