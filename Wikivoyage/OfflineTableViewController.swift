@@ -56,7 +56,7 @@ class OfflineTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let offlinePage = offlinePages[indexPath.row]
-        performSegueWithIdentifier("ShowLocation", sender: offlinePage)
+        performSegueWithIdentifier("ShowWeb", sender: offlinePage)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
@@ -107,7 +107,7 @@ class OfflineTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
-        if segue.identifier == "ShowLocation" {
+        if segue.identifier == "ShowWeb" {
             let viewController = segue.destinationViewController as! OfflineWebViewController
             let offlinePage = sender as! SavedPage
             viewController.html = offlinePage.html

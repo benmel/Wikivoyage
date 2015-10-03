@@ -74,7 +74,7 @@
                     <connections>
                         <outlet property="contentsButton" destination="Nuf-n0-Lca" id="H4r-LU-1E4"/>
                         <outlet property="progressView" destination="q9W-Be-qJg" id="5fK-RO-kPW"/>
-                        <segue destination="pON-Ou-aaa" kind="presentation" identifier="ShowExternalPage" id="O7c-6p-yKS"/>
+                        <segue destination="pON-Ou-aaa" kind="presentation" identifier="ShowWebExternal" id="O7c-6p-yKS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UcU-GP-fyg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -136,7 +136,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hco-Nb-hjW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3889" y="315"/>
+            <point key="canvasLocation" x="3801" y="315"/>
         </scene>
         <!--Offline Web View Controller-->
         <scene sceneID="QgH-0n-E4m">
@@ -179,10 +179,10 @@
             </objects>
             <point key="canvasLocation" x="2955" y="1191"/>
         </scene>
-        <!--Saved Table View Controller-->
+        <!--Favorites Table View Controller-->
         <scene sceneID="jG6-dL-nI9">
             <objects>
-                <tableViewController storyboardIdentifier="LocationsViewController" id="NqG-5D-fAt" customClass="SavedTableViewController" customModule="Wikivoyage" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="LocationsViewController" id="NqG-5D-fAt" customClass="FavoritesTableViewController" customModule="Wikivoyage" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="w3z-QV-AWg">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -201,7 +201,7 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <segue destination="HAa-UP-UoE" kind="show" identifier="ShowLocation" id="yKS-O1-vAK"/>
+                        <segue destination="HAa-UP-UoE" kind="show" identifier="ShowWeb" id="yKS-O1-vAK"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zez-pe-OAr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -230,7 +230,7 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <segue destination="ADS-fE-LfM" kind="show" identifier="ShowLocation" id="kvg-jq-fD2"/>
+                        <segue destination="ADS-fE-LfM" kind="show" identifier="ShowWeb" id="kvg-jq-fD2"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cVe-XP-RZo" userLabel="First Responder" sceneMemberID="firstResponder"/>

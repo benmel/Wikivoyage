@@ -34,7 +34,7 @@ class StaticWebViewController: WebViewController {
             } else {
                 decisionHandler(WKNavigationActionPolicy.Cancel)
                 if let url = navigationAction.request.URL {
-                    self.performSegueWithIdentifier("ShowExternalPage", sender: url)
+                    self.performSegueWithIdentifier("ShowWebExternal", sender: url)
                 }
             }
         }
@@ -54,7 +54,7 @@ class StaticWebViewController: WebViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "ShowExternalPage" {
+        if segue.identifier == "ShowWebExternal" {
             let url = sender as! NSURL
             let vc = segue.destinationViewController.topViewController as! ExternalWebViewController
             vc.url = url

@@ -1,5 +1,5 @@
 //
-//  SavedTableViewController.swift
+//  FavoritesTableViewController.swift
 //  Wikivoyage
 //
 //  Created by Ben Meline on 8/28/15.
@@ -9,7 +9,7 @@
 import UIKit
 import MagicalRecord
 
-class SavedTableViewController: UITableViewController {
+class FavoritesTableViewController: UITableViewController {
 
     var savedPages: [SavedPage] = []
     
@@ -56,7 +56,7 @@ class SavedTableViewController: UITableViewController {
         
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let savedPage = savedPages[indexPath.row]
-        performSegueWithIdentifier("ShowLocation", sender: savedPage)
+        performSegueWithIdentifier("ShowWeb", sender: savedPage)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
@@ -107,7 +107,7 @@ class SavedTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
-        if segue.identifier == "ShowLocation" {
+        if segue.identifier == "ShowWeb" {
             let viewController = segue.destinationViewController as! LocationWebViewController
             let savedPage = sender as! SavedPage
             viewController.pageId = Int(savedPage.id)
