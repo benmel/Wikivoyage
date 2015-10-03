@@ -2,7 +2,7 @@
 //  SearchResultTableViewCell.swift
 //  Wikivoyage
 //
-//  Created by Barbara Meline on 10/1/15.
+//  Created by Ben Meline on 10/1/15.
 //  Copyright (c) 2015 Ben Meline. All rights reserved.
 //
 
