@@ -79,7 +79,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UcU-GP-fyg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2125" y="-544"/>
+            <point key="canvasLocation" x="2117" y="315"/>
         </scene>
         <!--External Web View Controller-->
         <scene sceneID="P2f-1j-OCA">
@@ -136,48 +136,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hco-Nb-hjW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5129" y="-64"/>
-        </scene>
-        <!--Saved Web View Controller-->
-        <scene sceneID="Yry-us-DdM">
-            <objects>
-                <viewController id="YBw-x5-haa" customClass="SavedWebViewController" customModule="Wikivoyage" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="YlR-WE-P9R"/>
-                        <viewControllerLayoutGuide type="bottom" id="aRP-Nh-zG1"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="rCc-lt-j7p">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Wqr-fN-0yi">
-                                <rect key="frame" x="0.0" y="64" width="600" height="2"/>
-                            </progressView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Wqr-fN-0yi" secondAttribute="trailing" id="7RP-Y9-xoc"/>
-                            <constraint firstItem="Wqr-fN-0yi" firstAttribute="leading" secondItem="rCc-lt-j7p" secondAttribute="leading" id="LWl-jK-nud"/>
-                            <constraint firstItem="Wqr-fN-0yi" firstAttribute="top" secondItem="YlR-WE-P9R" secondAttribute="bottom" id="u9s-Yu-3bQ"/>
-                        </constraints>
-                    </view>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="KQv-WC-LCo">
-                        <barButtonItem key="rightBarButtonItem" title="Contents" id="71z-TM-akN">
-                            <connections>
-                                <action selector="contents:" destination="YBw-x5-haa" id="dOu-NU-m6k"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="contentsButton" destination="71z-TM-akN" id="26z-gi-mkG"/>
-                        <outlet property="progressView" destination="Wqr-fN-0yi" id="Qpk-kR-2bI"/>
-                        <segue destination="pON-Ou-aaa" kind="presentation" identifier="ShowExternalPage" id="Euy-gq-flz"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="M3X-go-toB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2947" y="315"/>
+            <point key="canvasLocation" x="3889" y="315"/>
         </scene>
         <!--Offline Web View Controller-->
         <scene sceneID="QgH-0n-E4m">
@@ -218,7 +177,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cHZ-bs-Xtx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2947" y="1071"/>
+            <point key="canvasLocation" x="2955" y="1191"/>
         </scene>
         <!--Saved Table View Controller-->
         <scene sceneID="jG6-dL-nI9">
@@ -242,12 +201,12 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <segue destination="YBw-x5-haa" kind="show" identifier="ShowLocation" id="CvC-9I-9ML"/>
+                        <segue destination="HAa-UP-UoE" kind="show" identifier="ShowLocation" id="yKS-O1-vAK"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zez-pe-OAr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2125" y="315"/>
+            <point key="canvasLocation" x="2117" y="-549"/>
         </scene>
         <!--Offline Table View Controller-->
         <scene sceneID="gcF-CE-7yN">
@@ -276,7 +235,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cVe-XP-RZo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2125" y="1071"/>
+            <point key="canvasLocation" x="2117" y="1191"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7oV-Hl-VJC">
@@ -318,10 +277,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dEQ-Gm-nHd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4211" y="-64"/>
+            <point key="canvasLocation" x="2955" y="315"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Euy-gq-flz"/>
+        <segue reference="yKS-O1-vAK"/>
     </inferredMetricsTieBreakers>
 </document>

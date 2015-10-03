@@ -108,7 +108,7 @@ class SavedTableViewController: UITableViewController {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if segue.identifier == "ShowLocation" {
-            let viewController = segue.destinationViewController as! SavedWebViewController
+            let viewController = segue.destinationViewController as! LocationWebViewController
             let savedPage = sender as! SavedPage
             viewController.pageId = Int(savedPage.id)
             viewController.pageTitle = savedPage.title
