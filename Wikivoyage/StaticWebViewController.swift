@@ -12,8 +12,6 @@ class StaticWebViewController: WebViewController {
 
     var pageId: Int!
     var pageTitle: String!
-    var webViewLoaded: Bool = false
-    var originalURL: NSURL?
         
     override func requestURL() {
         let path = pageTitle.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
@@ -24,28 +22,44 @@ class StaticWebViewController: WebViewController {
     
     // Open links in modal
     func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
-        // Allow navigation if web view not loaded or if request is for same host and path
-        // Cancel navigation if request if for a different page
-        if !webViewLoaded {
-            decisionHandler(WKNavigationActionPolicy.Allow)
-        } else {
-            if originalURL?.host == navigationAction.request.URL?.host && originalURL?.path == navigationAction.request.URL?.path {
-                decisionHandler(WKNavigationActionPolicy.Allow)
-            } else {
+        // Cancel navigation if request is for a different page, otherwise allow it
+        if navigationAction.navigationType == .LinkActivated {
+            if !isInternalLink(webView, navigationAction: navigationAction) {
                 decisionHandler(WKNavigationActionPolicy.Cancel)
                 if let url = navigationAction.request.URL {
                     self.performSegueWithIdentifier("ShowWebExternal", sender: url)
                 }
             }
         }
+        
+        decisionHandler(WKNavigationActionPolicy.Allow)
     }
     
-    override func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-        super.webView(webView, didFinishNavigation: navigation)
-        if !webViewLoaded {
-            originalURL = webView.URL
-            webViewLoaded = true
+    func isInternalLink(webView: WKWebView, navigationAction: WKNavigationAction) -> Bool {
+        if let currentURL = webView.URL, requestURL = navigationAction.request.URL {
+            if let currentScheme = currentURL.scheme, currentHost = currentURL.host, currentPathComponents = currentURL.pathComponents as? [String], requestScheme = requestURL.scheme, requestHost = requestURL.host, requestPathComponents = requestURL.pathComponents as? [String] {
+                // An internal link has the same scheme, host and path components
+                if currentScheme == requestScheme && currentHost == requestHost && areArraysEqual(firstArray: currentPathComponents, secondArray: requestPathComponents) {
+                    return true
+                }
+            }
         }
+        
+        return false
+    }
+    
+    func areArraysEqual(firstArray a: [String], secondArray b: [String]) -> Bool {
+        if a.count != b.count {
+            return false
+        }
+        
+        for i in 0..<a.count {
+            if a[i] != b[i] {
+                return false
+            }
+        }
+        
+        return true
     }
     
     // MARK: - Navigation
