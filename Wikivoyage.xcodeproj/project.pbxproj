@@ -9,12 +9,8 @@
 /* Begin PBXBuildFile section */
 		1A4B551DB193EA96E5053ED5 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D082FFE26EA8EC76B824C238 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		B504E2121BA34EC6006082E6 /* LocationWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B504E2111BA34EC6006082E6 /* LocationWebViewController.swift */; };
-		B504E2141BA3589D006082E6 /* StyleScript.js in Resources */ = {isa = PBXBuildFile; fileRef = B504E2131BA3589D006082E6 /* StyleScript.js */; };
-		B504E2161BA3820F006082E6 /* ZoomScript.js in Resources */ = {isa = PBXBuildFile; fileRef = B504E2151BA3820F006082E6 /* ZoomScript.js */; };
 		B51BDCF11B9519CE00248A5D /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51BDCF01B9519CE00248A5D /* SearchResult.swift */; };
-		B521D1221BAA1F3F00C9EE91 /* SavedWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B521D1211BAA1F3F00C9EE91 /* SavedWebViewController.swift */; };
 		B521D1241BAA206F00C9EE91 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B521D1231BAA206F00C9EE91 /* WebViewController.swift */; };
-		B521D1281BAA3CC600C9EE91 /* OfflineScript.js in Resources */ = {isa = PBXBuildFile; fileRef = B521D1271BAA3CC600C9EE91 /* OfflineScript.js */; };
 		B5ACA5A11BB5F1E800B322D1 /* SavedPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5ACA5A01BB5F1E800B322D1 /* SavedPage.swift */; };
 		B5BE0FB41BB4D2CC005805F7 /* ExternalWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BE0FB31BB4D2CC005805F7 /* ExternalWebViewController.swift */; };
 		B5BE0FB61BB4F22F005805F7 /* StaticWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BE0FB51BB4F22F005805F7 /* StaticWebViewController.swift */; };
@@ -26,12 +22,14 @@
 		B5EB8A941B90CACC00CB9E38 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5EB8A931B90CACC00CB9E38 /* Images.xcassets */; };
 		B5EB8A971B90CACC00CB9E38 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5EB8A951B90CACC00CB9E38 /* LaunchScreen.xib */; };
 		B5EB8AA31B90CACD00CB9E38 /* WikivoyageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB8AA21B90CACD00CB9E38 /* WikivoyageTests.swift */; };
-		B5EB8AB71B90F0A900CB9E38 /* SavedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB8AB61B90F0A900CB9E38 /* SavedTableViewController.swift */; };
+		B5EB8AB71B90F0A900CB9E38 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB8AB61B90F0A900CB9E38 /* FavoritesTableViewController.swift */; };
 		B5EB8AB91B90F0BB00CB9E38 /* OfflineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB8AB81B90F0BB00CB9E38 /* OfflineTableViewController.swift */; };
 		E7194ED01BBE4407009054F0 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7194ECF1BBE4407009054F0 /* SearchResultTableViewCell.swift */; };
-		E7194ED21BBF4D17009054F0 /* HeaderScript.js in Resources */ = {isa = PBXBuildFile; fileRef = E7194ED11BBF4D17009054F0 /* HeaderScript.js */; };
 		E7194ED41BBF8188009054F0 /* WebHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7194ED31BBF8188009054F0 /* WebHeader.swift */; };
 		E7194ED61BBF87A2009054F0 /* WebHeadersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7194ED51BBF87A2009054F0 /* WebHeadersTableViewController.swift */; };
+		E7BAD76A1BC3148000E4EF76 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = E7BAD7691BC3148000E4EF76 /* Script.js */; };
+		E7BAD76C1BC31CAE00E4EF76 /* ApplyOnlineScript.js in Resources */ = {isa = PBXBuildFile; fileRef = E7BAD76B1BC31CAD00E4EF76 /* ApplyOnlineScript.js */; };
+		E7BAD76E1BC320D900E4EF76 /* ApplyOfflineScript.js in Resources */ = {isa = PBXBuildFile; fileRef = E7BAD76D1BC320D900E4EF76 /* ApplyOfflineScript.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,12 +46,8 @@
 		2587EC31DFB7F65D38F75724 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		94EC4E1D695817031619BEA6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B504E2111BA34EC6006082E6 /* LocationWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationWebViewController.swift; sourceTree = "<group>"; };
-		B504E2131BA3589D006082E6 /* StyleScript.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = StyleScript.js; sourceTree = "<group>"; };
-		B504E2151BA3820F006082E6 /* ZoomScript.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZoomScript.js; sourceTree = "<group>"; };
 		B51BDCF01B9519CE00248A5D /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
-		B521D1211BAA1F3F00C9EE91 /* SavedWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedWebViewController.swift; sourceTree = "<group>"; };
 		B521D1231BAA206F00C9EE91 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		B521D1271BAA3CC600C9EE91 /* OfflineScript.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = OfflineScript.js; sourceTree = "<group>"; };
 		B5ACA5A01BB5F1E800B322D1 /* SavedPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedPage.swift; sourceTree = "<group>"; };
 		B5BE0FB31BB4D2CC005805F7 /* ExternalWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalWebViewController.swift; sourceTree = "<group>"; };
 		B5BE0FB51BB4F22F005805F7 /* StaticWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticWebViewController.swift; sourceTree = "<group>"; };
@@ -69,13 +63,15 @@
 		B5EB8A9C1B90CACD00CB9E38 /* WikivoyageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikivoyageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5EB8AA11B90CACD00CB9E38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5EB8AA21B90CACD00CB9E38 /* WikivoyageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikivoyageTests.swift; sourceTree = "<group>"; };
-		B5EB8AB61B90F0A900CB9E38 /* SavedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedTableViewController.swift; sourceTree = "<group>"; };
+		B5EB8AB61B90F0A900CB9E38 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		B5EB8AB81B90F0BB00CB9E38 /* OfflineTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfflineTableViewController.swift; sourceTree = "<group>"; };
 		D082FFE26EA8EC76B824C238 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7194ECF1BBE4407009054F0 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
-		E7194ED11BBF4D17009054F0 /* HeaderScript.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = HeaderScript.js; sourceTree = "<group>"; };
 		E7194ED31BBF8188009054F0 /* WebHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebHeader.swift; sourceTree = "<group>"; };
 		E7194ED51BBF87A2009054F0 /* WebHeadersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebHeadersTableViewController.swift; sourceTree = "<group>"; };
+		E7BAD7691BC3148000E4EF76 /* Script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		E7BAD76B1BC31CAD00E4EF76 /* ApplyOnlineScript.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ApplyOnlineScript.js; sourceTree = "<group>"; };
+		E7BAD76D1BC320D900E4EF76 /* ApplyOfflineScript.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ApplyOfflineScript.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,29 +133,12 @@
 		B5EB8A861B90CACC00CB9E38 /* Wikivoyage */ = {
 			isa = PBXGroup;
 			children = (
-				B5ACA5A01BB5F1E800B322D1 /* SavedPage.swift */,
-				B5EB8A8E1B90CACC00CB9E38 /* MainViewController.swift */,
-				E7194ECF1BBE4407009054F0 /* SearchResultTableViewCell.swift */,
-				B51BDCF01B9519CE00248A5D /* SearchResult.swift */,
-				E7194ED31BBF8188009054F0 /* WebHeader.swift */,
-				B521D1231BAA206F00C9EE91 /* WebViewController.swift */,
-				E7194ED51BBF87A2009054F0 /* WebHeadersTableViewController.swift */,
-				B5BE0FB51BB4F22F005805F7 /* StaticWebViewController.swift */,
-				B5BE0FB31BB4D2CC005805F7 /* ExternalWebViewController.swift */,
-				B504E2111BA34EC6006082E6 /* LocationWebViewController.swift */,
-				B521D1211BAA1F3F00C9EE91 /* SavedWebViewController.swift */,
-				B5BE0FB71BB4FADE005805F7 /* OfflineWebViewController.swift */,
-				B5EB8AB61B90F0A900CB9E38 /* SavedTableViewController.swift */,
-				B5EB8AB81B90F0BB00CB9E38 /* OfflineTableViewController.swift */,
-				B504E2131BA3589D006082E6 /* StyleScript.js */,
-				B521D1271BAA3CC600C9EE91 /* OfflineScript.js */,
-				B504E2151BA3820F006082E6 /* ZoomScript.js */,
-				E7194ED11BBF4D17009054F0 /* HeaderScript.js */,
-				B5EB8A891B90CACC00CB9E38 /* AppDelegate.swift */,
-				B5EB8A901B90CACC00CB9E38 /* Main.storyboard */,
+				E7194EDE1BC089A2009054F0 /* Controllers */,
+				E7194EDD1BC0899C009054F0 /* Models */,
+				E7194EDF1BC089A9009054F0 /* Views */,
+				E7194EE01BC089CB009054F0 /* Scripts */,
+				E7194EE11BC08BE2009054F0 /* Application */,
 				B5EB8A931B90CACC00CB9E38 /* Images.xcassets */,
-				B5EB8A951B90CACC00CB9E38 /* LaunchScreen.xib */,
-				B5EB8A8B1B90CACC00CB9E38 /* Wikivoyage.xcdatamodeld */,
 				B5EB8A871B90CACC00CB9E38 /* Supporting Files */,
 			);
 			path = Wikivoyage;
@@ -188,6 +167,69 @@
 				B5EB8AA11B90CACD00CB9E38 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E7194EDD1BC0899C009054F0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B5ACA5A01BB5F1E800B322D1 /* SavedPage.swift */,
+				B51BDCF01B9519CE00248A5D /* SearchResult.swift */,
+				E7194ED31BBF8188009054F0 /* WebHeader.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		E7194EDE1BC089A2009054F0 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B5EB8A8E1B90CACC00CB9E38 /* MainViewController.swift */,
+				B5EB8AB61B90F0A900CB9E38 /* FavoritesTableViewController.swift */,
+				B5EB8AB81B90F0BB00CB9E38 /* OfflineTableViewController.swift */,
+				E7194EE21BC08D97009054F0 /* Web */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		E7194EDF1BC089A9009054F0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E7194ECF1BBE4407009054F0 /* SearchResultTableViewCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		E7194EE01BC089CB009054F0 /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				E7BAD7691BC3148000E4EF76 /* Script.js */,
+				E7BAD76B1BC31CAD00E4EF76 /* ApplyOnlineScript.js */,
+				E7BAD76D1BC320D900E4EF76 /* ApplyOfflineScript.js */,
+			);
+			name = Scripts;
+			sourceTree = "<group>";
+		};
+		E7194EE11BC08BE2009054F0 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				B5EB8A891B90CACC00CB9E38 /* AppDelegate.swift */,
+				B5EB8A901B90CACC00CB9E38 /* Main.storyboard */,
+				B5EB8A951B90CACC00CB9E38 /* LaunchScreen.xib */,
+				B5EB8A8B1B90CACC00CB9E38 /* Wikivoyage.xcdatamodeld */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		E7194EE21BC08D97009054F0 /* Web */ = {
+			isa = PBXGroup;
+			children = (
+				B521D1231BAA206F00C9EE91 /* WebViewController.swift */,
+				B5BE0FB51BB4F22F005805F7 /* StaticWebViewController.swift */,
+				B504E2111BA34EC6006082E6 /* LocationWebViewController.swift */,
+				B5BE0FB31BB4D2CC005805F7 /* ExternalWebViewController.swift */,
+				B5BE0FB71BB4FADE005805F7 /* OfflineWebViewController.swift */,
+				E7194ED51BBF87A2009054F0 /* WebHeadersTableViewController.swift */,
+			);
+			name = Web;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,12 +315,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B521D1281BAA3CC600C9EE91 /* OfflineScript.js in Resources */,
-				E7194ED21BBF4D17009054F0 /* HeaderScript.js in Resources */,
+				E7BAD76E1BC320D900E4EF76 /* ApplyOfflineScript.js in Resources */,
+				E7BAD76A1BC3148000E4EF76 /* Script.js in Resources */,
+				E7BAD76C1BC31CAE00E4EF76 /* ApplyOnlineScript.js in Resources */,
 				B5EB8A921B90CACC00CB9E38 /* Main.storyboard in Resources */,
-				B504E2141BA3589D006082E6 /* StyleScript.js in Resources */,
 				B5EB8A971B90CACC00CB9E38 /* LaunchScreen.xib in Resources */,
-				B504E2161BA3820F006082E6 /* ZoomScript.js in Resources */,
 				B5EB8A941B90CACC00CB9E38 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -357,10 +398,9 @@
 				B51BDCF11B9519CE00248A5D /* SearchResult.swift in Sources */,
 				B5EB8A8F1B90CACC00CB9E38 /* MainViewController.swift in Sources */,
 				B5BE0FB81BB4FADE005805F7 /* OfflineWebViewController.swift in Sources */,
-				B521D1221BAA1F3F00C9EE91 /* SavedWebViewController.swift in Sources */,
 				B5EB8A8D1B90CACC00CB9E38 /* Wikivoyage.xcdatamodeld in Sources */,
 				B5EB8A8A1B90CACC00CB9E38 /* AppDelegate.swift in Sources */,
-				B5EB8AB71B90F0A900CB9E38 /* SavedTableViewController.swift in Sources */,
+				B5EB8AB71B90F0A900CB9E38 /* FavoritesTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

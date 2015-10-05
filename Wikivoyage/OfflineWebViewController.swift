@@ -11,12 +11,19 @@ import WebKit
 class OfflineWebViewController: WebViewController {
 
     var html: String!
-    var offline: String?
-    var webViewLoaded: Bool = false
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func setupScriptNames() {
+        super.setupScriptNames()
+        applyScriptName = "ApplyOfflineScript"
+    }
+    
+    override func setupProgressView() {
+        super.setupProgressView()
         progressView.hidden = true
+    }
+    
+    override func setupButtons() {
+        super.setupButtons()
         contentsButton.enabled = true
     }
     
@@ -24,33 +31,12 @@ class OfflineWebViewController: WebViewController {
         webView.loadHTMLString(html, baseURL: nil)
     }
     
-    override func getScripts() {
-        super.getScripts()
-        
-        if let styleScriptURL = NSBundle.mainBundle().pathForResource("OfflineScript", ofType: "js") {
-            offline = String(contentsOfFile:styleScriptURL, encoding:NSUTF8StringEncoding, error: nil)
-        }
-    }
-    
-    // Disable WebView navigation
+    // Disable WebView navigation except for original load
     func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
-        if !webViewLoaded {
-            decisionHandler(WKNavigationActionPolicy.Allow)
-        } else {
-            decisionHandler(WKNavigationActionPolicy.Cancel)
-        }
+        navigationAction.navigationType == .Other ? decisionHandler(WKNavigationActionPolicy.Allow) : decisionHandler(WKNavigationActionPolicy.Cancel)
     }
     
-    override func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-        super.webView(webView, didFinishNavigation: navigation)
-        webViewLoaded = true
-    }
-    
-    override func webView(webView: WKWebView, didCommitNavigation navigation: WKNavigation!) {
-        super.webView(webView, didCommitNavigation: navigation)
-        // Inject style and zoom CSS
-        if zoom != nil { webView.evaluateJavaScript(zoom!, completionHandler: nil) }
-        if offline != nil { webView.evaluateJavaScript(offline!, completionHandler: nil) }
-        if style != nil { webView.evaluateJavaScript(style!, completionHandler: nil) }
+    override func setContentsButtonState(message: WKScriptMessage) {
+        contentsButton.enabled = true
     }
 }
