@@ -16,7 +16,7 @@ class StaticWebViewController: WebViewController {
     override func requestURL() {
         let path = pageTitle.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
         let url = NSURL(string: "http://en.m.wikivoyage.com/wiki/"+path!)
-        let request = NSURLRequest(URL: url!)
+        let request = NSURLRequest(URL: url!, cachePolicy: .UseProtocolCachePolicy, timeoutInterval: 10)
         webView.loadRequest(request)
     }
     

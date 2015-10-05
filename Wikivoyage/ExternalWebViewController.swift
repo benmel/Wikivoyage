@@ -13,7 +13,7 @@ class ExternalWebViewController: WebViewController {
     var url: NSURL!
         
     override func requestURL() {
-        let request = NSURLRequest(URL: url)
+        let request = NSURLRequest(URL: url, cachePolicy: .UseProtocolCachePolicy, timeoutInterval: 10)
         webView.loadRequest(request)
     }
     
