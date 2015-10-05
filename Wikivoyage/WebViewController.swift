@@ -15,8 +15,10 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
     var progressView: UIProgressView!
     @IBOutlet weak var contentsButton: UIBarButtonItem!
     
-    var style: String?
-    var zoom: String?
+    var script: WKUserScript!
+    var scriptName: String!
+    var applyScriptName: String!
+    
     var webHeaders = [WebHeader]()
     var webHeadersLoaded = false
     var didSetupConstraints = false
@@ -25,10 +27,11 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupScriptNames()
+        setupScript()
         setupWebView()
         setupProgressView()
         setupButtons()
-        getScripts()
         requestURL()
     }
     
@@ -48,15 +51,28 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
     
     // MARK: Initialization
     
+    func setupScriptNames() {
+        scriptName = "Script"
+        applyScriptName = "ApplyOnlineScript"
+    }
+    
+    func setupScript() {
+        let scriptURL = NSBundle.mainBundle().pathForResource(scriptName, ofType: "js")
+        let scriptContent = String(contentsOfFile:scriptURL!, encoding:NSUTF8StringEncoding, error: nil)
+        
+        let applyScriptURL = NSBundle.mainBundle().pathForResource(applyScriptName, ofType: "js")
+        let applyContent = String(contentsOfFile:applyScriptURL!, encoding:NSUTF8StringEncoding, error: nil)
+        
+        let finalScriptContent = scriptContent! + applyContent!
+        
+        script = WKUserScript(source: finalScriptContent, injectionTime: .AtDocumentEnd, forMainFrameOnly: true)
+    }
+    
     func setupWebView() {
-        // Add header script
         let config = WKWebViewConfiguration()
-        let headerScriptURL = NSBundle.mainBundle().pathForResource("HeaderScript", ofType: "js")
-        let headerScriptContent = String(contentsOfFile:headerScriptURL!, encoding:NSUTF8StringEncoding, error: nil)
-        let headerScript = WKUserScript(source: headerScriptContent!, injectionTime: .AtDocumentEnd, forMainFrameOnly: true)
-        config.userContentController.addUserScript(headerScript)
+        config.userContentController.addUserScript(script)
+        config.userContentController.addScriptMessageHandler(self, name: "didGetIsWikiHost")
         config.userContentController.addScriptMessageHandler(self, name: "didGetHeaders")
-        config.userContentController.addScriptMessageHandler(self, name: "didIsWikiHost")
         webView = WKWebView(frame: CGRectZero, configuration: config)
         
         webView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -75,17 +91,7 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
     func setupButtons() {
         contentsButton.enabled = false
     }
-    
-    func getScripts() {
-        if let styleScriptURL = NSBundle.mainBundle().pathForResource("StyleScript", ofType: "js") {
-            style = String(contentsOfFile:styleScriptURL, encoding:NSUTF8StringEncoding, error: nil)
-        }
         
-        if let zoomScriptURL = NSBundle.mainBundle().pathForResource("ZoomScript", ofType: "js") {
-            zoom = String(contentsOfFile:zoomScriptURL, encoding:NSUTF8StringEncoding, error: nil)
-        }
-    }
-    
     // Override this method
     func requestURL() {
     }
@@ -111,14 +117,6 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
         webHeadersLoaded = false
     }
     
-    func webView(webView: WKWebView, didCommitNavigation navigation: WKNavigation!) {
-        // Inject style and zoom CSS
-        if isHostWikiURL(webView.URL?.host) {
-            if style != nil { webView.evaluateJavaScript(style!, completionHandler: nil) }
-            if zoom != nil { webView.evaluateJavaScript(zoom!, completionHandler: nil) }
-        }
-    }
-    
     func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
         showError(error)
     }
@@ -131,17 +129,19 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
     // MARK: WebKit Script Message Handler
     
     func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
-        if message.name == "didGetHeaders" {
-            updateHeaders(message)
-        } else if message.name == "didIsWikiHost" {
+        if message.name == "didGetIsWikiHost" {
             setContentsButtonState(message)
+        } else if message.name == "didGetHeaders" {
+            updateHeaders(message)
         }
     }
     
     // MARK: User Interaction
     
     @IBAction func contents(sender: AnyObject) {
-        if webHeadersLoaded {
+        // Check that headers are loaded and button is enabled
+        let button = sender as! UIBarButtonItem
+        if webHeadersLoaded && button.enabled {
             let vc = WebHeadersTableViewController()
             let button = sender as! UIBarButtonItem
             vc.webHeaders = webHeaders
@@ -189,18 +189,6 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
     }
     
     // MARK: Helpers
-    
-    private func isHostWikiURL(url: String?) -> Bool {
-        if let components = url?.componentsSeparatedByString(".") {
-            if contains(components, "wikivoyage") || contains(components, "wikipedia") || contains(components, "wikimedia") && contains(components, "org") {
-                return true
-            } else {
-                return false
-            }
-        } else {
-            return false
-        }
-    }
     
     private func showError(error: NSError) {
         let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .Alert)

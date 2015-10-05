@@ -1,0 +1,3 @@
+applyZoom();
+applyWikiStyle();
+applyOfflineStyle();
