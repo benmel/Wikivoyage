@@ -39,17 +39,7 @@
                     <view key="view" contentMode="scaleToFill" id="zoZ-ff-off">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="q9W-Be-qJg">
-                                <rect key="frame" x="0.0" y="64" width="600" height="2"/>
-                            </progressView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="q9W-Be-qJg" secondAttribute="trailing" id="KBT-IK-wKg"/>
-                            <constraint firstItem="q9W-Be-qJg" firstAttribute="leading" secondItem="zoZ-ff-off" secondAttribute="leading" id="UFk-OZ-h46"/>
-                            <constraint firstItem="q9W-Be-qJg" firstAttribute="top" secondItem="heB-8v-beB" secondAttribute="bottom" id="YDo-RI-7nj"/>
-                        </constraints>
                     </view>
                     <toolbarItems>
                         <barButtonItem title="Favorite" id="NY4-wl-BcV">
@@ -73,7 +63,6 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="contentsButton" destination="Nuf-n0-Lca" id="H4r-LU-1E4"/>
-                        <outlet property="progressView" destination="q9W-Be-qJg" id="5fK-RO-kPW"/>
                         <segue destination="pON-Ou-aaa" kind="presentation" identifier="ShowWebExternal" id="O7c-6p-yKS"/>
                     </connections>
                 </viewController>
@@ -92,17 +81,7 @@
                     <view key="view" contentMode="scaleToFill" id="Tco-GQ-ypZ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eIL-ya-JOV">
-                                <rect key="frame" x="0.0" y="64" width="600" height="2"/>
-                            </progressView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="eIL-ya-JOV" firstAttribute="leading" secondItem="Tco-GQ-ypZ" secondAttribute="leading" id="UxV-Ul-3tk"/>
-                            <constraint firstAttribute="trailing" secondItem="eIL-ya-JOV" secondAttribute="trailing" id="WHy-ks-hHa"/>
-                            <constraint firstItem="eIL-ya-JOV" firstAttribute="top" secondItem="Kdn-do-yMX" secondAttribute="bottom" id="qMs-dt-w6e"/>
-                        </constraints>
                     </view>
                     <toolbarItems>
                         <barButtonItem title="Back" id="5f4-TL-vV8">
@@ -131,7 +110,6 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="contentsButton" destination="Mqr-XD-fhG" id="Iqk-q9-Q0l"/>
-                        <outlet property="progressView" destination="eIL-ya-JOV" id="TuF-K4-EXJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hco-Nb-hjW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -149,17 +127,7 @@
                     <view key="view" contentMode="scaleToFill" id="Qgb-cD-HC4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4Br-YB-w3r">
-                                <rect key="frame" x="0.0" y="64" width="600" height="2"/>
-                            </progressView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="4Br-YB-w3r" firstAttribute="top" secondItem="1hJ-bw-a93" secondAttribute="bottom" id="D7m-7Y-QMu"/>
-                            <constraint firstItem="4Br-YB-w3r" firstAttribute="leading" secondItem="Qgb-cD-HC4" secondAttribute="leading" id="WQd-KX-toH"/>
-                            <constraint firstAttribute="trailing" secondItem="4Br-YB-w3r" secondAttribute="trailing" id="vf7-gc-aeS"/>
-                        </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="DPb-gH-CYf">
@@ -172,7 +140,6 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="contentsButton" destination="0YK-VK-26c" id="4V5-MI-hWS"/>
-                        <outlet property="progressView" destination="4Br-YB-w3r" id="yGF-4E-5te"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cHZ-bs-Xtx" userLabel="First Responder" sceneMemberID="firstResponder"/>
