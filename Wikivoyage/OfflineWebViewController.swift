@@ -11,7 +11,6 @@ import WebKit
 class OfflineWebViewController: WebViewController {
 
     var html: String!
-    var webViewLoaded: Bool = false
     
     override func setupScriptNames() {
         super.setupScriptNames()
@@ -32,18 +31,9 @@ class OfflineWebViewController: WebViewController {
         webView.loadHTMLString(html, baseURL: nil)
     }
     
-    // Disable WebView navigation
+    // Disable WebView navigation except for original load
     func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
-        if !webViewLoaded {
-            decisionHandler(WKNavigationActionPolicy.Allow)
-        } else {
-            decisionHandler(WKNavigationActionPolicy.Cancel)
-        }
-    }
-    
-    override func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-        super.webView(webView, didFinishNavigation: navigation)
-        webViewLoaded = true
+        navigationAction.navigationType == .Other ? decisionHandler(WKNavigationActionPolicy.Allow) : decisionHandler(WKNavigationActionPolicy.Cancel)
     }
     
     override func setContentsButtonState(message: WKScriptMessage) {
