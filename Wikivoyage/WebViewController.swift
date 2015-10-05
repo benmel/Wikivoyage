@@ -18,6 +18,7 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
     var style: String?
     var zoom: String?
     var webHeaders = [WebHeader]()
+    var webHeadersLoaded = false
     var didSetupConstraints = false
 
     // MARK: View Lifecycle
@@ -54,7 +55,8 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
         let headerScriptContent = String(contentsOfFile:headerScriptURL!, encoding:NSUTF8StringEncoding, error: nil)
         let headerScript = WKUserScript(source: headerScriptContent!, injectionTime: .AtDocumentEnd, forMainFrameOnly: true)
         config.userContentController.addUserScript(headerScript)
-        config.userContentController.addScriptMessageHandler(self, name: "didGetHeadings")
+        config.userContentController.addScriptMessageHandler(self, name: "didGetHeaders")
+        config.userContentController.addScriptMessageHandler(self, name: "didIsWikiHost")
         webView = WKWebView(frame: CGRectZero, configuration: config)
         
         webView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -105,20 +107,19 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
     
     // MARK: WebKit Navigation Delegate
     
+    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        webHeadersLoaded = false
+    }
+    
     func webView(webView: WKWebView, didCommitNavigation navigation: WKNavigation!) {
         // Inject style and zoom CSS
         if isHostWikiURL(webView.URL?.host) {
             if style != nil { webView.evaluateJavaScript(style!, completionHandler: nil) }
             if zoom != nil { webView.evaluateJavaScript(zoom!, completionHandler: nil) }
-            contentsButton.enabled = true
         }
     }
     
     func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
-        showError(error)
-    }
-    
-    func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
         showError(error)
     }
     
@@ -130,30 +131,26 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
     // MARK: WebKit Script Message Handler
     
     func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
-        webHeaders.removeAll(keepCapacity: false)
-        if message.name == "didGetHeadings" {
-            if let headings = message.body as? [NSDictionary] {
-                for h in headings {
-                    if let id = h["id"] as? String, title = h["title"] as? String {
-                        let webHeader = WebHeader(id: id, title: title)
-                        webHeaders.append(webHeader)
-                    }
-                }
-            }
+        if message.name == "didGetHeaders" {
+            updateHeaders(message)
+        } else if message.name == "didIsWikiHost" {
+            setContentsButtonState(message)
         }
     }
     
     // MARK: User Interaction
     
     @IBAction func contents(sender: AnyObject) {
-        let vc = WebHeadersTableViewController()
-        let button = sender as! UIBarButtonItem
-        vc.webHeaders = webHeaders
-        vc.modalPresentationStyle = .Popover
-        vc.popoverPresentationController?.delegate = self
-        vc.popoverPresentationController?.barButtonItem = button
-        vc.preferredContentSize = CGSize(width: 180, height: 220)
-        presentViewController(vc, animated: true, completion: nil)
+        if webHeadersLoaded {
+            let vc = WebHeadersTableViewController()
+            let button = sender as! UIBarButtonItem
+            vc.webHeaders = webHeaders
+            vc.modalPresentationStyle = .Popover
+            vc.popoverPresentationController?.delegate = self
+            vc.popoverPresentationController?.barButtonItem = button
+            vc.preferredContentSize = CGSize(width: 180, height: 220)
+            presentViewController(vc, animated: true, completion: nil)
+        }
     }
     
     func webHeaderSelected(notification: NSNotification) {
@@ -209,5 +206,26 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
         let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func setContentsButtonState(message: WKScriptMessage) {
+        if let isWikiHost = message.body as? Bool {
+            contentsButton.enabled = isWikiHost
+        } else {
+            contentsButton.enabled = false
+        }
+    }
+    
+    private func updateHeaders(message: WKScriptMessage) {
+        webHeaders.removeAll(keepCapacity: false)
+        if let headers = message.body as? [NSDictionary] {
+            for h in headers {
+                if let id = h["id"] as? String, title = h["title"] as? String {
+                    let webHeader = WebHeader(id: id, title: title)
+                    webHeaders.append(webHeader)
+                }
+            }
+        }
+        webHeadersLoaded = true
     }
 }

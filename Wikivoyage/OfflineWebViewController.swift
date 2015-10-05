@@ -53,4 +53,8 @@ class OfflineWebViewController: WebViewController {
         if offline != nil { webView.evaluateJavaScript(offline!, completionHandler: nil) }
         if style != nil { webView.evaluateJavaScript(style!, completionHandler: nil) }
     }
+    
+    override func setContentsButtonState(message: WKScriptMessage) {
+        contentsButton.enabled = true
+    }
 }
