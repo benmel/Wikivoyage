@@ -9,7 +9,7 @@
 import WebKit
 import PureLayout
 
-class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler, UIPopoverPresentationControllerDelegate {
+class WebViewController: UIViewController {
     
     var webView: WKWebView!
     var progressView: UIProgressView!
@@ -21,9 +21,10 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
     
     var webHeaders = [WebHeader]()
     var webHeadersLoaded = false
+    
     var didSetupConstraints = false
 
-    // MARK: View Lifecycle
+    // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +50,7 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "WebHeaderSelected", object: nil)
     }
     
-    // MARK: Initialization
+    // MARK: - Initialization
     
     func setupScriptNames() {
         scriptName = "Script"
@@ -96,7 +97,7 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
     func requestURL() {
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     override func updateViewConstraints() {
         if !didSetupConstraints {
@@ -110,33 +111,9 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
         
         super.updateViewConstraints()
     }
+
     
-    // MARK: WebKit Navigation Delegate
-    
-    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        webHeadersLoaded = false
-    }
-    
-    func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
-        showError(error)
-    }
-    
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-        // Reset progress view after loading page
-        progressView.setProgress(0.0, animated: false)
-    }
-    
-    // MARK: WebKit Script Message Handler
-    
-    func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
-        if message.name == "didGetIsWikiHost" {
-            setContentsButtonState(message)
-        } else if message.name == "didGetHeaders" {
-            updateHeaders(message)
-        }
-    }
-    
-    // MARK: User Interaction
+    // MARK: - User Interaction
     
     @IBAction func contents(sender: AnyObject) {
         // Check that headers are loaded and button is enabled
@@ -159,13 +136,7 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
         webView.evaluateJavaScript(scroll, completionHandler: nil)
     }
     
-    // MARK: Popover Presentation Controller Delegate
-    
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
-    }
-    
-    // MARK: KVO
+    // MARK: - KVO
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
         if (keyPath == "estimatedProgress") {
@@ -181,20 +152,51 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
         
         if (keyPath == "title") {
             if let newTitle = webView.title?.stringByReplacingOccurrencesOfString(" – Travel guide at Wikivoyage", withString: "", options: nil, range: nil) {
-                self.title = newTitle
+                title = newTitle
             } else {
-                self.title = ""
+                title = ""
             }
         }
     }
+}
+
+// MARK: - WebKit Navigation Delegate
+
+extension WebViewController: WKNavigationDelegate {
+    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        webHeadersLoaded = false
+    }
     
-    // MARK: Helpers
+    func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
+        showError(error)
+    }
+    
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+        // Reset progress view after loading page
+        progressView.setProgress(0.0, animated: false)
+    }
+    
+    // MARK: - Helpers
     
     private func showError(error: NSError) {
         let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         presentViewController(alert, animated: true, completion: nil)
     }
+}
+
+// MARK: - WebKit Script Message Handler
+
+extension WebViewController: WKScriptMessageHandler {
+    func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
+        if message.name == "didGetIsWikiHost" {
+            setContentsButtonState(message)
+        } else if message.name == "didGetHeaders" {
+            updateHeaders(message)
+        }
+    }
+    
+    // MARK: - Helpers
     
     func setContentsButtonState(message: WKScriptMessage) {
         if let isWikiHost = message.body as? Bool {
@@ -215,5 +217,13 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
             }
         }
         webHeadersLoaded = true
+    }
+}
+
+// MARK: - Popover Presentation Controller Delegate
+
+extension WebViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
     }
 }

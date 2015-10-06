@@ -12,13 +12,17 @@ class StaticWebViewController: WebViewController {
 
     var pageId: Int!
     var pageTitle: String!
-        
+    
+    // MARK: - Initialization
+    
     override func requestURL() {
-        let path = pageTitle.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+        let path = pageTitle.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLPathAllowedCharacterSet())
         let url = NSURL(string: "http://en.m.wikivoyage.com/wiki/"+path!)
         let request = NSURLRequest(URL: url!, cachePolicy: .UseProtocolCachePolicy, timeoutInterval: 10)
         webView.loadRequest(request)
     }
+    
+    // MARK: - WebKit Navigation Delegate
     
     // Open links in modal
     func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
@@ -27,13 +31,15 @@ class StaticWebViewController: WebViewController {
             if !isInternalLink(webView, navigationAction: navigationAction) {
                 decisionHandler(WKNavigationActionPolicy.Cancel)
                 if let url = navigationAction.request.URL {
-                    self.performSegueWithIdentifier("ShowWebExternal", sender: url)
+                    performSegueWithIdentifier("ShowWebExternal", sender: url)
                 }
             }
         }
         
         decisionHandler(WKNavigationActionPolicy.Allow)
     }
+    
+    // MARK: - Helpers
     
     func isInternalLink(webView: WKWebView, navigationAction: WKNavigationAction) -> Bool {
         if let currentURL = webView.URL, requestURL = navigationAction.request.URL {
@@ -64,13 +70,10 @@ class StaticWebViewController: WebViewController {
     
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
         if segue.identifier == "ShowWebExternal" {
-            let url = sender as! NSURL
             let vc = segue.destinationViewController.topViewController as! ExternalWebViewController
+            let url = sender as! NSURL
             vc.url = url
         }
     }

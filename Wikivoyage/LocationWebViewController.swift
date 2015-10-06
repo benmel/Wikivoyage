@@ -12,15 +12,19 @@ import MagicalRecord
 
 class LocationWebViewController: StaticWebViewController {
     
+    // MARK: - View Lifecycle
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setToolbarHidden(false, animated: true)
+        navigationController?.setToolbarHidden(false, animated: true)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.setToolbarHidden(true, animated: true)
+        navigationController?.setToolbarHidden(true, animated: true)
     }
+    
+    // MARK: - User Interaction
     
     @IBAction func favorite(sender: AnyObject) {
         favoritePage()
@@ -34,14 +38,16 @@ class LocationWebViewController: StaticWebViewController {
         button.tintColor = .redColor()
     }
     
+    // MARK: - Helpers
+    
     func favoritePage() {
-        let id = NSNumber(integer: self.pageId)
+        let id = NSNumber(integer: pageId)
         if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
             savedPage.favorite = true
         } else {
             let savedPage = SavedPage.MR_createEntity()
-            savedPage.title = self.pageTitle
-            savedPage.id = self.pageId
+            savedPage.title = pageTitle
+            savedPage.id = pageId
             savedPage.favorite = true
             savedPage.offline = false
         }
@@ -50,7 +56,16 @@ class LocationWebViewController: StaticWebViewController {
     }
     
     func downloadPage() {
-        Alamofire.request(.GET, "http://en.wikivoyage.org/w/api.php", parameters: ["action": "parse", "pageid": pageId, "prop": "text", "mobileformat": "", "noimages": "", "format": "json"]).responseJSON() {
+        let parameters: [String: AnyObject] = [
+            "action": "parse",
+            "format": "json",
+            "pageid": pageId,
+            "prop": "text",
+            "mobileformat": "",
+            "noimages": ""
+        ]
+        
+        Alamofire.request(.GET, "http://en.wikivoyage.org/w/api.php", parameters: parameters).responseJSON() {
             (_, _, data, error) in
             if(error != nil) {
                 NSLog("Error: \(error)")

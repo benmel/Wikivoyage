@@ -11,30 +11,32 @@ import PureLayout
 
 class SearchResultTableViewCell: UITableViewCell {
 
-    var title: UILabel = UILabel.newAutoLayoutView()
-    var thumbnail: UIImageView = UIImageView.newAutoLayoutView()
+    var title = UILabel.newAutoLayoutView()
+    var thumbnail = UIImageView.newAutoLayoutView()
     var didSetupConstraints = false
+    
+    // MARK: - Initialization
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         setupViews()
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
         setupViews()
     }
     
     func setupViews() {
         thumbnail.contentMode = .ScaleAspectFill
         thumbnail.clipsToBounds = true
-        self.accessoryType = .DisclosureIndicator
+        accessoryType = .DisclosureIndicator
         
         contentView.addSubview(title)
         contentView.addSubview(thumbnail)
     }
+    
+    // MARK: - Layout
     
     override func updateConstraints() {
         if !didSetupConstraints {
