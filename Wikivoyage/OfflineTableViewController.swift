@@ -16,6 +16,7 @@ class OfflineTableViewController: UITableViewController {
     private let tableRowHeight: CGFloat = 60
     private let cellIdentifier = "OfflinePage"
     private let segueIdentifier = "ShowWeb"
+    private let placeholder = UIImage(named: Images.placeholder)!
     
     // MARK: - View Lifecycle
     
@@ -45,7 +46,12 @@ class OfflineTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! LocationTableViewCell
         let offlinePage = offlinePages[indexPath.row]
+        
         cell.title.text = offlinePage.title
+        
+        // If there's a thumbnail URL set URL, otherwise it's nil
+        let url = (offlinePage.thumbnailURL != nil) ? NSURL(string: offlinePage.thumbnailURL!) : nil
+        cell.thumbnail.sd_setImageWithURL(url, placeholderImage: placeholder)
         
         cell.setNeedsUpdateConstraints()
         cell.updateConstraintsIfNeeded()

@@ -5,9 +5,10 @@
         <attribute name="html" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="offline" attributeType="Boolean" syncable="YES"/>
+        <attribute name="thumbnailURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="SavedPage" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="SavedPage" positionX="-63" positionY="-18" width="128" height="135"/>
     </elements>
 </model>
