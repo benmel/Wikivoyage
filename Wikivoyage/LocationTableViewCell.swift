@@ -1,5 +1,5 @@
 //
-//  SearchResultTableViewCell.swift
+//  LocationTableViewCell.swift
 //  Wikivoyage
 //
 //  Created by Ben Meline on 10/1/15.
@@ -9,7 +9,7 @@
 import UIKit
 import PureLayout
 
-class SearchResultTableViewCell: UITableViewCell {
+class LocationTableViewCell: UITableViewCell {
 
     var title = UILabel.newAutoLayoutView()
     var thumbnail = UIImageView.newAutoLayoutView()
@@ -32,14 +32,12 @@ class SearchResultTableViewCell: UITableViewCell {
     }
     
     func setupViews() {
+        separatorInset = UIEdgeInsets(top: 0, left: thumbnailWidth + titleOffset, bottom: 0, right: 0)
         thumbnail.contentMode = .ScaleAspectFill
         thumbnail.clipsToBounds = true
         
         contentView.addSubview(title)
         contentView.addSubview(thumbnail)
-        
-        accessoryType = .DisclosureIndicator
-        separatorInset = UIEdgeInsets(top: 0, left: thumbnailWidth + titleOffset, bottom: 0, right: 0)
     }
     
     // MARK: - Layout

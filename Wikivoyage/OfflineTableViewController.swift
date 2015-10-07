@@ -13,13 +13,17 @@ class OfflineTableViewController: UITableViewController {
 
     var offlinePages = [SavedPage]()
     
+    private let tableRowHeight: CGFloat = 60
     private let cellIdentifier = "OfflinePage"
     private let segueIdentifier = "ShowWeb"
+    private let placeholder = UIImage(named: Images.placeholder)!
     
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.rowHeight = tableRowHeight
+        tableView.tableFooterView = UIView(frame: CGRectZero)
         clearsSelectionOnViewWillAppear = false
         navigationItem.rightBarButtonItem = editButtonItem()
         offlinePages = SavedPage.MR_findByAttribute("offline", withValue: true, andOrderBy: "title", ascending: true) as! [SavedPage]
@@ -40,9 +44,18 @@ class OfflineTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! LocationTableViewCell
         let offlinePage = offlinePages[indexPath.row]
-        cell.textLabel?.text = offlinePage.title
+        
+        cell.title.text = offlinePage.title
+        
+        // If there's a thumbnail URL set URL, otherwise it's nil
+        let url = (offlinePage.thumbnailURL != nil) ? NSURL(string: offlinePage.thumbnailURL!) : nil
+        cell.thumbnail.sd_setImageWithURL(url, placeholderImage: placeholder)
+        
+        cell.setNeedsUpdateConstraints()
+        cell.updateConstraintsIfNeeded()
+        
         return cell
     }
     

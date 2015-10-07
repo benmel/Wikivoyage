@@ -54,7 +54,7 @@ class MainViewController: UIViewController {
     private let tableRowHeight: CGFloat = 60
     
     let cellIdentifier = "TableCell"
-    let placeholder = UIImage(named: "placeholder")!
+    let placeholder = UIImage(named: Images.placeholder)!
     
     private let favoriteSegueIdentifier = "ShowFavorites"
     private let offlineSegueIdentifier = "ShowOffline"
@@ -134,7 +134,7 @@ class MainViewController: UIViewController {
         resultsTable = UITableView.newAutoLayoutView()
         resultsTable.dataSource = self
         resultsTable.delegate = self
-        resultsTable.registerClass(SearchResultTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        resultsTable.registerClass(LocationTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         resultsTable.alpha = tableStartingAlpha
         resultsTable.rowHeight = tableRowHeight

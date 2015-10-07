@@ -55,6 +55,8 @@ class LocationWebViewController: StaticWebViewController {
         }
         
         NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
+        
+        getThumbnail()
     }
     
     func downloadPage() {
@@ -89,6 +91,39 @@ class LocationWebViewController: StaticWebViewController {
                 }
                 
                 NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
+
+                self.getThumbnail()
+            }
+        }
+    }
+    
+    func getThumbnail() {
+        let parameters: [String: AnyObject] = [
+            "action": "query",
+            "format": "json",
+            "pageids": pageId,
+            "prop": "pageimages",
+            "piprop": "thumbnail",
+            "pithumbsize": Images.thumbnailSize,
+            "pilimit": 1
+        ]
+        
+        Alamofire.request(.GET, API.baseURL, parameters: parameters).responseJSON() {
+            (_, _, data, error) in
+            if(error != nil) {
+                NSLog("Error: \(error)")
+            } else {
+                let json = JSON(data!)
+                let page = json["query"]["pages"][String(self.pageId)]
+                let thumbnailURL = page["thumbnail"]["source"].string
+                
+                // Save thumbnail to an existing page
+                let id = NSNumber(integer: self.pageId)
+                if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
+                    savedPage.thumbnailURL = thumbnailURL
+                    NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
+                }
+                
             }
         }
     }

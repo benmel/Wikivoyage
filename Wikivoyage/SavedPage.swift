@@ -16,5 +16,6 @@ class SavedPage: NSManagedObject {
     @NSManaged var title: String
     @NSManaged var favorite: NSNumber
     @NSManaged var offline: NSNumber
+    @NSManaged var thumbnailURL: String?
 
 }

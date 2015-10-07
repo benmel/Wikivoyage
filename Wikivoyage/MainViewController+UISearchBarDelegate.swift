@@ -42,7 +42,6 @@ extension MainViewController: UISearchBarDelegate {
         lastRequestid = searchTerm
         
         let limit = 20
-        let size = 128
         
         let parameters: [String: AnyObject] = [
             "action": "query",
@@ -53,7 +52,7 @@ extension MainViewController: UISearchBarDelegate {
             "gpslimit": limit,
             "prop": "pageimages",
             "piprop": "thumbnail",
-            "pithumbsize": size,
+            "pithumbsize": Images.thumbnailSize,
             "pilimit": limit
         ]
         
