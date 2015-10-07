@@ -13,12 +13,14 @@ class StaticWebViewController: WebViewController {
     var pageId: Int!
     var pageTitle: String!
     
+    private let segueIdentifier = "ShowWebExternal"
+    
     // MARK: - Initialization
     
     override func requestURL() {
         let path = pageTitle.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLPathAllowedCharacterSet())
-        let url = NSURL(string: "http://en.m.wikivoyage.com/wiki/"+path!)
-        let request = NSURLRequest(URL: url!, cachePolicy: .UseProtocolCachePolicy, timeoutInterval: 10)
+        let url = NSURL(string: API.siteURL + path!)
+        let request = NSURLRequest(URL: url!, cachePolicy: .UseProtocolCachePolicy, timeoutInterval: API.requestTimeout)
         webView.loadRequest(request)
     }
     
@@ -31,7 +33,7 @@ class StaticWebViewController: WebViewController {
             if !isInternalLink(webView, navigationAction: navigationAction) {
                 decisionHandler(WKNavigationActionPolicy.Cancel)
                 if let url = navigationAction.request.URL {
-                    performSegueWithIdentifier("ShowWebExternal", sender: url)
+                    performSegueWithIdentifier(segueIdentifier, sender: url)
                 }
             }
         }
@@ -71,7 +73,7 @@ class StaticWebViewController: WebViewController {
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ShowWebExternal" {
+        if segue.identifier == segueIdentifier {
             let vc = segue.destinationViewController.topViewController as! ExternalWebViewController
             let url = sender as! NSURL
             vc.url = url

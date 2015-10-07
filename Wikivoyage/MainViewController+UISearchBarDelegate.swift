@@ -57,7 +57,7 @@ extension MainViewController: UISearchBarDelegate {
             "pilimit": limit
         ]
         
-        Alamofire.request(.GET, "https://en.wikivoyage.org/w/api.php", parameters: parameters).responseJSON() {
+        Alamofire.request(.GET, API.baseURL, parameters: parameters).responseJSON() {
             (_, _, data, error) in
             if(error != nil) {
                 NSLog("Error: \(error)")

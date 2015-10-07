@@ -18,7 +18,7 @@ class MainViewController: UIViewController {
     var searchBarTop = false
     
     var searchButton: UIButton!
-    var searchButtonWidth, searchButtonHeight, searchButtonEdgeConstraint: NSLayoutConstraint?
+    var searchButtonWidthConstraint, searchButtonHeightConstraint, searchButtonEdgeConstraint: NSLayoutConstraint?
     
     var favoriteButton, offlineButton: UIButton!
     
@@ -27,6 +27,37 @@ class MainViewController: UIViewController {
     var lastRequestid: String!
     
     var didSetupContraints = false
+    
+    let searchBarStartingAlpha: CGFloat = 0
+    let tableStartingAlpha: CGFloat = 0
+    let searchButtonStartingAlpha: CGFloat = 1
+    
+    let searchBarEndingAlpha: CGFloat = 1
+    let tableEndingAlpha: CGFloat = 1
+    let searchButtonEndingAlpha: CGFloat = 0
+    
+    private let searchButtonTitle = "Search"
+    private let favoriteButtonTitle = "Favorite Locations"
+    private let offlineButtonTitle = "Offline Locations"
+    
+    private let allButtonTitleColor = UIColor.darkTextColor()
+    private let allButtonCornerRadius: CGFloat = 5
+    
+    private let searchButtonColor = UIColor.redColor()
+    private let otherButtonColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
+    
+    private let searchButtonWidth: CGFloat = 300
+    private let otherButtonWidth: CGFloat = 250
+    private let searchButtonStartingHeight: CGFloat = 60
+    private let searchButtonEndingHeight: CGFloat = 44
+    private let otherButtonSpacing: CGFloat = 30
+    
+    let cellIdentifier = "TableCell"
+    let placeholder = UIImage(named: "placeholder")!
+    
+    private let favoriteSegueIdentifier = "ShowFavorites"
+    private let offlineSegueIdentifier = "ShowOffline"
+    let webSegueIdentifier = "ShowWeb"
     
     // MARK: - View Lifecycle
     
@@ -57,19 +88,19 @@ class MainViewController: UIViewController {
         locationSearchBar = UISearchBar.newAutoLayoutView()
         locationSearchBar.delegate = self
         locationSearchBar.showsCancelButton = true
-        locationSearchBar.alpha = 0
+        locationSearchBar.alpha = searchBarStartingAlpha
         topView.addSubview(locationSearchBar)
     }
     
     func setupSearchButton() {
         searchButton = UIButton.buttonWithType(.Custom) as! UIButton
         searchButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        searchButton.setTitle("Search", forState: .Normal)
+        searchButton.setTitle(searchButtonTitle, forState: .Normal)
         searchButton.addTarget(self, action: "searchClicked:", forControlEvents: .TouchUpInside)
         
-        searchButton.setTitleColor(UIColor.darkTextColor(), forState: .Normal)
-        searchButton.backgroundColor = .redColor()
-        searchButton.layer.cornerRadius = 5
+        searchButton.setTitleColor(allButtonTitleColor, forState: .Normal)
+        searchButton.backgroundColor = searchButtonColor
+        searchButton.layer.cornerRadius = allButtonCornerRadius
         
         topView.addSubview(searchButton)
     }
@@ -77,23 +108,23 @@ class MainViewController: UIViewController {
     func setupOtherButtons() {
         favoriteButton = UIButton.buttonWithType(.System) as! UIButton
         favoriteButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        favoriteButton.setTitle("Favorite Locations", forState: .Normal)
+        favoriteButton.setTitle(favoriteButtonTitle, forState: .Normal)
         favoriteButton.addTarget(self, action: "favoriteClicked:", forControlEvents: .TouchUpInside)
         
-        favoriteButton.setTitleColor(UIColor.darkTextColor(), forState: .Normal)
-        favoriteButton.backgroundColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
-        favoriteButton.layer.cornerRadius = 5
+        favoriteButton.setTitleColor(allButtonTitleColor, forState: .Normal)
+        favoriteButton.backgroundColor = otherButtonColor
+        favoriteButton.layer.cornerRadius = allButtonCornerRadius
         
         bottomView.addSubview(favoriteButton)
         
         offlineButton = UIButton.buttonWithType(.System) as! UIButton
         offlineButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        offlineButton.setTitle("Offline Locations", forState: .Normal)
+        offlineButton.setTitle(offlineButtonTitle, forState: .Normal)
         offlineButton.addTarget(self, action: "offlineClicked:", forControlEvents: .TouchUpInside)
         
-        offlineButton.setTitleColor(UIColor.darkTextColor(), forState: .Normal)
-        offlineButton.backgroundColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
-        offlineButton.layer.cornerRadius = 5
+        offlineButton.setTitleColor(allButtonTitleColor, forState: .Normal)
+        offlineButton.backgroundColor = otherButtonColor
+        offlineButton.layer.cornerRadius = allButtonCornerRadius
         
         bottomView.addSubview(offlineButton)
     }
@@ -102,9 +133,9 @@ class MainViewController: UIViewController {
         resultsTable = UITableView.newAutoLayoutView()
         resultsTable.dataSource = self
         resultsTable.delegate = self
-        resultsTable.registerClass(SearchResultTableViewCell.self, forCellReuseIdentifier: "TableCell")
+        resultsTable.registerClass(SearchResultTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
-        resultsTable.alpha = 0
+        resultsTable.alpha = tableStartingAlpha
         resultsTable.rowHeight = 60
         // Start separator line at 80px
         resultsTable.separatorInset = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
@@ -129,12 +160,12 @@ class MainViewController: UIViewController {
             
             searchButton.autoAlignAxisToSuperviewAxis(.Vertical)
             
-            favoriteButton.autoSetDimension(.Width, toSize: 250)
+            favoriteButton.autoSetDimension(.Width, toSize: otherButtonWidth)
             favoriteButton.autoAlignAxisToSuperviewAxis(.Vertical)
-            offlineButton.autoSetDimension(.Width, toSize: 250)
+            offlineButton.autoSetDimension(.Width, toSize: otherButtonWidth)
             offlineButton.autoAlignAxisToSuperviewAxis(.Vertical)
             let buttons = NSArray(array: [favoriteButton, offlineButton])
-            buttons.autoDistributeViewsAlongAxis(.Vertical, alignedTo: .Vertical, withFixedSpacing: 30)
+            buttons.autoDistributeViewsAlongAxis(.Vertical, alignedTo: .Vertical, withFixedSpacing: otherButtonSpacing)
             
             resultsTable.autoAlignAxisToSuperviewAxis(.Vertical)
             resultsTable.autoPinEdgeToSuperviewEdge(.Leading)
@@ -145,17 +176,17 @@ class MainViewController: UIViewController {
             didSetupContraints = true
         }
         
-        searchButtonWidth?.autoRemove()
-        searchButtonHeight?.autoRemove()
+        searchButtonWidthConstraint?.autoRemove()
+        searchButtonHeightConstraint?.autoRemove()
         searchButtonEdgeConstraint?.autoRemove()
         
         if searchBarTop {
-            searchButtonWidth = searchButton.autoMatchDimension(.Width, toDimension: .Width, ofView: topView)
-            searchButtonHeight = searchButton.autoSetDimension(.Height, toSize: 44)
+            searchButtonWidthConstraint = searchButton.autoMatchDimension(.Width, toDimension: .Width, ofView: topView)
+            searchButtonHeightConstraint = searchButton.autoSetDimension(.Height, toSize: searchButtonEndingHeight)
             searchButtonEdgeConstraint = searchButton.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
         } else {
-            searchButtonWidth = searchButton.autoSetDimension(.Width, toSize: 300)
-            searchButtonHeight = searchButton.autoSetDimension(.Height, toSize: 60)
+            searchButtonWidthConstraint = searchButton.autoSetDimension(.Width, toSize: searchButtonWidth)
+            searchButtonHeightConstraint = searchButton.autoSetDimension(.Height, toSize: searchButtonStartingHeight)
             searchButtonEdgeConstraint = searchButton.autoPinEdgeToSuperviewEdge(.Bottom)
         }
         
@@ -169,17 +200,17 @@ class MainViewController: UIViewController {
     }
 
     func favoriteClicked(sender: UIButton!) {
-        performSegueWithIdentifier("ShowFavorites", sender: sender)
+        performSegueWithIdentifier(favoriteSegueIdentifier, sender: sender)
     }
     
     func offlineClicked(sender: UIButton!) {
-        performSegueWithIdentifier("ShowOffline", sender: sender)
+        performSegueWithIdentifier(offlineSegueIdentifier, sender: sender)
     }
     
     // MARK: - Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ShowWeb" {
+        if segue.identifier == webSegueIdentifier {
             let vc = segue.destinationViewController as! LocationWebViewController
             let searchResult = sender as! SearchResult
             vc.pageId = searchResult.pageId

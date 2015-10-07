@@ -11,7 +11,7 @@ import UIKit
 extension MainViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let searchResult = searchResults[indexPath.row]
-        performSegueWithIdentifier("ShowWeb", sender: searchResult)
+        performSegueWithIdentifier(webSegueIdentifier, sender: searchResult)
         dismissKeyboard()
     }
     

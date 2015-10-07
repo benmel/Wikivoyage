@@ -11,6 +11,7 @@
 		B504E2121BA34EC6006082E6 /* LocationWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B504E2111BA34EC6006082E6 /* LocationWebViewController.swift */; };
 		B51BDCF11B9519CE00248A5D /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51BDCF01B9519CE00248A5D /* SearchResult.swift */; };
 		B521D1241BAA206F00C9EE91 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B521D1231BAA206F00C9EE91 /* WebViewController.swift */; };
+		B55CB0051BC4A0E0005A1CFF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55CB0041BC4A0E0005A1CFF /* Constants.swift */; };
 		B5ACA5A11BB5F1E800B322D1 /* SavedPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5ACA5A01BB5F1E800B322D1 /* SavedPage.swift */; };
 		B5BE0FB41BB4D2CC005805F7 /* ExternalWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BE0FB31BB4D2CC005805F7 /* ExternalWebViewController.swift */; };
 		B5BE0FB61BB4F22F005805F7 /* StaticWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BE0FB51BB4F22F005805F7 /* StaticWebViewController.swift */; };
@@ -52,6 +53,7 @@
 		B504E2111BA34EC6006082E6 /* LocationWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationWebViewController.swift; sourceTree = "<group>"; };
 		B51BDCF01B9519CE00248A5D /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		B521D1231BAA206F00C9EE91 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		B55CB0041BC4A0E0005A1CFF /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B5ACA5A01BB5F1E800B322D1 /* SavedPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedPage.swift; sourceTree = "<group>"; };
 		B5BE0FB31BB4D2CC005805F7 /* ExternalWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalWebViewController.swift; sourceTree = "<group>"; };
 		B5BE0FB51BB4F22F005805F7 /* StaticWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticWebViewController.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 		E7194EE11BC08BE2009054F0 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				B55CB0041BC4A0E0005A1CFF /* Constants.swift */,
 				B5EB8A891B90CACC00CB9E38 /* AppDelegate.swift */,
 				B5EB8A901B90CACC00CB9E38 /* Main.storyboard */,
 				B5EB8A951B90CACC00CB9E38 /* LaunchScreen.xib */,
@@ -421,6 +424,7 @@
 				E7852DC21BC3AED300E34004 /* MainViewController+Helpers.swift in Sources */,
 				B5EB8A8F1B90CACC00CB9E38 /* MainViewController.swift in Sources */,
 				B5BE0FB81BB4FADE005805F7 /* OfflineWebViewController.swift in Sources */,
+				B55CB0051BC4A0E0005A1CFF /* Constants.swift in Sources */,
 				B5EB8A8D1B90CACC00CB9E38 /* Wikivoyage.xcdatamodeld in Sources */,
 				B5EB8A8A1B90CACC00CB9E38 /* AppDelegate.swift in Sources */,
 				E7852DC41BC3AFA200E34004 /* MainViewController+UISearchBarDelegate.swift in Sources */,

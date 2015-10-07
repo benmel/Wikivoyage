@@ -13,6 +13,9 @@ class FavoritesTableViewController: UITableViewController {
 
     var favoritePages = [SavedPage]()
     
+    private let cellIdentifier = "FavoritePage"
+    private let segueIdentifier = "ShowWeb"
+    
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
@@ -28,7 +31,7 @@ class FavoritesTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("FavoritePage", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
         let favoritePage = favoritePages[indexPath.row]
         cell.textLabel?.text = favoritePage.title
         return cell
@@ -54,13 +57,13 @@ class FavoritesTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let favoritePage = favoritePages[indexPath.row]
-        performSegueWithIdentifier("ShowWeb", sender: favoritePage)
+        performSegueWithIdentifier(segueIdentifier, sender: favoritePage)
     }
 
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ShowWeb" {
+        if segue.identifier == segueIdentifier {
             let vc = segue.destinationViewController as! LocationWebViewController
             let favoritePage = sender as! SavedPage
             vc.pageId = Int(favoritePage.id)

@@ -40,9 +40,9 @@ extension MainViewController {
             }, completion: { finished in
                 UIView.animateWithDuration(0.2,
                     animations: {
-                        searchBar.alpha = 1
-                        self.resultsTable.alpha = 1
-                        self.searchButton.alpha = 0
+                        searchBar.alpha = self.searchBarEndingAlpha
+                        self.resultsTable.alpha = self.tableEndingAlpha
+                        self.searchButton.alpha = self.searchButtonEndingAlpha
                     }, completion: { finished in
                         searchBar.becomeFirstResponder()
                     }
@@ -58,9 +58,9 @@ extension MainViewController {
         if animated {
             UIView.animateWithDuration(0.2,
                 animations: {
-                    searchBar.alpha = 0
-                    self.resultsTable.alpha = 0
-                    self.searchButton.alpha = 1
+                    searchBar.alpha = self.searchBarStartingAlpha
+                    self.resultsTable.alpha = self.tableStartingAlpha
+                    self.searchButton.alpha = self.searchButtonStartingAlpha
                 }, completion:  { finished in
                     self.view.setNeedsUpdateConstraints()
                     self.view.updateConstraintsIfNeeded()
@@ -75,9 +75,9 @@ extension MainViewController {
             view.setNeedsUpdateConstraints()
             view.updateConstraintsIfNeeded()
             view.layoutIfNeeded()
-            searchBar.alpha = 0
-            resultsTable.alpha = 0
-            searchButton.alpha = 1
+            searchBar.alpha = searchBarStartingAlpha
+            resultsTable.alpha = tableStartingAlpha
+            searchButton.alpha = searchButtonStartingAlpha
         }
     }
     

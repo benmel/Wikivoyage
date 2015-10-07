@@ -11,12 +11,15 @@ import UIKit
 class WebHeadersTableViewController: UITableViewController {
 
     var webHeaders = [WebHeader]()
+    var notificationName: String!
+    
+    private let cellIdentifier = "TableCell"
     
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "TableCell")
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
     }
     
     // MARK: - Table View Data Source
@@ -26,7 +29,7 @@ class WebHeadersTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TableCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
         let webHeader = webHeaders[indexPath.row]
         cell.textLabel?.text = webHeader.title
         return cell
@@ -36,7 +39,7 @@ class WebHeadersTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let webHeader = webHeaders[indexPath.row]
-        NSNotificationCenter.defaultCenter().postNotificationName("WebHeaderSelected", object: webHeader)
+        NSNotificationCenter.defaultCenter().postNotificationName(notificationName, object: webHeader)
         dismissViewControllerAnimated(true, completion: nil)
     }
 }

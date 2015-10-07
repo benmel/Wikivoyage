@@ -12,6 +12,8 @@ import MagicalRecord
 
 class LocationWebViewController: StaticWebViewController {
     
+    private let finalButtonColor = UIColor.redColor()
+    
     // MARK: - View Lifecycle
     
     override func viewWillAppear(animated: Bool) {
@@ -29,13 +31,13 @@ class LocationWebViewController: StaticWebViewController {
     @IBAction func favorite(sender: AnyObject) {
         favoritePage()
         let button = sender as! UIBarButtonItem
-        button.tintColor = .redColor()
+        button.tintColor = finalButtonColor
     }
     
     @IBAction func download(sender: AnyObject) {
         downloadPage()
         let button = sender as! UIBarButtonItem
-        button.tintColor = .redColor()
+        button.tintColor = finalButtonColor
     }
     
     // MARK: - Helpers
@@ -65,7 +67,7 @@ class LocationWebViewController: StaticWebViewController {
             "noimages": ""
         ]
         
-        Alamofire.request(.GET, "http://en.wikivoyage.org/w/api.php", parameters: parameters).responseJSON() {
+        Alamofire.request(.GET, API.baseURL, parameters: parameters).responseJSON() {
             (_, _, data, error) in
             if(error != nil) {
                 NSLog("Error: \(error)")

@@ -13,6 +13,9 @@ class OfflineTableViewController: UITableViewController {
 
     var offlinePages = [SavedPage]()
     
+    private let cellIdentifier = "OfflinePage"
+    private let segueIdentifier = "ShowWeb"
+    
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
@@ -28,7 +31,7 @@ class OfflineTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("OfflinePage", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
         let offlinePage = offlinePages[indexPath.row]
         cell.textLabel?.text = offlinePage.title
         return cell
@@ -54,13 +57,13 @@ class OfflineTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let offlinePage = offlinePages[indexPath.row]
-        performSegueWithIdentifier("ShowWeb", sender: offlinePage)
+        performSegueWithIdentifier(segueIdentifier, sender: offlinePage)
     }
 
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ShowWeb" {
+        if segue.identifier == segueIdentifier {
             let vc = segue.destinationViewController as! OfflineWebViewController
             let offlinePage = sender as! SavedPage
             vc.html = offlinePage.html

@@ -23,6 +23,16 @@ class WebViewController: UIViewController {
     var webHeadersLoaded = false
     
     var didSetupConstraints = false
+    
+    private let progressKey = "estimatedProgress"
+    private let titleKey = "title"
+    private let webHeaderName = "WebHeaderSelected"
+    
+    private let didGetIsWikiHost = "didGetIsWikiHost"
+    private let didGetHeaders = "didGetHeaders"
+    
+    private let popoverWidth = 180
+    private let popoverHeight = 220
 
     // MARK: - View Lifecycle
     
@@ -38,16 +48,16 @@ class WebViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        webView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
-        webView.addObserver(self, forKeyPath: "title", options: .New, context: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "webHeaderSelected:", name: "WebHeaderSelected", object: nil)
+        webView.addObserver(self, forKeyPath: progressKey, options: .New, context: nil)
+        webView.addObserver(self, forKeyPath: titleKey, options: .New, context: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "webHeaderSelected:", name: webHeaderName, object: nil)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        webView.removeObserver(self, forKeyPath: "estimatedProgress")
-        webView.removeObserver(self, forKeyPath: "title")
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "WebHeaderSelected", object: nil)
+        webView.removeObserver(self, forKeyPath: progressKey)
+        webView.removeObserver(self, forKeyPath: titleKey)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: webHeaderName, object: nil)
     }
     
     // MARK: - Initialization
@@ -72,8 +82,8 @@ class WebViewController: UIViewController {
     func setupWebView() {
         let config = WKWebViewConfiguration()
         config.userContentController.addUserScript(script)
-        config.userContentController.addScriptMessageHandler(self, name: "didGetIsWikiHost")
-        config.userContentController.addScriptMessageHandler(self, name: "didGetHeaders")
+        config.userContentController.addScriptMessageHandler(self, name: didGetIsWikiHost)
+        config.userContentController.addScriptMessageHandler(self, name: didGetHeaders)
         webView = WKWebView(frame: CGRectZero, configuration: config)
         
         webView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -122,10 +132,11 @@ class WebViewController: UIViewController {
             let vc = WebHeadersTableViewController()
             let button = sender as! UIBarButtonItem
             vc.webHeaders = webHeaders
+            vc.notificationName = webHeaderName
             vc.modalPresentationStyle = .Popover
             vc.popoverPresentationController?.delegate = self
             vc.popoverPresentationController?.barButtonItem = button
-            vc.preferredContentSize = CGSize(width: 180, height: 220)
+            vc.preferredContentSize = CGSize(width: popoverWidth, height: popoverHeight)
             presentViewController(vc, animated: true, completion: nil)
         }
     }
@@ -139,7 +150,7 @@ class WebViewController: UIViewController {
     // MARK: - KVO
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        if (keyPath == "estimatedProgress") {
+        if keyPath == progressKey {
             // Bug where estimatedProgress = 0.1 even for pages that are already loaded
             if webView.estimatedProgress > 0.1 && webView.estimatedProgress < 1.0 {
                 // Show progress if it's between 0.1 and 1.0
@@ -148,9 +159,7 @@ class WebViewController: UIViewController {
             } else {
                 progressView.hidden = true
             }
-        }
-        
-        if (keyPath == "title") {
+        } else if keyPath == titleKey {
             if let newTitle = webView.title?.stringByReplacingOccurrencesOfString(" – Travel guide at Wikivoyage", withString: "", options: nil, range: nil) {
                 title = newTitle
             } else {
@@ -189,9 +198,9 @@ extension WebViewController: WKNavigationDelegate {
 
 extension WebViewController: WKScriptMessageHandler {
     func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
-        if message.name == "didGetIsWikiHost" {
+        if message.name == didGetIsWikiHost {
             setContentsButtonState(message)
-        } else if message.name == "didGetHeaders" {
+        } else if message.name == didGetHeaders {
             updateHeaders(message)
         }
     }
