@@ -14,6 +14,11 @@ class ExternalWebViewController: WebViewController {
 
     // MARK: - Initialization
     
+    override func setupWebView() {
+        super.setupWebView()
+        webView.allowsBackForwardNavigationGestures = true
+    }
+    
     override func requestURL() {
         let request = NSURLRequest(URL: url, cachePolicy: .UseProtocolCachePolicy, timeoutInterval: API.requestTimeout)
         webView.loadRequest(request)

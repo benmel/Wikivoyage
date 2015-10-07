@@ -87,7 +87,6 @@ class WebViewController: UIViewController {
         webView = WKWebView(frame: CGRectZero, configuration: config)
         
         webView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        webView.allowsBackForwardNavigationGestures = true
         webView.navigationDelegate = self
         
         view.addSubview(webView)
