@@ -13,6 +13,7 @@ class FavoritesTableViewController: UITableViewController {
 
     var favoritePages = [SavedPage]()
     
+    private let tableRowHeight: CGFloat = 60
     private let cellIdentifier = "FavoritePage"
     private let segueIdentifier = "ShowWeb"
     
@@ -20,6 +21,8 @@ class FavoritesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.rowHeight = tableRowHeight
+        tableView.tableFooterView = UIView(frame: CGRectZero)
         clearsSelectionOnViewWillAppear = false
         navigationItem.rightBarButtonItem = editButtonItem()
         favoritePages = SavedPage.MR_findByAttribute("favorite", withValue: true, andOrderBy: "title", ascending: true) as! [SavedPage]
@@ -40,9 +43,13 @@ class FavoritesTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! LocationTableViewCell
         let favoritePage = favoritePages[indexPath.row]
-        cell.textLabel?.text = favoritePage.title
+        cell.title.text = favoritePage.title
+        
+        cell.setNeedsUpdateConstraints()
+        cell.updateConstraintsIfNeeded()
+        
         return cell
     }
     

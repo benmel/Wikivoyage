@@ -13,6 +13,7 @@ class OfflineTableViewController: UITableViewController {
 
     var offlinePages = [SavedPage]()
     
+    private let tableRowHeight: CGFloat = 60
     private let cellIdentifier = "OfflinePage"
     private let segueIdentifier = "ShowWeb"
     
@@ -20,6 +21,8 @@ class OfflineTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.rowHeight = tableRowHeight
+        tableView.tableFooterView = UIView(frame: CGRectZero)
         clearsSelectionOnViewWillAppear = false
         navigationItem.rightBarButtonItem = editButtonItem()
         offlinePages = SavedPage.MR_findByAttribute("offline", withValue: true, andOrderBy: "title", ascending: true) as! [SavedPage]
@@ -40,9 +43,13 @@ class OfflineTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! LocationTableViewCell
         let offlinePage = offlinePages[indexPath.row]
-        cell.textLabel?.text = offlinePage.title
+        cell.title.text = offlinePage.title
+        
+        cell.setNeedsUpdateConstraints()
+        cell.updateConstraintsIfNeeded()
+        
         return cell
     }
     
