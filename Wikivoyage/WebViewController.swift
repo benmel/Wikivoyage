@@ -9,7 +9,7 @@
 import WebKit
 import PureLayout
 
-class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler, UIPopoverPresentationControllerDelegate {
+class WebViewController: UIViewController {
     
     var webView: WKWebView!
     var progressView: UIProgressView!
@@ -21,9 +21,20 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
     
     var webHeaders = [WebHeader]()
     var webHeadersLoaded = false
+    
     var didSetupConstraints = false
+    
+    private let progressKey = "estimatedProgress"
+    private let titleKey = "title"
+    private let webHeaderName = "WebHeaderSelected"
+    
+    private let didGetIsWikiHost = "didGetIsWikiHost"
+    private let didGetHeaders = "didGetHeaders"
+    
+    private let popoverWidth = 180
+    private let popoverHeight = 220
 
-    // MARK: View Lifecycle
+    // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,19 +48,19 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        webView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
-        webView.addObserver(self, forKeyPath: "title", options: .New, context: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "webHeaderSelected:", name: "WebHeaderSelected", object: nil)
+        webView.addObserver(self, forKeyPath: progressKey, options: .New, context: nil)
+        webView.addObserver(self, forKeyPath: titleKey, options: .New, context: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "webHeaderSelected:", name: webHeaderName, object: nil)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        webView.removeObserver(self, forKeyPath: "estimatedProgress")
-        webView.removeObserver(self, forKeyPath: "title")
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "WebHeaderSelected", object: nil)
+        webView.removeObserver(self, forKeyPath: progressKey)
+        webView.removeObserver(self, forKeyPath: titleKey)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: webHeaderName, object: nil)
     }
     
-    // MARK: Initialization
+    // MARK: - Initialization
     
     func setupScriptNames() {
         scriptName = "Script"
@@ -71,8 +82,8 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
     func setupWebView() {
         let config = WKWebViewConfiguration()
         config.userContentController.addUserScript(script)
-        config.userContentController.addScriptMessageHandler(self, name: "didGetIsWikiHost")
-        config.userContentController.addScriptMessageHandler(self, name: "didGetHeaders")
+        config.userContentController.addScriptMessageHandler(self, name: didGetIsWikiHost)
+        config.userContentController.addScriptMessageHandler(self, name: didGetHeaders)
         webView = WKWebView(frame: CGRectZero, configuration: config)
         
         webView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -96,7 +107,7 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
     func requestURL() {
     }
     
-    // MARK: Layout
+    // MARK: - Layout
     
     override func updateViewConstraints() {
         if !didSetupConstraints {
@@ -110,9 +121,57 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
         
         super.updateViewConstraints()
     }
+
     
-    // MARK: WebKit Navigation Delegate
+    // MARK: - User Interaction
     
+    @IBAction func contents(sender: AnyObject) {
+        // Check that headers are loaded and button is enabled
+        let button = sender as! UIBarButtonItem
+        if webHeadersLoaded && button.enabled {
+            let vc = WebHeadersTableViewController()
+            let button = sender as! UIBarButtonItem
+            vc.webHeaders = webHeaders
+            vc.notificationName = webHeaderName
+            vc.modalPresentationStyle = .Popover
+            vc.popoverPresentationController?.delegate = self
+            vc.popoverPresentationController?.barButtonItem = button
+            vc.preferredContentSize = CGSize(width: popoverWidth, height: popoverHeight)
+            presentViewController(vc, animated: true, completion: nil)
+        }
+    }
+    
+    func webHeaderSelected(notification: NSNotification) {
+        let webHeader = notification.object as! WebHeader
+        let scroll = "document.getElementById('\(webHeader.id)').scrollIntoView();"
+        webView.evaluateJavaScript(scroll, completionHandler: nil)
+    }
+    
+    // MARK: - KVO
+    
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+        if keyPath == progressKey {
+            // Bug where estimatedProgress = 0.1 even for pages that are already loaded
+            if webView.estimatedProgress > 0.1 && webView.estimatedProgress < 1.0 {
+                // Show progress if it's between 0.1 and 1.0
+                progressView.hidden = false
+                progressView.setProgress(Float(webView.estimatedProgress), animated: true)
+            } else {
+                progressView.hidden = true
+            }
+        } else if keyPath == titleKey {
+            if let newTitle = webView.title?.stringByReplacingOccurrencesOfString(" – Travel guide at Wikivoyage", withString: "", options: nil, range: nil) {
+                title = newTitle
+            } else {
+                title = ""
+            }
+        }
+    }
+}
+
+// MARK: - WebKit Navigation Delegate
+
+extension WebViewController: WKNavigationDelegate {
     func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         webHeadersLoaded = false
     }
@@ -126,75 +185,27 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
         progressView.setProgress(0.0, animated: false)
     }
     
-    // MARK: WebKit Script Message Handler
-    
-    func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
-        if message.name == "didGetIsWikiHost" {
-            setContentsButtonState(message)
-        } else if message.name == "didGetHeaders" {
-            updateHeaders(message)
-        }
-    }
-    
-    // MARK: User Interaction
-    
-    @IBAction func contents(sender: AnyObject) {
-        // Check that headers are loaded and button is enabled
-        let button = sender as! UIBarButtonItem
-        if webHeadersLoaded && button.enabled {
-            let vc = WebHeadersTableViewController()
-            let button = sender as! UIBarButtonItem
-            vc.webHeaders = webHeaders
-            vc.modalPresentationStyle = .Popover
-            vc.popoverPresentationController?.delegate = self
-            vc.popoverPresentationController?.barButtonItem = button
-            vc.preferredContentSize = CGSize(width: 180, height: 220)
-            presentViewController(vc, animated: true, completion: nil)
-        }
-    }
-    
-    func webHeaderSelected(notification: NSNotification) {
-        let webHeader = notification.object as! WebHeader
-        let scroll = "document.getElementById('\(webHeader.id)').scrollIntoView();"
-        webView.evaluateJavaScript(scroll, completionHandler: nil)
-    }
-    
-    // MARK: Popover Presentation Controller Delegate
-    
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
-    }
-    
-    // MARK: KVO
-    
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        if (keyPath == "estimatedProgress") {
-            // Bug where estimatedProgress = 0.1 even for pages that are already loaded
-            if webView.estimatedProgress > 0.1 && webView.estimatedProgress < 1.0 {
-                // Show progress if it's between 0.1 and 1.0
-                progressView.hidden = false
-                progressView.setProgress(Float(webView.estimatedProgress), animated: true)
-            } else {
-                progressView.hidden = true
-            }
-        }
-        
-        if (keyPath == "title") {
-            if let newTitle = webView.title?.stringByReplacingOccurrencesOfString(" – Travel guide at Wikivoyage", withString: "", options: nil, range: nil) {
-                self.title = newTitle
-            } else {
-                self.title = ""
-            }
-        }
-    }
-    
-    // MARK: Helpers
+    // MARK: - Helpers
     
     private func showError(error: NSError) {
         let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         presentViewController(alert, animated: true, completion: nil)
     }
+}
+
+// MARK: - WebKit Script Message Handler
+
+extension WebViewController: WKScriptMessageHandler {
+    func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
+        if message.name == didGetIsWikiHost {
+            setContentsButtonState(message)
+        } else if message.name == didGetHeaders {
+            updateHeaders(message)
+        }
+    }
+    
+    // MARK: - Helpers
     
     func setContentsButtonState(message: WKScriptMessage) {
         if let isWikiHost = message.body as? Bool {
@@ -215,5 +226,13 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKScriptMessage
             }
         }
         webHeadersLoaded = true
+    }
+}
+
+// MARK: - Popover Presentation Controller Delegate
+
+extension WebViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
     }
 }

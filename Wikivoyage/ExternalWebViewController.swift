@@ -11,14 +11,18 @@ import Foundation
 class ExternalWebViewController: WebViewController {
     
     var url: NSURL!
-        
+
+    // MARK: - Initialization
+    
     override func requestURL() {
-        let request = NSURLRequest(URL: url, cachePolicy: .UseProtocolCachePolicy, timeoutInterval: 10)
+        let request = NSURLRequest(URL: url, cachePolicy: .UseProtocolCachePolicy, timeoutInterval: API.requestTimeout)
         webView.loadRequest(request)
     }
     
+    // MARK: - User Interaction
+    
     @IBAction func close(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func back(sender: AnyObject) {

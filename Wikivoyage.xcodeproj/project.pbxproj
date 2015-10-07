@@ -11,6 +11,7 @@
 		B504E2121BA34EC6006082E6 /* LocationWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B504E2111BA34EC6006082E6 /* LocationWebViewController.swift */; };
 		B51BDCF11B9519CE00248A5D /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51BDCF01B9519CE00248A5D /* SearchResult.swift */; };
 		B521D1241BAA206F00C9EE91 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B521D1231BAA206F00C9EE91 /* WebViewController.swift */; };
+		B55CB0051BC4A0E0005A1CFF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55CB0041BC4A0E0005A1CFF /* Constants.swift */; };
 		B5ACA5A11BB5F1E800B322D1 /* SavedPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5ACA5A01BB5F1E800B322D1 /* SavedPage.swift */; };
 		B5BE0FB41BB4D2CC005805F7 /* ExternalWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BE0FB31BB4D2CC005805F7 /* ExternalWebViewController.swift */; };
 		B5BE0FB61BB4F22F005805F7 /* StaticWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BE0FB51BB4F22F005805F7 /* StaticWebViewController.swift */; };
@@ -27,6 +28,10 @@
 		E7194ED01BBE4407009054F0 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7194ECF1BBE4407009054F0 /* SearchResultTableViewCell.swift */; };
 		E7194ED41BBF8188009054F0 /* WebHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7194ED31BBF8188009054F0 /* WebHeader.swift */; };
 		E7194ED61BBF87A2009054F0 /* WebHeadersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7194ED51BBF87A2009054F0 /* WebHeadersTableViewController.swift */; };
+		E7852DC21BC3AED300E34004 /* MainViewController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7852DC11BC3AED300E34004 /* MainViewController+Helpers.swift */; };
+		E7852DC41BC3AFA200E34004 /* MainViewController+UISearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7852DC31BC3AFA200E34004 /* MainViewController+UISearchBarDelegate.swift */; };
+		E7852DC61BC3B03E00E34004 /* MainViewController+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7852DC51BC3B03E00E34004 /* MainViewController+UITableViewDataSource.swift */; };
+		E7852DC81BC3B0B800E34004 /* MainViewController+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7852DC71BC3B0B800E34004 /* MainViewController+UITableViewDelegate.swift */; };
 		E7BAD76A1BC3148000E4EF76 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = E7BAD7691BC3148000E4EF76 /* Script.js */; };
 		E7BAD76C1BC31CAE00E4EF76 /* ApplyOnlineScript.js in Resources */ = {isa = PBXBuildFile; fileRef = E7BAD76B1BC31CAD00E4EF76 /* ApplyOnlineScript.js */; };
 		E7BAD76E1BC320D900E4EF76 /* ApplyOfflineScript.js in Resources */ = {isa = PBXBuildFile; fileRef = E7BAD76D1BC320D900E4EF76 /* ApplyOfflineScript.js */; };
@@ -48,6 +53,7 @@
 		B504E2111BA34EC6006082E6 /* LocationWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationWebViewController.swift; sourceTree = "<group>"; };
 		B51BDCF01B9519CE00248A5D /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		B521D1231BAA206F00C9EE91 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		B55CB0041BC4A0E0005A1CFF /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B5ACA5A01BB5F1E800B322D1 /* SavedPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedPage.swift; sourceTree = "<group>"; };
 		B5BE0FB31BB4D2CC005805F7 /* ExternalWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalWebViewController.swift; sourceTree = "<group>"; };
 		B5BE0FB51BB4F22F005805F7 /* StaticWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticWebViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +75,10 @@
 		E7194ECF1BBE4407009054F0 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		E7194ED31BBF8188009054F0 /* WebHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebHeader.swift; sourceTree = "<group>"; };
 		E7194ED51BBF87A2009054F0 /* WebHeadersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebHeadersTableViewController.swift; sourceTree = "<group>"; };
+		E7852DC11BC3AED300E34004 /* MainViewController+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MainViewController+Helpers.swift"; sourceTree = "<group>"; };
+		E7852DC31BC3AFA200E34004 /* MainViewController+UISearchBarDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MainViewController+UISearchBarDelegate.swift"; sourceTree = "<group>"; };
+		E7852DC51BC3B03E00E34004 /* MainViewController+UITableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MainViewController+UITableViewDataSource.swift"; sourceTree = "<group>"; };
+		E7852DC71BC3B0B800E34004 /* MainViewController+UITableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MainViewController+UITableViewDelegate.swift"; sourceTree = "<group>"; };
 		E7BAD7691BC3148000E4EF76 /* Script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
 		E7BAD76B1BC31CAD00E4EF76 /* ApplyOnlineScript.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ApplyOnlineScript.js; sourceTree = "<group>"; };
 		E7BAD76D1BC320D900E4EF76 /* ApplyOfflineScript.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ApplyOfflineScript.js; sourceTree = "<group>"; };
@@ -182,9 +192,9 @@
 		E7194EDE1BC089A2009054F0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B5EB8A8E1B90CACC00CB9E38 /* MainViewController.swift */,
 				B5EB8AB61B90F0A900CB9E38 /* FavoritesTableViewController.swift */,
 				B5EB8AB81B90F0BB00CB9E38 /* OfflineTableViewController.swift */,
+				E7852DC91BC3C24B00E34004 /* Main */,
 				E7194EE21BC08D97009054F0 /* Web */,
 			);
 			name = Controllers;
@@ -211,6 +221,7 @@
 		E7194EE11BC08BE2009054F0 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				B55CB0041BC4A0E0005A1CFF /* Constants.swift */,
 				B5EB8A891B90CACC00CB9E38 /* AppDelegate.swift */,
 				B5EB8A901B90CACC00CB9E38 /* Main.storyboard */,
 				B5EB8A951B90CACC00CB9E38 /* LaunchScreen.xib */,
@@ -230,6 +241,18 @@
 				E7194ED51BBF87A2009054F0 /* WebHeadersTableViewController.swift */,
 			);
 			name = Web;
+			sourceTree = "<group>";
+		};
+		E7852DC91BC3C24B00E34004 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				B5EB8A8E1B90CACC00CB9E38 /* MainViewController.swift */,
+				E7852DC51BC3B03E00E34004 /* MainViewController+UITableViewDataSource.swift */,
+				E7852DC71BC3B0B800E34004 /* MainViewController+UITableViewDelegate.swift */,
+				E7852DC31BC3AFA200E34004 /* MainViewController+UISearchBarDelegate.swift */,
+				E7852DC11BC3AED300E34004 /* MainViewController+Helpers.swift */,
+			);
+			name = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -392,14 +415,19 @@
 				B504E2121BA34EC6006082E6 /* LocationWebViewController.swift in Sources */,
 				B5ACA5A11BB5F1E800B322D1 /* SavedPage.swift in Sources */,
 				B5BE0FB61BB4F22F005805F7 /* StaticWebViewController.swift in Sources */,
+				E7852DC61BC3B03E00E34004 /* MainViewController+UITableViewDataSource.swift in Sources */,
 				B5EB8AB91B90F0BB00CB9E38 /* OfflineTableViewController.swift in Sources */,
 				E7194ED61BBF87A2009054F0 /* WebHeadersTableViewController.swift in Sources */,
 				B521D1241BAA206F00C9EE91 /* WebViewController.swift in Sources */,
 				B51BDCF11B9519CE00248A5D /* SearchResult.swift in Sources */,
+				E7852DC81BC3B0B800E34004 /* MainViewController+UITableViewDelegate.swift in Sources */,
+				E7852DC21BC3AED300E34004 /* MainViewController+Helpers.swift in Sources */,
 				B5EB8A8F1B90CACC00CB9E38 /* MainViewController.swift in Sources */,
 				B5BE0FB81BB4FADE005805F7 /* OfflineWebViewController.swift in Sources */,
+				B55CB0051BC4A0E0005A1CFF /* Constants.swift in Sources */,
 				B5EB8A8D1B90CACC00CB9E38 /* Wikivoyage.xcdatamodeld in Sources */,
 				B5EB8A8A1B90CACC00CB9E38 /* AppDelegate.swift in Sources */,
+				E7852DC41BC3AFA200E34004 /* MainViewController+UISearchBarDelegate.swift in Sources */,
 				B5EB8AB71B90F0A900CB9E38 /* FavoritesTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
