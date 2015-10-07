@@ -51,6 +51,7 @@ class MainViewController: UIViewController {
     private let searchButtonStartingHeight: CGFloat = 60
     private let searchButtonEndingHeight: CGFloat = 44
     private let otherButtonSpacing: CGFloat = 30
+    private let tableRowHeight: CGFloat = 60
     
     let cellIdentifier = "TableCell"
     let placeholder = UIImage(named: "placeholder")!
@@ -136,9 +137,7 @@ class MainViewController: UIViewController {
         resultsTable.registerClass(SearchResultTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         resultsTable.alpha = tableStartingAlpha
-        resultsTable.rowHeight = 60
-        // Start separator line at 80px
-        resultsTable.separatorInset = UIEdgeInsets(top: 0, left: 80, bottom: 0, right: 0)
+        resultsTable.rowHeight = tableRowHeight
         // Disable separator lines for empty cells
         resultsTable.tableFooterView = UIView(frame: CGRectZero)
         
