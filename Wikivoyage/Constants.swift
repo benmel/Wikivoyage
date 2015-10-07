@@ -13,3 +13,8 @@ struct API {
     static let siteURL = "http://en.m.wikivoyage.com/wiki/"
     static let requestTimeout: NSTimeInterval = 10
 }
+
+struct Images {
+    static let placeholder = "placeholder"
+    static let thumbnailSize = 128
+}

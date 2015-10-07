@@ -54,7 +54,7 @@ class MainViewController: UIViewController {
     private let tableRowHeight: CGFloat = 60
     
     let cellIdentifier = "TableCell"
-    let placeholder = UIImage(named: "placeholder")!
+    let placeholder = UIImage(named: Images.placeholder)!
     
     private let favoriteSegueIdentifier = "ShowFavorites"
     private let offlineSegueIdentifier = "ShowOffline"
