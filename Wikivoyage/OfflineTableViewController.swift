@@ -20,8 +20,17 @@ class OfflineTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        clearsSelectionOnViewWillAppear = false
         navigationItem.rightBarButtonItem = editButtonItem()
         offlinePages = SavedPage.MR_findByAttribute("offline", withValue: true, andOrderBy: "title", ascending: true) as! [SavedPage]
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        // Need this to clear on back swipe
+        if let row = tableView.indexPathForSelectedRow() {
+            tableView.deselectRowAtIndexPath(row, animated: animated)
+        }
     }
 
     // MARK: - Table View Data Source

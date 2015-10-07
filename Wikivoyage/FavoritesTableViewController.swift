@@ -20,8 +20,17 @@ class FavoritesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        clearsSelectionOnViewWillAppear = false
         navigationItem.rightBarButtonItem = editButtonItem()
         favoritePages = SavedPage.MR_findByAttribute("favorite", withValue: true, andOrderBy: "title", ascending: true) as! [SavedPage]
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        // Need this to clear on back swipe
+        if let row = tableView.indexPathForSelectedRow() {
+            tableView.deselectRowAtIndexPath(row, animated: animated)
+        }
     }
 
     // MARK: - Table View Data Source
