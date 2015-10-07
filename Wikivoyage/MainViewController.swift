@@ -134,7 +134,7 @@ class MainViewController: UIViewController {
         resultsTable = UITableView.newAutoLayoutView()
         resultsTable.dataSource = self
         resultsTable.delegate = self
-        resultsTable.registerClass(SearchResultTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        resultsTable.registerClass(LocationTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         resultsTable.alpha = tableStartingAlpha
         resultsTable.rowHeight = tableRowHeight

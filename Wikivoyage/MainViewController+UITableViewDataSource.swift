@@ -11,9 +11,10 @@ import SDWebImage
 
 extension MainViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! SearchResultTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! LocationTableViewCell
         let searchResult = searchResults[indexPath.row]
         
+        cell.accessoryType = .DisclosureIndicator
         cell.title.text = searchResult.pageTitle
         
         // If there's a thumbnail URL set URL, otherwise it's nil
