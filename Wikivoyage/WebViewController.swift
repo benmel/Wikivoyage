@@ -230,8 +230,8 @@ extension WebViewController: WKScriptMessageHandler {
 
 // MARK: - Popover Presentation Controller Delegate
 
-extension WebViewController: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+extension WebViewController: UIPopoverPresentationControllerDelegate {    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController!, traitCollection: UITraitCollection!) -> UIModalPresentationStyle {
         return .None
     }
 }
