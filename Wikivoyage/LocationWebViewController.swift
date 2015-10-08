@@ -44,19 +44,18 @@ class LocationWebViewController: StaticWebViewController {
     
     func favoritePage() {
         let id = NSNumber(integer: pageId)
+        
         if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
             savedPage.favorite = true
+            NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
         } else {
-            let savedPage = SavedPage.MR_createEntity()
-            savedPage.title = pageTitle
-            savedPage.id = pageId
-            savedPage.favorite = true
-            savedPage.offline = false
+            let newPage = SavedPage.MR_createEntity()
+            newPage.title = pageTitle
+            newPage.id = pageId
+            newPage.favorite = true
+            newPage.offline = false
+            getThumbnail(newPage)
         }
-        
-        NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
-        
-        getThumbnail()
     }
     
     func downloadPage() {
@@ -80,25 +79,23 @@ class LocationWebViewController: StaticWebViewController {
                 // Check if it's already saved and save HTML
                 let id = NSNumber(integer: self.pageId)
                 if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
-                    savedPage.html = json["parse"]["text"]["*"].stringValue
+                    savedPage.html = json["parse"]["text"]["*"].string
                     savedPage.offline = true
+                    NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
                 } else {
-                    let savedPage = SavedPage.MR_createEntity()
-                    savedPage.title = self.pageTitle
-                    savedPage.id = self.pageId
-                    savedPage.html = json["parse"]["text"]["*"].stringValue
-                    savedPage.favorite = false
-                    savedPage.offline = true
+                    let newPage = SavedPage.MR_createEntity()
+                    newPage.title = self.pageTitle
+                    newPage.id = self.pageId
+                    newPage.html = json["parse"]["text"]["*"].string
+                    newPage.favorite = false
+                    newPage.offline = true
+                    self.getThumbnail(newPage)
                 }
-                
-                NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
-
-                self.getThumbnail()
             }
         }
     }
     
-    func getThumbnail() {
+    func getThumbnail(newPage: SavedPage) {
         let parameters: [String: AnyObject] = [
             "action": "query",
             "format": "json",
@@ -117,15 +114,9 @@ class LocationWebViewController: StaticWebViewController {
                 let json = JSON(data!)
                 let page = json["query"]["pages"][String(self.pageId)]
                 let thumbnailURL = page["thumbnail"]["source"].string
-                
-                // Save thumbnail to an existing page
-                let id = NSNumber(integer: self.pageId)
-                if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
-                    savedPage.thumbnailURL = thumbnailURL
-                    NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
-                }
-                
+                newPage.thumbnailURL = thumbnailURL
             }
+            NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
         }
     }
 }

@@ -17,6 +17,7 @@ class OfflineTableViewController: UITableViewController {
     private let cellIdentifier = "OfflinePage"
     private let segueIdentifier = "ShowWeb"
     private let placeholder = UIImage(named: Images.placeholder)!
+    private let errorMessage = "Offline page is not available"
     
     // MARK: - View Lifecycle
     
@@ -88,7 +89,11 @@ class OfflineTableViewController: UITableViewController {
         if segue.identifier == segueIdentifier {
             let vc = segue.destinationViewController as! OfflineWebViewController
             let offlinePage = sender as! SavedPage
-            vc.html = offlinePage.html
+            if let html = offlinePage.html {
+                vc.html = html
+            } else {
+                vc.html = errorMessage
+            }
             vc.title = offlinePage.title
         }
     }

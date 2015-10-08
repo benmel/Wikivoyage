@@ -3,7 +3,7 @@
     <entity name="SavedPage" representedClassName="Wikivoyage.SavedPage" syncable="YES">
         <attribute name="favorite" attributeType="Boolean" syncable="YES"/>
         <attribute name="html" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="id" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="id" attributeType="Integer 64" syncable="YES"/>
         <attribute name="offline" attributeType="Boolean" syncable="YES"/>
         <attribute name="thumbnailURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>

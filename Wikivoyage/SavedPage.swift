@@ -11,7 +11,7 @@ import CoreData
 
 class SavedPage: NSManagedObject {
 
-    @NSManaged var html: String
+    @NSManaged var html: String?
     @NSManaged var id: NSNumber
     @NSManaged var title: String
     @NSManaged var favorite: NSNumber
