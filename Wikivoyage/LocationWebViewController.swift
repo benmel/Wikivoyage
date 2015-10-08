@@ -66,7 +66,8 @@ class LocationWebViewController: StaticWebViewController {
             "pageid": pageId,
             "prop": "text",
             "mobileformat": "",
-            "noimages": ""
+            "noimages": "",
+            "disableeditsection": ""
         ]
         
         Alamofire.request(.GET, API.baseURL, parameters: parameters).responseJSON() {

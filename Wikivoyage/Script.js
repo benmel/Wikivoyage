@@ -24,8 +24,7 @@ function applyOfflineStyle() {
                             table.metadata {display:none} \
                             table#climate_table {border-collapse:collapse;float:none !important;margin-left:0 !important;margin-right:0 !important;overflow-y:hidden;overflow-x:auto;display:block;width:100% !important} \
                             div.thumb {display:none} \
-                            span.mw-mf-image-replacement {display:none} \
-                            span.mw-editsection {display:none}';
+                            span.mw-mf-image-replacement {display:none}';
     document.documentElement.appendChild(styleTag);
     
     var a = document.getElementsByTagName('a');
