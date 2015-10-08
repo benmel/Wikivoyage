@@ -1,3 +1,2 @@
 applyZoom();
-applyWikiStyle();
 applyOfflineStyle();
