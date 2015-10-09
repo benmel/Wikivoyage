@@ -66,13 +66,18 @@ extension LocationWebViewController {
     }
     
     func createFavorite(thumbnailURL: String?) {
-        let newPage = SavedPage.MR_createEntity()
-        newPage.title = pageTitle
-        newPage.id = pageId
-        newPage.favorite = true
-        newPage.offline = false
-        newPage.thumbnailURL = thumbnailURL
-        saveAddFavorite()
+        let id = NSNumber(integer: self.pageId)
+        if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
+            // It exists, don't reinsert
+        } else {
+            let newPage = SavedPage.MR_createEntity()
+            newPage.title = pageTitle
+            newPage.id = pageId
+            newPage.favorite = true
+            newPage.offline = false
+            newPage.thumbnailURL = thumbnailURL
+            saveAddFavorite()
+        }
     }
     
     // MARK: - Offline
@@ -160,14 +165,19 @@ extension LocationWebViewController {
     }
     
     func createOffline(html: String?, thumbnailURL: String?) {
-        let newPage = SavedPage.MR_createEntity()
-        newPage.title = pageTitle
-        newPage.id = pageId
-        newPage.html = html
-        newPage.favorite = false
-        newPage.offline = true
-        newPage.thumbnailURL = thumbnailURL
-        saveAddOffline()
+        let id = NSNumber(integer: self.pageId)
+        if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
+            // It exists, don't reinsert
+        } else {
+            let newPage = SavedPage.MR_createEntity()
+            newPage.title = pageTitle
+            newPage.id = pageId
+            newPage.html = html
+            newPage.favorite = false
+            newPage.offline = true
+            newPage.thumbnailURL = thumbnailURL
+            saveAddOffline()
+        }
     }
     
     // MARK: - Save
