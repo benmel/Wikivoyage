@@ -209,7 +209,7 @@
         <!--Navigation Controller-->
         <scene sceneID="7oV-Hl-VJC">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nB5-JT-7ZS" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nB5-JT-7ZS" customClass="NavigationController" customModule="Wikivoyage" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vF0-Qp-asW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
