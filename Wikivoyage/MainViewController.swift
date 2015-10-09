@@ -21,6 +21,7 @@ class MainViewController: UIViewController {
     var searchButton: UIButton!
     var searchButtonWidthConstraint, searchButtonHeightConstraint, searchButtonEdgeConstraint: NSLayoutConstraint?
     
+    var imageView: UIImageView!
     var favoriteButton, offlineButton: UIButton!
     
     var resultsTable: UITableView!
@@ -48,6 +49,7 @@ class MainViewController: UIViewController {
     private let searchButtonColor = UIColor.redColor()
     private let otherButtonColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
     
+    private let imageViewSpacing: CGFloat = 10
     private let searchButtonWidth: CGFloat = 300
     private let otherButtonWidth: CGFloat = 250
     private let searchButtonStartingHeight: CGFloat = 60
@@ -68,6 +70,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        setupImageView()
         setupSearchBar()
         setupSearchButton()
         setupOtherButtons()
@@ -91,6 +94,13 @@ class MainViewController: UIViewController {
         bottomSpace = UIView.newAutoLayoutView()
         bottomView.addSubview(topSpace)
         bottomView.addSubview(bottomSpace)
+    }
+    
+    func setupImageView() {
+        imageView = UIImageView.newAutoLayoutView()
+        imageView.image = placeholder
+        imageView.contentMode = .ScaleAspectFit
+        topView.addSubview(imageView)
     }
     
     func setupSearchBar() {
@@ -160,6 +170,10 @@ class MainViewController: UIViewController {
             bottomView.autoMatchDimension(.Width, toDimension: .Width, ofView: view)
             let views = NSArray(array: [topView, bottomView])
             views.autoDistributeViewsAlongAxis(.Vertical, alignedTo: .Vertical, withFixedSpacing: 0)
+            
+            imageView.autoAlignAxisToSuperviewAxis(.Vertical)
+            imageView.autoPinEdge(.Top, toEdge: .Top, ofView: topView, withOffset: imageViewSpacing)
+            imageView.autoPinEdge(.Bottom, toEdge: .Bottom, ofView: topView, withOffset: -searchButtonStartingHeight-imageViewSpacing)
             
             locationSearchBar.autoAlignAxisToSuperviewAxis(.Vertical)
             locationSearchBar.autoMatchDimension(.Width, toDimension: .Width, ofView: topView)
