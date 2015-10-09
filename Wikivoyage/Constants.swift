@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Ben Meline. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct API {
     static let baseURL = "http://en.wikivoyage.org/w/api.php"
@@ -17,4 +17,9 @@ struct API {
 struct Images {
     static let placeholder = "placeholder"
     static let thumbnailSize = 128
+}
+
+struct Color {
+    static let emptyButtonColor = UIColor.blueColor()
+    static let fullButtonColor = UIColor.redColor()
 }

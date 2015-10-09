@@ -120,6 +120,18 @@ class FavoritesTableViewController: UITableViewController {
             let favoritePage = sender as! SavedPage
             vc.pageId = Int(favoritePage.id)
             vc.pageTitle = favoritePage.title
+            vc.delegate = self
+            vc.favoriteButton.tintColor = Color.fullButtonColor
+            vc.downloadButton.tintColor = (favoritePage.offline == true) ? Color.fullButtonColor : Color.emptyButtonColor
         }
+    }
+}
+
+// MARK: - Location Web View Controller Delegate
+
+extension FavoritesTableViewController: LocationWebViewControllerDelegate {
+    func locationWebViewControllerDidUpdatePages(controller: LocationWebViewController) {
+        favoritePages = SavedPage.MR_findByAttribute("favorite", withValue: true, andOrderBy: "title", ascending: true) as! [SavedPage]
+        tableView.reloadData()
     }
 }

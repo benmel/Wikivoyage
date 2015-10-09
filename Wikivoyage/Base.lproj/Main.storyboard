@@ -63,6 +63,8 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="contentsButton" destination="Nuf-n0-Lca" id="H4r-LU-1E4"/>
+                        <outlet property="downloadButton" destination="UMo-zy-XbX" id="YBo-jg-9RU"/>
+                        <outlet property="favoriteButton" destination="NY4-wl-BcV" id="88T-pB-zYs"/>
                         <segue destination="pON-Ou-aaa" kind="presentation" identifier="ShowWebExternal" id="O7c-6p-yKS"/>
                     </connections>
                 </viewController>
