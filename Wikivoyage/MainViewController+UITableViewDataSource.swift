@@ -27,13 +27,7 @@ extension MainViewController: UITableViewDataSource {
         return cell
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchResults.isEmpty {
-            tableView.separatorStyle = .None
-        } else {
-            tableView.separatorStyle = .SingleLine
-        }
-        
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        
         return searchResults.count
     }
 }

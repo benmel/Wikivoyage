@@ -16,14 +16,22 @@ class FavoritesTableViewController: UITableViewController {
     private let tableRowHeight: CGFloat = 60
     private let cellIdentifier = "FavoritePage"
     private let segueIdentifier = "ShowWeb"
+    
     private let placeholder = UIImage(named: Images.placeholder)!
+    private let emptyBackgroundColor = UIColor.groupTableViewBackgroundColor()
+    private let backgroundColor = UIColor.whiteColor()
+    
+    private let topMessage = "Favorite Locations"
+    private let bottomMessage = "You don't have any favorite locations yet. Click the star button on a location to add it."
     
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = tableRowHeight
-        tableView.tableFooterView = UIView(frame: CGRectZero)
+        
+        setupEmptyMessage()
+        setupTable()
+        
         clearsSelectionOnViewWillAppear = false
         navigationItem.rightBarButtonItem = editButtonItem()
         favoritePages = SavedPage.MR_findByAttribute("favorite", withValue: true, andOrderBy: "title", ascending: true) as! [SavedPage]
@@ -36,13 +44,35 @@ class FavoritesTableViewController: UITableViewController {
             tableView.deselectRowAtIndexPath(row, animated: animated)
         }
     }
+    
+    // MARK: - Initialization
+    
+    func setupTable() {
+        tableView.rowHeight = tableRowHeight
+        tableView.tableFooterView = UIView(frame: CGRectZero)
+    }
+    
+    func setupEmptyMessage() {
+        let emptyBackgroundView = EmptyBackgroundView(image: placeholder, top: topMessage, bottom: bottomMessage)
+        emptyBackgroundView.setNeedsUpdateConstraints()
+        emptyBackgroundView.updateConstraintsIfNeeded()
+        tableView.backgroundView = emptyBackgroundView
+    }
 
     // MARK: - Table View Data Source
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if favoritePages.count == 0 {
+            tableView.backgroundColor = emptyBackgroundColor
+            tableView.backgroundView?.hidden = false
+        } else {
+            tableView.backgroundColor = backgroundColor
+            tableView.backgroundView?.hidden = true
+        }
+        
         return favoritePages.count
     }
-
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! LocationTableViewCell
         let favoritePage = favoritePages[indexPath.row]
