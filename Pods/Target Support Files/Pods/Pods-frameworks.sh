@@ -53,6 +53,7 @@ code_sign_if_enabled() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'Pods/Alamofire.framework'
+  install_framework 'Pods/MBProgressHUD.framework'
   install_framework 'Pods/MagicalRecord.framework'
   install_framework 'Pods/PureLayout.framework'
   install_framework 'Pods/SDWebImage.framework'
@@ -60,6 +61,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'Pods/Alamofire.framework'
+  install_framework 'Pods/MBProgressHUD.framework'
   install_framework 'Pods/MagicalRecord.framework'
   install_framework 'Pods/PureLayout.framework'
   install_framework 'Pods/SDWebImage.framework'
