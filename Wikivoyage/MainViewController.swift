@@ -12,6 +12,7 @@ import PureLayout
 class MainViewController: UIViewController {
 
     var topView, bottomView: UIView!
+    var topSpace, bottomSpace: UIView!
     
     var locationSearchBar: UISearchBar!
     var searchBarDimensionConstraint, searchBarEdgeConstraint: NSLayoutConstraint?
@@ -41,7 +42,8 @@ class MainViewController: UIViewController {
     private let offlineButtonTitle = "Offline Locations"
     
     private let allButtonTitleColor = UIColor.darkTextColor()
-    private let allButtonCornerRadius: CGFloat = 5
+    let allButtonStartingCornerRadius: CGFloat = 5
+    let allButtonEndingCornerRadius: CGFloat = 0
     
     private let searchButtonColor = UIColor.redColor()
     private let otherButtonColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
@@ -50,7 +52,8 @@ class MainViewController: UIViewController {
     private let otherButtonWidth: CGFloat = 250
     private let searchButtonStartingHeight: CGFloat = 60
     private let searchButtonEndingHeight: CGFloat = 44
-    private let otherButtonSpacing: CGFloat = 30
+    private let otherButtonSpacing: CGFloat = 15
+    private let otherButtonHeight: CGFloat = 100
     private let tableRowHeight: CGFloat = 60
     
     let cellIdentifier = "TableCell"
@@ -83,6 +86,11 @@ class MainViewController: UIViewController {
         bottomView = UIView.newAutoLayoutView()
         view.addSubview(topView)
         view.addSubview(bottomView)
+        
+        topSpace = UIView.newAutoLayoutView()
+        bottomSpace = UIView.newAutoLayoutView()
+        bottomView.addSubview(topSpace)
+        bottomView.addSubview(bottomSpace)
     }
     
     func setupSearchBar() {
@@ -101,7 +109,7 @@ class MainViewController: UIViewController {
         
         searchButton.setTitleColor(allButtonTitleColor, forState: .Normal)
         searchButton.backgroundColor = searchButtonColor
-        searchButton.layer.cornerRadius = allButtonCornerRadius
+        searchButton.layer.cornerRadius = allButtonStartingCornerRadius
         
         topView.addSubview(searchButton)
     }
@@ -114,7 +122,7 @@ class MainViewController: UIViewController {
         
         favoriteButton.setTitleColor(allButtonTitleColor, forState: .Normal)
         favoriteButton.backgroundColor = otherButtonColor
-        favoriteButton.layer.cornerRadius = allButtonCornerRadius
+        favoriteButton.layer.cornerRadius = allButtonStartingCornerRadius
         
         bottomView.addSubview(favoriteButton)
         
@@ -125,7 +133,7 @@ class MainViewController: UIViewController {
         
         offlineButton.setTitleColor(allButtonTitleColor, forState: .Normal)
         offlineButton.backgroundColor = otherButtonColor
-        offlineButton.layer.cornerRadius = allButtonCornerRadius
+        offlineButton.layer.cornerRadius = allButtonStartingCornerRadius
         
         bottomView.addSubview(offlineButton)
     }
@@ -159,12 +167,25 @@ class MainViewController: UIViewController {
             
             searchButton.autoAlignAxisToSuperviewAxis(.Vertical)
             
+            topSpace.autoAlignAxisToSuperviewAxis(.Vertical)
+            topSpace.autoPinEdgeToSuperviewEdge(.Top)
+            bottomSpace.autoAlignAxisToSuperviewAxis(.Vertical)
+            bottomSpace.autoPinEdgeToSuperviewEdge(.Bottom)
+            topSpace.autoSetDimension(.Height, toSize: otherButtonSpacing, relation: .GreaterThanOrEqual)
+            topSpace.autoMatchDimension(.Height, toDimension: .Height, ofView: bottomSpace)
+            
             favoriteButton.autoSetDimension(.Width, toSize: otherButtonWidth)
             favoriteButton.autoAlignAxisToSuperviewAxis(.Vertical)
             offlineButton.autoSetDimension(.Width, toSize: otherButtonWidth)
             offlineButton.autoAlignAxisToSuperviewAxis(.Vertical)
-            let buttons = NSArray(array: [favoriteButton, offlineButton])
-            buttons.autoDistributeViewsAlongAxis(.Vertical, alignedTo: .Vertical, withFixedSpacing: otherButtonSpacing)
+            favoriteButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: topSpace)
+            offlineButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: favoriteButton, withOffset: otherButtonSpacing)
+            offlineButton.autoPinEdge(.Bottom, toEdge: .Top, ofView: bottomSpace)
+            
+            NSLayoutConstraint.autoSetPriority(750) {
+                favoriteButton.autoSetDimension(.Height, toSize: otherButtonHeight, relation: .Equal)
+            }
+            favoriteButton.autoMatchDimension(.Height, toDimension: .Height, ofView: offlineButton)
             
             resultsTable.autoAlignAxisToSuperviewAxis(.Vertical)
             resultsTable.autoPinEdgeToSuperviewEdge(.Leading)

@@ -43,6 +43,7 @@ extension MainViewController {
                         searchBar.alpha = self.searchBarEndingAlpha
                         self.resultsTable.alpha = self.tableEndingAlpha
                         self.searchButton.alpha = self.searchButtonEndingAlpha
+                        self.searchButton.layer.cornerRadius = self.allButtonEndingCornerRadius
                     }, completion: { finished in
                         searchBar.becomeFirstResponder()
                     }
@@ -61,6 +62,7 @@ extension MainViewController {
                     searchBar.alpha = self.searchBarStartingAlpha
                     self.resultsTable.alpha = self.tableStartingAlpha
                     self.searchButton.alpha = self.searchButtonStartingAlpha
+                    self.searchButton.layer.cornerRadius = self.allButtonStartingCornerRadius
                 }, completion:  { finished in
                     self.view.setNeedsUpdateConstraints()
                     self.view.updateConstraintsIfNeeded()
