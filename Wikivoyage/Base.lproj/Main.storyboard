@@ -63,6 +63,8 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="contentsButton" destination="Nuf-n0-Lca" id="H4r-LU-1E4"/>
+                        <outlet property="downloadButton" destination="UMo-zy-XbX" id="YBo-jg-9RU"/>
+                        <outlet property="favoriteButton" destination="NY4-wl-BcV" id="88T-pB-zYs"/>
                         <segue destination="pON-Ou-aaa" kind="presentation" identifier="ShowWebExternal" id="O7c-6p-yKS"/>
                     </connections>
                 </viewController>
@@ -207,7 +209,7 @@
         <!--Navigation Controller-->
         <scene sceneID="7oV-Hl-VJC">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nB5-JT-7ZS" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nB5-JT-7ZS" customClass="NavigationController" customModule="Wikivoyage" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vF0-Qp-asW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

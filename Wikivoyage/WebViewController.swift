@@ -110,7 +110,11 @@ class WebViewController: UIViewController {
     
     override func updateViewConstraints() {
         if !didSetupConstraints {
-            webView.autoPinEdgesToSuperviewEdges()
+            webView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            webView.autoPinToBottomLayoutGuideOfViewController(self, withInset: 0)
+            webView.autoPinEdgeToSuperviewEdge(.Leading)
+            webView.autoPinEdgeToSuperviewEdge(.Trailing)
+            
             progressView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
             progressView.autoPinEdgeToSuperviewEdge(.Leading)
             progressView.autoPinEdgeToSuperviewEdge(.Trailing)

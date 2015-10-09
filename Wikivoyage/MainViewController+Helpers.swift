@@ -80,6 +80,7 @@ extension MainViewController {
             searchBar.alpha = searchBarStartingAlpha
             resultsTable.alpha = tableStartingAlpha
             searchButton.alpha = searchButtonStartingAlpha
+            searchButton.layer.cornerRadius = allButtonStartingCornerRadius
         }
     }
     

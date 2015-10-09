@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (1.3.1)
   - MagicalRecord (2.3.0)
+  - MBProgressHUD (0.9.1)
   - PureLayout (3.0.1)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
@@ -10,6 +11,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 1.3)
   - MagicalRecord (~> 2.3.0)
+  - MBProgressHUD (~> 0.9.1)
   - PureLayout (~> 3.0.1)
   - SDWebImage (~> 3.7.3)
   - SwiftyJSON (~> 2.2.1)
@@ -17,6 +19,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: e4ab637e3195b645c814b87a652373439e59f2a4
   MagicalRecord: 89eb7d7ead39fb37f01c3d010665ee94d17f8dba
+  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SwiftyJSON: ae2d0a3d68025d136602a33c4ee215091ced3e33

@@ -8,6 +8,7 @@
 
 import UIKit
 import PureLayout
+import MagicalRecord
 
 class MainViewController: UIViewController {
 
@@ -249,6 +250,14 @@ class MainViewController: UIViewController {
             let searchResult = sender as! SearchResult
             vc.pageId = searchResult.pageId
             vc.pageTitle = searchResult.pageTitle
+            let id = NSNumber(integer: searchResult.pageId)
+            if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
+                vc.favoriteButton.tintColor = (savedPage.favorite == true) ? Color.fullButtonColor : Color.emptyButtonColor
+                vc.downloadButton.tintColor = (savedPage.offline == true) ? Color.fullButtonColor : Color.emptyButtonColor
+            } else {
+                vc.favoriteButton.tintColor = Color.emptyButtonColor
+                vc.downloadButton.tintColor = Color.emptyButtonColor
+            }
         }
     }
 }
