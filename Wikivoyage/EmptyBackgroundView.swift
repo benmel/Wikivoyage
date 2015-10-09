@@ -16,8 +16,11 @@ class EmptyBackgroundView: UIView {
     var imageView = UIImageView.newAutoLayoutView()
     var topLabel = UILabel.newAutoLayoutView()
     var bottomLabel = UILabel.newAutoLayoutView()
-    
     var didSetupConstraints = false
+    
+    private let spacing: CGFloat = 10
+    private let imageViewHeight: CGFloat = 200
+    private let bottomLabelWidth: CGFloat = 300
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -67,20 +70,20 @@ class EmptyBackgroundView: UIView {
             topSpace.autoPinEdgeToSuperviewEdge(.Top)
             bottomSpace.autoAlignAxisToSuperviewAxis(.Vertical)
             bottomSpace.autoPinEdgeToSuperviewEdge(.Bottom)
-            topSpace.autoSetDimension(.Height, toSize: 10, relation: .GreaterThanOrEqual)
+            topSpace.autoSetDimension(.Height, toSize: spacing, relation: .GreaterThanOrEqual)
             topSpace.autoMatchDimension(.Height, toDimension: .Height, ofView: bottomSpace)
             
             imageView.autoPinEdge(.Top, toEdge: .Bottom, ofView: topSpace)
             imageView.autoAlignAxisToSuperviewAxis(.Vertical)
-            imageView.autoSetDimension(.Height, toSize: 200, relation: .LessThanOrEqual)
+            imageView.autoSetDimension(.Height, toSize: imageViewHeight, relation: .LessThanOrEqual)
             
             topLabel.autoAlignAxisToSuperviewAxis(.Vertical)
-            topLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: imageView, withOffset: 10)
+            topLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: imageView, withOffset: spacing)
             
             bottomLabel.autoAlignAxisToSuperviewAxis(.Vertical)
-            bottomLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: topLabel, withOffset: 10)
+            bottomLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: topLabel, withOffset: spacing)
             bottomLabel.autoPinEdge(.Bottom, toEdge: .Top, ofView: bottomSpace)
-            bottomLabel.autoSetDimension(.Width, toSize: 300)
+            bottomLabel.autoSetDimension(.Width, toSize: bottomLabelWidth)
             
             didSetupConstraints = true
         }
