@@ -6,15 +6,18 @@
 //  Copyright (c) 2015 Ben Meline. All rights reserved.
 //
 
-import UIKit
-import MagicalRecord
+import WebKit
 import MapKit
+import MagicalRecord
 
 protocol LocationWebViewControllerDelegate {
     func locationWebViewControllerDidUpdatePages(controller: LocationWebViewController)
 }
 
-class LocationWebViewController: StaticWebViewController {
+class LocationWebViewController: WebViewController {
+    
+    var pageId: Int!
+    var pageTitle: String!
     
     var delegate: LocationWebViewControllerDelegate?
     var coordinate: CLLocationCoordinate2D?
@@ -29,6 +32,7 @@ class LocationWebViewController: StaticWebViewController {
     @IBOutlet var favoriteButton: UIBarButtonItem!
     @IBOutlet var downloadButton: UIBarButtonItem!
     
+    private let segueIdentifier = "ShowWebExternal"
     private let mapIdentifier = "ShowMap"
     
     // MARK: - View Lifecycle
@@ -60,6 +64,34 @@ class LocationWebViewController: StaticWebViewController {
     @IBAction func showMap(sender: AnyObject) {
         performSegueWithIdentifier(mapIdentifier, sender: sender)
     }
+    
+    // MARK: - Initialization
+    
+    override func requestURL() {
+        let path = pageTitle.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLPathAllowedCharacterSet())
+        let url = NSURL(string: API.siteURL + path!)
+        let request = NSURLRequest(URL: url!, cachePolicy: .UseProtocolCachePolicy, timeoutInterval: API.requestTimeout)
+        webView.loadRequest(request)
+    }
+    
+    // MARK: - WebKit Navigation Delegate
+    
+    // Open links in modal
+    func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
+        // Cancel navigation if request is for a different page, otherwise allow it
+        if navigationAction.navigationType == .LinkActivated {
+            if !isInternalLink(webView, navigationAction: navigationAction) {
+                decisionHandler(WKNavigationActionPolicy.Cancel)
+                if let url = navigationAction.request.URL {
+                    performSegueWithIdentifier(segueIdentifier, sender: url)
+                }
+            }
+        }
+        
+        decisionHandler(WKNavigationActionPolicy.Allow)
+    }
+    
+    // MARK: - Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == segueIdentifier {
