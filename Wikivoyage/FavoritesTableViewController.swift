@@ -120,6 +120,7 @@ class FavoritesTableViewController: UITableViewController {
             let favoritePage = sender as! SavedPage
             vc.pageId = Int(favoritePage.id)
             vc.pageTitle = favoritePage.title
+            vc.title = favoritePage.title
             vc.delegate = self
             vc.favoriteButton.tintColor = Color.fullButtonColor
             vc.downloadButton.tintColor = (favoritePage.offline == true) ? Color.fullButtonColor : Color.emptyButtonColor

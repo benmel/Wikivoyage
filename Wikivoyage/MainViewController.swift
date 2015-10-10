@@ -250,6 +250,7 @@ class MainViewController: UIViewController {
             let searchResult = sender as! SearchResult
             vc.pageId = searchResult.pageId
             vc.pageTitle = searchResult.pageTitle
+            vc.title = searchResult.pageTitle
             let id = NSNumber(integer: searchResult.pageId)
             if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
                 vc.favoriteButton.tintColor = (savedPage.favorite == true) ? Color.fullButtonColor : Color.emptyButtonColor
