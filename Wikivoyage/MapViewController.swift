@@ -15,7 +15,7 @@ class MapViewController: UIViewController {
     var mapView: MKMapView!
     var coordinate: CLLocationCoordinate2D?
     
-    private let span = MKCoordinateSpanMake(0.2, 0.2)
+    private let span = MKCoordinateSpanMake(0.4, 0.4)
     private let backgroundColor = UIColor.blackColor()
     private let errorMessage = "Local map not available"
     
