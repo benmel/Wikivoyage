@@ -12,7 +12,7 @@ extension MainViewController {
     func dismissKeyboard() {
         locationSearchBar.resignFirstResponder()
         // Test if cancel button is needed
-        // enableCancelButton(locationSearchBar)
+         enableCancelButton(locationSearchBar)
     }
     
     // Prevent cancel button from being disabled automatically
@@ -34,8 +34,9 @@ extension MainViewController {
         view.setNeedsUpdateConstraints()
         view.updateConstraintsIfNeeded()
         
-        UIView.animateWithDuration(0.5,
+        UIView.animateWithDuration(0.3,
             animations: {
+                searchBar.becomeFirstResponder()
                 self.view.layoutIfNeeded()
             }, completion: { finished in
                 UIView.animateWithDuration(0.2,
@@ -44,8 +45,6 @@ extension MainViewController {
                         self.resultsTable.alpha = self.tableEndingAlpha
                         self.searchButton.alpha = self.searchButtonEndingAlpha
                         self.searchButton.layer.cornerRadius = self.allButtonEndingCornerRadius
-                    }, completion: { finished in
-                        searchBar.becomeFirstResponder()
                     }
                 )
             }
@@ -54,7 +53,6 @@ extension MainViewController {
     
     func dismissSearchBar(searchBar: UISearchBar, animated: Bool) {
         searchBarTop = false
-        searchBar.resignFirstResponder()
         
         if animated {
             UIView.animateWithDuration(0.2,
@@ -66,14 +64,16 @@ extension MainViewController {
                 }, completion:  { finished in
                     self.view.setNeedsUpdateConstraints()
                     self.view.updateConstraintsIfNeeded()
-                    UIView.animateWithDuration(0.5,
+                    UIView.animateWithDuration(0.3,
                         animations: {
+                            searchBar.resignFirstResponder()
                             self.view.layoutIfNeeded()
                         }
                     )
                 }
             )
         } else {
+            searchBar.resignFirstResponder()
             view.setNeedsUpdateConstraints()
             view.updateConstraintsIfNeeded()
             view.layoutIfNeeded()

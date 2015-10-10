@@ -52,6 +52,11 @@
                                 <action selector="download:" destination="HAa-UP-UoE" id="3J7-hp-Le7"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem title="Map" id="DlG-XS-WQu">
+                            <connections>
+                                <action selector="showMap:" destination="HAa-UP-UoE" id="nd8-ME-P32"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="5gH-QD-niu">
                         <barButtonItem key="rightBarButtonItem" title="Contents" id="Nuf-n0-Lca">
@@ -66,6 +71,7 @@
                         <outlet property="downloadButton" destination="UMo-zy-XbX" id="YBo-jg-9RU"/>
                         <outlet property="favoriteButton" destination="NY4-wl-BcV" id="88T-pB-zYs"/>
                         <segue destination="pON-Ou-aaa" kind="presentation" identifier="ShowWebExternal" id="O7c-6p-yKS"/>
+                        <segue destination="lFg-mJ-bHx" kind="show" identifier="ShowMap" id="PSY-to-bQg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UcU-GP-fyg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -116,7 +122,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hco-Nb-hjW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3801" y="315"/>
+            <point key="canvasLocation" x="3757" y="-549"/>
         </scene>
         <!--Offline Web View Controller-->
         <scene sceneID="QgH-0n-E4m">
@@ -139,14 +145,13 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="contentsButton" destination="0YK-VK-26c" id="4V5-MI-hWS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cHZ-bs-Xtx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2955" y="1191"/>
+            <point key="canvasLocation" x="2987" y="1191"/>
         </scene>
         <!--Favorites Table View Controller-->
         <scene sceneID="jG6-dL-nI9">
@@ -246,7 +251,26 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dEQ-Gm-nHd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2955" y="315"/>
+            <point key="canvasLocation" x="2987" y="-549"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="47F-wY-Ki5">
+            <objects>
+                <viewController id="lFg-mJ-bHx" customClass="MapViewController" customModule="Wikivoyage" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gaf-ze-fyy"/>
+                        <viewControllerLayoutGuide type="bottom" id="LWy-4k-Hsy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FV0-Q4-1XO">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dZy-Ad-HZx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2987" y="315"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
