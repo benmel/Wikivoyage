@@ -13,7 +13,7 @@ class StaticWebViewController: WebViewController {
     var pageId: Int!
     var pageTitle: String!
     
-    private let segueIdentifier = "ShowWebExternal"
+    let segueIdentifier = "ShowWebExternal"
     
     // MARK: - Initialization
     
@@ -68,15 +68,5 @@ class StaticWebViewController: WebViewController {
         }
         
         return true
-    }
-    
-    // MARK: - Navigation
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == segueIdentifier {
-            let vc = segue.destinationViewController.topViewController as! ExternalWebViewController
-            let url = sender as! NSURL
-            vc.url = url
-        }
     }
 }

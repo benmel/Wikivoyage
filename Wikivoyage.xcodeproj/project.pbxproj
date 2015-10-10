@@ -10,6 +10,7 @@
 		1A4B551DB193EA96E5053ED5 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D082FFE26EA8EC76B824C238 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		B5004B221BC8276800A840D1 /* LocationWebViewController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5004B211BC8276800A840D1 /* LocationWebViewController+Helpers.swift */; };
 		B5004B241BC87C5C00A840D1 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5004B231BC87C5C00A840D1 /* NavigationController.swift */; };
+		B5004B261BC88CE900A840D1 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5004B251BC88CE900A840D1 /* MapViewController.swift */; };
 		B504E2121BA34EC6006082E6 /* LocationWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B504E2111BA34EC6006082E6 /* LocationWebViewController.swift */; };
 		B51BDCF11B9519CE00248A5D /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51BDCF01B9519CE00248A5D /* SearchResult.swift */; };
 		B521D1241BAA206F00C9EE91 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B521D1231BAA206F00C9EE91 /* WebViewController.swift */; };
@@ -55,6 +56,7 @@
 		94EC4E1D695817031619BEA6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B5004B211BC8276800A840D1 /* LocationWebViewController+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LocationWebViewController+Helpers.swift"; sourceTree = "<group>"; };
 		B5004B231BC87C5C00A840D1 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		B5004B251BC88CE900A840D1 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		B504E2111BA34EC6006082E6 /* LocationWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationWebViewController.swift; sourceTree = "<group>"; };
 		B51BDCF01B9519CE00248A5D /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		B521D1231BAA206F00C9EE91 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 		E7194EDE1BC089A2009054F0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B5004B251BC88CE900A840D1 /* MapViewController.swift */,
 				B5004B231BC87C5C00A840D1 /* NavigationController.swift */,
 				B5EB8AB61B90F0A900CB9E38 /* FavoritesTableViewController.swift */,
 				B5EB8AB81B90F0BB00CB9E38 /* OfflineTableViewController.swift */,
@@ -425,6 +428,7 @@
 				B504E2121BA34EC6006082E6 /* LocationWebViewController.swift in Sources */,
 				B5ACA5A11BB5F1E800B322D1 /* SavedPage.swift in Sources */,
 				B5BE0FB61BB4F22F005805F7 /* StaticWebViewController.swift in Sources */,
+				B5004B261BC88CE900A840D1 /* MapViewController.swift in Sources */,
 				E7852DC61BC3B03E00E34004 /* MainViewController+UITableViewDataSource.swift in Sources */,
 				B5EB8AB91B90F0BB00CB9E38 /* OfflineTableViewController.swift in Sources */,
 				E7194ED61BBF87A2009054F0 /* WebHeadersTableViewController.swift in Sources */,

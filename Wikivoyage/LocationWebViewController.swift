@@ -8,6 +8,7 @@
 
 import UIKit
 import MagicalRecord
+import MapKit
 
 protocol LocationWebViewControllerDelegate {
     func locationWebViewControllerDidUpdatePages(controller: LocationWebViewController)
@@ -16,6 +17,7 @@ protocol LocationWebViewControllerDelegate {
 class LocationWebViewController: StaticWebViewController {
     
     var delegate: LocationWebViewControllerDelegate?
+    var coordinate: CLLocationCoordinate2D?
     
     let favoriteSuccess = "Location added to favorites"
     let favoriteRemove = "Location removed from favorites"
@@ -27,7 +29,14 @@ class LocationWebViewController: StaticWebViewController {
     @IBOutlet var favoriteButton: UIBarButtonItem!
     @IBOutlet var downloadButton: UIBarButtonItem!
     
+    private let mapIdentifier = "ShowMap"
+    
     // MARK: - View Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        getCoordinatesNumberOfTimes(5)
+    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -47,5 +56,19 @@ class LocationWebViewController: StaticWebViewController {
     
     @IBAction func download(sender: AnyObject) {
         downloadPage()
+    }
+    @IBAction func showMap(sender: AnyObject) {
+        performSegueWithIdentifier(mapIdentifier, sender: sender)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == segueIdentifier {
+            let vc = segue.destinationViewController.topViewController as! ExternalWebViewController
+            let url = sender as! NSURL
+            vc.url = url
+        } else if segue.identifier == mapIdentifier {
+            let vc = segue.destinationViewController as! MapViewController
+            vc.coordinate = coordinate
+        }
     }
 }

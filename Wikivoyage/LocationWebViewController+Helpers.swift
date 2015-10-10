@@ -10,6 +10,7 @@ import Alamofire
 import SwiftyJSON
 import MagicalRecord
 import MBProgressHUD
+import MapKit
 
 extension LocationWebViewController {
     
@@ -227,5 +228,37 @@ extension LocationWebViewController {
         hud.mode = .Text
         hud.removeFromSuperViewOnHide = true
         hud.hide(true, afterDelay: 1)
+    }
+        
+    func getCoordinatesNumberOfTimes(times: Int) {
+        if times <= 0 {
+            // Stops trying
+            NSLog("Error: Couldn't get coordinates")
+        } else {
+            let parameters: [String: AnyObject] = [
+                "action": "query",
+                "format": "json",
+                "pageids": pageId,
+                "prop": "coordinates",
+                "colimit": 1
+            ]
+            
+            Alamofire.request(.GET, API.baseURL, parameters: parameters).responseJSON() {
+                (_, _, data, error) in
+                if(error != nil) {
+                    NSLog("Error: \(error)")
+                    println(times)
+                    self.getCoordinatesNumberOfTimes(times - 1)
+                } else {
+                    let json = JSON(data!)
+                    let coordinates = json["query"]["pages"][String(self.pageId)]["coordinates"][0]
+                    let lat = coordinates["lat"].double
+                    let lon = coordinates["lon"].double
+                    if let latitude = lat, longitude = lon {
+                        self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                    }
+                }
+            }
+        }
     }
 }
