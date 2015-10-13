@@ -21,6 +21,7 @@ class LocationWebViewController: WebViewController {
     
     var delegate: LocationWebViewControllerDelegate?
     var coordinate: CLLocationCoordinate2D?
+    var selectedURL: NSURL!
     
     let favoriteSuccess = "Location added to favorites"
     let favoriteRemove = "Location removed from favorites"
@@ -83,7 +84,8 @@ class LocationWebViewController: WebViewController {
             if !isInternalLink(webView, navigationAction: navigationAction) {
                 decisionHandler(WKNavigationActionPolicy.Cancel)
                 if let url = navigationAction.request.URL {
-                    performSegueWithIdentifier(segueIdentifier, sender: url)
+                    selectedURL = url
+                    performSegueWithIdentifier(segueIdentifier, sender: self)
                 }
             }
         }
@@ -95,12 +97,11 @@ class LocationWebViewController: WebViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == segueIdentifier {
-            let vc = segue.destinationViewController.topViewController as! ExternalWebViewController
-            let url = sender as! NSURL
-            vc.url = url
+            let externalWebViewController = segue.destinationViewController.topViewController as! ExternalWebViewController
+            externalWebViewController.url = selectedURL
         } else if segue.identifier == mapIdentifier {
-            let vc = segue.destinationViewController as! MapViewController
-            vc.coordinate = coordinate
+            let mapViewController = segue.destinationViewController as! MapViewController
+            mapViewController.coordinate = coordinate
         }
     }
 }
