@@ -11,11 +11,11 @@ import UIKit
 extension MainViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let searchResult = searchResults[indexPath.row]
-        performSegueWithIdentifier(webSegueIdentifier, sender: searchResult)
-        dismissKeyboard()
+        selectedSearchResult = searchResult
+        performSegueWithIdentifier(webSegueIdentifier, sender: self)
     }
     
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        dismissKeyboard()
+        mainView.dismissKeyboard()
     }
 }

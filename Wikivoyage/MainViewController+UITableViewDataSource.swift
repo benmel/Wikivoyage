@@ -13,7 +13,11 @@ extension MainViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! LocationTableViewCell
         let searchResult = searchResults[indexPath.row]
-        
+        configureCell(cell, searchResult: searchResult)
+        return cell
+    }
+    
+    func configureCell(cell: LocationTableViewCell, searchResult: SearchResult) {
         cell.accessoryType = .DisclosureIndicator
         cell.title.text = searchResult.pageTitle
         
@@ -23,8 +27,6 @@ extension MainViewController: UITableViewDataSource {
         
         cell.setNeedsUpdateConstraints()
         cell.updateConstraintsIfNeeded()
-        
-        return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        

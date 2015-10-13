@@ -12,14 +12,15 @@ import SwiftyJSON
 
 extension MainViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        dismissKeyboard()
+        mainView.dismissKeyboard()
         if !searchBar.text.isEmpty {
             queryTitles(searchBar.text)
         }
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        resetSearchBar(searchBar, animated: true)
+        searchResults.removeAll(keepCapacity: false)
+        mainView.resetSearchBar(true)
     }
     
     // If the search text stays the same for 0.3 seconds then search
@@ -28,14 +29,12 @@ extension MainViewController: UISearchBarDelegate {
             let delay = 0.3
             let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))
             dispatch_after(time, dispatch_get_main_queue()) {
-                if searchText == self.locationSearchBar.text {
+                if searchText == searchBar.text {
                     self.queryTitles(searchText)
                 }
             }
         }
     }
-    
-    // MARK: - Helpers
     
     func queryTitles(searchTerm: String) {
         // Update lastRequestid
@@ -77,7 +76,7 @@ extension MainViewController: UISearchBarDelegate {
                     }
                     
                     self.searchResults.sort { $0.index < $1.index }
-                    self.resultsTable.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.None)
+                    self.mainView.reloadTableRows()
                 }
             }
         }
