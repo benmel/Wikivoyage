@@ -83,8 +83,7 @@ extension LocationWebViewController {
     // MARK: - Favorite
     
     func favoritePage() {
-        let id = NSNumber(integer: pageId)
-        if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
+        if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: NSNumber(integer: self.pageId)) {
             updateFavoritePage(savedPage)
         } else {
             checkFavoriteStatus()
@@ -98,10 +97,10 @@ extension LocationWebViewController {
             } else {
                 page.favorite = false
             }
-            saveRemoveFavorite()
+            save(favoriteRemove)
         } else {
             page.favorite = true
-            saveAddFavorite()
+            save(favoriteSuccess)
         }
     }
     
@@ -120,8 +119,7 @@ extension LocationWebViewController {
     }
     
     func createFavoritePage() {
-        let id = NSNumber(integer: self.pageId)
-        if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
+        if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: NSNumber(integer: self.pageId)) {
             savedPage.favorite = true
         } else {
             let newPage = SavedPage.MR_createEntity()
@@ -131,7 +129,7 @@ extension LocationWebViewController {
             newPage.offline = false
             newPage.thumbnailURL = attributeManager.thumbnailURL
         }
-        saveAddFavorite()
+        save(favoriteSuccess)
     }
     
     func receivedFavoriteAttributes() {
@@ -158,8 +156,7 @@ extension LocationWebViewController {
     // MARK: - Offline
     
     func downloadPage() {
-        let id = NSNumber(integer: self.pageId)
-        if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
+        if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: NSNumber(integer: self.pageId)) {
             updateOfflinePage(savedPage)
         } else {
             checkOfflineStatus()
@@ -173,7 +170,7 @@ extension LocationWebViewController {
             } else {
                 page.offline = false
             }
-            saveRemoveOffline()
+            save(offlineRemove)
         } else {
             checkOfflineStatus()
         }
@@ -194,8 +191,7 @@ extension LocationWebViewController {
     }
     
     func createOfflinePage() {
-        let id = NSNumber(integer: self.pageId)
-        if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
+        if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: NSNumber(integer: self.pageId)) {
             savedPage.html = attributeManager.html
             savedPage.offline = true
         } else {
@@ -207,7 +203,7 @@ extension LocationWebViewController {
             newPage.offline = true
             newPage.thumbnailURL = attributeManager.thumbnailURL
         }
-        saveAddOffline()
+        save(offlineSuccess)
     }
     
     func receivedOfflineAttributes() {
@@ -232,25 +228,8 @@ extension LocationWebViewController {
     }
     
     // MARK: - Save
-    
-    func saveAddFavorite() {
-        save(favoriteSuccess, button: favoriteButton, color: Color.fullButtonColor)
-    }
-    
-    func saveRemoveFavorite() {
-        save(favoriteRemove, button: favoriteButton, color: Color.emptyButtonColor)
-    }
-    
-    func saveAddOffline() {
-        save(offlineSuccess, button: downloadButton, color: Color.fullButtonColor)
-    }
-    
-    func saveRemoveOffline() {
-        save(offlineRemove, button: downloadButton, color: Color.emptyButtonColor)
-    }
-    
-    // Completion can be called at wrong time, maybe use KVO for button color
-    func save(alert: String, button: UIBarButtonItem, color: UIColor) {
+
+    func save(alert: String) {
         NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion({(success : Bool, error : NSError!) in
             if error != nil {
                 NSLog("Error: \(error)")
@@ -259,17 +238,24 @@ extension LocationWebViewController {
             if success {
                 self.delegate?.locationWebViewControllerDidUpdatePages(self)
                 self.showAlert(alert)
-                self.setButtonColor(button, color: color)
             } else {
                 self.showAlert(self.saveError)
             }
+            
+            self.updateButtons()
         })
     }
     
     // MARK: - Appearance
     
-    func setButtonColor(button: UIBarButtonItem, color: UIColor) {
-        button.tintColor = color
+    func updateButtons() {
+        if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: NSNumber(integer: self.pageId)) {
+            favoriteButton.tintColor = (savedPage.favorite == true) ? Color.fullButtonColor : Color.emptyButtonColor
+            downloadButton.tintColor = (savedPage.offline == true) ? Color.fullButtonColor : Color.emptyButtonColor
+        } else {
+            favoriteButton.tintColor = Color.emptyButtonColor
+            downloadButton.tintColor = Color.emptyButtonColor
+        }
     }
     
     func showAlert(text: String) {

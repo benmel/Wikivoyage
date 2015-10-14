@@ -7,7 +7,6 @@
 //
 
 import WebKit
-import MagicalRecord
 import MBProgressHUD
 
 protocol LocationWebViewControllerDelegate: class {
