@@ -16,6 +16,7 @@
 		B51BDCF11B9519CE00248A5D /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51BDCF01B9519CE00248A5D /* SearchResult.swift */; };
 		B521D1241BAA206F00C9EE91 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B521D1231BAA206F00C9EE91 /* WebViewController.swift */; };
 		B55CB0051BC4A0E0005A1CFF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55CB0041BC4A0E0005A1CFF /* Constants.swift */; };
+		B5A4998B1BCDF19200E24FC4 /* AttributeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A4998A1BCDF19200E24FC4 /* AttributeManager.swift */; };
 		B5A61D651BC72C0C00FD4CC7 /* EmptyBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A61D641BC72C0C00FD4CC7 /* EmptyBackgroundView.swift */; };
 		B5ACA5A11BB5F1E800B322D1 /* SavedPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5ACA5A01BB5F1E800B322D1 /* SavedPage.swift */; };
 		B5BE0FB41BB4D2CC005805F7 /* ExternalWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BE0FB31BB4D2CC005805F7 /* ExternalWebViewController.swift */; };
@@ -61,6 +62,7 @@
 		B51BDCF01B9519CE00248A5D /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		B521D1231BAA206F00C9EE91 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		B55CB0041BC4A0E0005A1CFF /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B5A4998A1BCDF19200E24FC4 /* AttributeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeManager.swift; sourceTree = "<group>"; };
 		B5A61D641BC72C0C00FD4CC7 /* EmptyBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyBackgroundView.swift; sourceTree = "<group>"; };
 		B5ACA5A01BB5F1E800B322D1 /* SavedPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedPage.swift; sourceTree = "<group>"; };
 		B5BE0FB31BB4D2CC005805F7 /* ExternalWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalWebViewController.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				B521D1231BAA206F00C9EE91 /* WebViewController.swift */,
 				B504E2111BA34EC6006082E6 /* LocationWebViewController.swift */,
 				B5004B211BC8276800A840D1 /* LocationWebViewController+Helpers.swift */,
+				B5A4998A1BCDF19200E24FC4 /* AttributeManager.swift */,
 				B5BE0FB31BB4D2CC005805F7 /* ExternalWebViewController.swift */,
 				B5BE0FB71BB4FADE005805F7 /* OfflineWebViewController.swift */,
 				E7194ED51BBF87A2009054F0 /* WebHeadersTableViewController.swift */,
@@ -426,6 +429,7 @@
 				B504E2121BA34EC6006082E6 /* LocationWebViewController.swift in Sources */,
 				B5ACA5A11BB5F1E800B322D1 /* SavedPage.swift in Sources */,
 				B5004B261BC88CE900A840D1 /* MapViewController.swift in Sources */,
+				B5A4998B1BCDF19200E24FC4 /* AttributeManager.swift in Sources */,
 				E7852DC61BC3B03E00E34004 /* MainViewController+UITableViewDataSource.swift in Sources */,
 				B5EB8AB91B90F0BB00CB9E38 /* OfflineTableViewController.swift in Sources */,
 				E7194ED61BBF87A2009054F0 /* WebHeadersTableViewController.swift in Sources */,

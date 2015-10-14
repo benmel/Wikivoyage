@@ -9,7 +9,7 @@
 import UIKit
 import PureLayout
 
-protocol MainViewDelegate {
+protocol MainViewDelegate: class {
     func favoriteButtonWasClicked(mainView: MainView, sender: UIButton!)
     func offlineButtonWasClicked(mainView: MainView, sender: UIButton!)
 }
@@ -71,7 +71,7 @@ class MainView: UIView {
     
     // MARK: - Delegate
     
-    var delegate: MainViewDelegate?
+    weak var delegate: MainViewDelegate?
 
     // MARK: - Initialization
     

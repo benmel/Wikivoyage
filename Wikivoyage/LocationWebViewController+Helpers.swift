@@ -6,12 +6,9 @@
 //  Copyright (c) 2015 Ben Meline. All rights reserved.
 //
 
-import Alamofire
-import SwiftyJSON
 import MagicalRecord
 import MBProgressHUD
 import WebKit
-import MapKit
 
 extension LocationWebViewController {
     
@@ -42,6 +39,47 @@ extension LocationWebViewController {
         return true
     }
     
+    // MARK: - Coordinate
+    
+    func checkCoordinateStatus() {
+        switch attributeManager.coordinateState {
+        case .Succeeded:
+            showMap()
+        case .Failed:
+            showAlert(self.connectionError)
+        case .Attempting:
+            hud.show(true)
+            waitingForCoordinate = true
+        case .Unattempted:
+            showAlert(self.otherError)
+        }
+    }
+    
+    func receivedCoordinate() {
+        if waitingForCoordinate {
+            if !waitingForFavoriteAttributes && !waitingForOfflineAttributes {
+                hud.hide(true)
+            }
+            
+            switch attributeManager.coordinateState {
+            case .Succeeded:
+                showMap()
+            case .Failed:
+                showAlert(self.connectionError)
+            case .Attempting:
+                showAlert(self.otherError)
+            case .Unattempted:
+                showAlert(self.otherError)
+            }
+
+            waitingForCoordinate = false
+        }
+    }
+    
+    func showMap() {
+        performSegueWithIdentifier(mapIdentifier, sender: self)
+    }
+    
     // MARK: - Favorite
     
     func favoritePage() {
@@ -49,7 +87,7 @@ extension LocationWebViewController {
         if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
             updateFavoritePage(savedPage)
         } else {
-            getThumbnailFavorite()
+            checkFavoriteStatus()
         }
     }
     
@@ -67,45 +105,53 @@ extension LocationWebViewController {
         }
     }
     
-    // Should use callback
-    // Thumbnail functions are only called the first time a page is created
-    func getThumbnailFavorite() {
-        let parameters: [String: AnyObject] = [
-            "action": "query",
-            "format": "json",
-            "pageids": pageId,
-            "prop": "pageimages",
-            "piprop": "thumbnail",
-            "pithumbsize": Images.thumbnailSize,
-            "pilimit": 1
-        ]
-        
-        Alamofire.request(.GET, API.baseURL, parameters: parameters).responseJSON() {
-            (_, _, data, error) in
-            if(error != nil) {
-                NSLog("Error: \(error)")
-                self.showAlert(self.connectionError)
-            } else {
-                let json = JSON(data!)
-                let page = json["query"]["pages"][String(self.pageId)]
-                let thumbnailURL = page["thumbnail"]["source"].string
-                self.createFavorite(thumbnailURL)
-            }
+    func checkFavoriteStatus() {
+        switch attributeManager.favoriteState {
+        case .Succeeded:
+            createFavoritePage()
+        case .Failed:
+            showAlert(self.connectionError)
+        case .Attempting:
+            hud.show(true)
+            waitingForFavoriteAttributes = true
+        case .Unattempted:
+            showAlert(self.otherError)
         }
     }
     
-    func createFavorite(thumbnailURL: String?) {
+    func createFavoritePage() {
         let id = NSNumber(integer: self.pageId)
         if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
-            // It exists, don't reinsert
+            savedPage.favorite = true
         } else {
             let newPage = SavedPage.MR_createEntity()
             newPage.title = pageTitle
             newPage.id = pageId
             newPage.favorite = true
             newPage.offline = false
-            newPage.thumbnailURL = thumbnailURL
-            saveAddFavorite()
+            newPage.thumbnailURL = attributeManager.thumbnailURL
+        }
+        saveAddFavorite()
+    }
+    
+    func receivedFavoriteAttributes() {
+        if waitingForFavoriteAttributes {
+            if !waitingForCoordinate && !waitingForOfflineAttributes {
+                hud.hide(true)
+            }
+            
+            switch attributeManager.favoriteState {
+            case .Succeeded:
+                createFavoritePage()
+            case .Failed:
+                showAlert(self.connectionError)
+            case .Attempting:
+                showAlert(self.otherError)
+            case .Unattempted:
+                showAlert(self.otherError)
+            }
+            
+            waitingForFavoriteAttributes = false
         }
     }
     
@@ -116,7 +162,7 @@ extension LocationWebViewController {
         if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
             updateOfflinePage(savedPage)
         } else {
-            downloadRequest()
+            checkOfflineStatus()
         }
     }
     
@@ -129,83 +175,59 @@ extension LocationWebViewController {
             }
             saveRemoveOffline()
         } else {
-            downloadRequest()
+            checkOfflineStatus()
         }
     }
     
-    func downloadRequest() {
-        let parameters: [String: AnyObject] = [
-            "action": "parse",
-            "format": "json",
-            "pageid": pageId,
-            "prop": "text",
-            "mobileformat": "",
-            "noimages": "",
-            "disableeditsection": ""
-        ]
-        
-        Alamofire.request(.GET, API.baseURL, parameters: parameters).responseJSON() {
-            (_, _, data, error) in
-            if(error != nil) {
-                NSLog("Error: \(error)")
-                self.showAlert(self.connectionError)
-            } else {
-                let json = JSON(data!)
-                let html = json["parse"]["text"]["*"].string
-                let id = NSNumber(integer: self.pageId)
-                if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
-                    self.updateOfflinePageWithHTML(savedPage, html: html)
-                } else {
-                    self.getThumbnailOffline(html)
-                }
-            }
+    func checkOfflineStatus() {
+        switch attributeManager.offlineState {
+        case .Succeeded:
+            createOfflinePage()
+        case .Failed:
+            showAlert(self.connectionError)
+        case .Attempting:
+            hud.show(true)
+            waitingForOfflineAttributes = true
+        case .Unattempted:
+            showAlert(self.otherError)
         }
     }
     
-    func updateOfflinePageWithHTML(page: SavedPage, html: String?) {
-        page.html = html
-        page.offline = true
-        saveAddOffline()
-    }
-    
-    func getThumbnailOffline(html: String?) {
-        let parameters: [String: AnyObject] = [
-            "action": "query",
-            "format": "json",
-            "pageids": pageId,
-            "prop": "pageimages",
-            "piprop": "thumbnail",
-            "pithumbsize": Images.thumbnailSize,
-            "pilimit": 1
-        ]
-        
-        Alamofire.request(.GET, API.baseURL, parameters: parameters).responseJSON() {
-            (_, _, data, error) in
-            if(error != nil) {
-                NSLog("Error: \(error)")
-                self.showAlert(self.connectionError)
-            } else {
-                let json = JSON(data!)
-                let page = json["query"]["pages"][String(self.pageId)]
-                let thumbnailURL = page["thumbnail"]["source"].string
-                self.createOffline(html, thumbnailURL: thumbnailURL)
-            }
-        }
-    }
-    
-    func createOffline(html: String?, thumbnailURL: String?) {
+    func createOfflinePage() {
         let id = NSNumber(integer: self.pageId)
         if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
-            // It exists, don't reinsert
+            savedPage.html = attributeManager.html
+            savedPage.offline = true
         } else {
             let newPage = SavedPage.MR_createEntity()
             newPage.title = pageTitle
             newPage.id = pageId
-            newPage.html = html
+            newPage.html = attributeManager.html
             newPage.favorite = false
             newPage.offline = true
-            newPage.thumbnailURL = thumbnailURL
-            saveAddOffline()
+            newPage.thumbnailURL = attributeManager.thumbnailURL
+        }
+        saveAddOffline()
+    }
+    
+    func receivedOfflineAttributes() {
+        if waitingForOfflineAttributes {
+            if !waitingForCoordinate && !waitingForFavoriteAttributes {
+                hud.hide(true)
+            }
+            
+            switch attributeManager.offlineState {
+            case .Succeeded:
+                createOfflinePage()
+            case .Failed:
+                showAlert(self.connectionError)
+            case .Attempting:
+                showAlert(self.otherError)
+            case .Unattempted:
+                showAlert(self.otherError)
+            }
+            
+            waitingForOfflineAttributes = false
         }
     }
     
@@ -252,41 +274,10 @@ extension LocationWebViewController {
     
     func showAlert(text: String) {
         let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
+        hud.userInteractionEnabled = false
         hud.labelText = text
         hud.mode = .Text
         hud.removeFromSuperViewOnHide = true
         hud.hide(true, afterDelay: 1)
-    }
-        
-    func getCoordinatesNumberOfTimes(times: Int) {
-        if times <= 0 {
-            // Stops trying
-            NSLog("Error: Couldn't get coordinates")
-        } else {
-            let parameters: [String: AnyObject] = [
-                "action": "query",
-                "format": "json",
-                "pageids": pageId,
-                "prop": "coordinates",
-                "colimit": 1
-            ]
-            
-            Alamofire.request(.GET, API.baseURL, parameters: parameters).responseJSON() {
-                (_, _, data, error) in
-                if(error != nil) {
-                    NSLog("Error: \(error)")
-                    println(times)
-                    self.getCoordinatesNumberOfTimes(times - 1)
-                } else {
-                    let json = JSON(data!)
-                    let coordinates = json["query"]["pages"][String(self.pageId)]["coordinates"][0]
-                    let lat = coordinates["lat"].double
-                    let lon = coordinates["lon"].double
-                    if let latitude = lat, longitude = lon {
-                        self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                    }
-                }
-            }
-        }
     }
 }
