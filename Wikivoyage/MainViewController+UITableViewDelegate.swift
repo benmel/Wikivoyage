@@ -13,6 +13,7 @@ extension MainViewController: UITableViewDelegate {
         let searchResult = searchResults[indexPath.row]
         selectedSearchResult = searchResult
         performSegueWithIdentifier(webSegueIdentifier, sender: self)
+        mainView.dismissKeyboard()
     }
     
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
