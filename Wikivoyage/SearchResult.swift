@@ -10,6 +10,7 @@ class SearchResult {
     var index: Int
     var pageId: Int
     var pageTitle: String
+    var originalTitle: String?
     var thumbnailURL: String?
     
     init(index: Int, pageId: Int, pageTitle: String, thumbnailURL: String?) {
@@ -17,5 +18,10 @@ class SearchResult {
         self.pageId = pageId
         self.pageTitle = pageTitle
         self.thumbnailURL = thumbnailURL
+    }
+    
+    convenience init(index: Int, pageId: Int, pageTitle: String, originalTitle: String?, thumbnailURL: String?) {
+        self.init(index: index, pageId: pageId, pageTitle: pageTitle, thumbnailURL: thumbnailURL)
+        self.originalTitle = originalTitle
     }
 }

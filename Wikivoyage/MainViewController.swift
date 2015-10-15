@@ -8,10 +8,13 @@
 
 import UIKit
 import PureLayout
+import MBProgressHUD
 
 class MainViewController: UIViewController {
 
     var mainView: MainView!
+    var hud: MBProgressHUD!
+    
     var searchResults = [SearchResult]()
     
     private let favoriteSegueIdentifier = "ShowFavorites"
@@ -23,6 +26,9 @@ class MainViewController: UIViewController {
     var selectedSearchResult: SearchResult!
     var lastRequestid: String!
     
+    private let hudYOffset: Float = -60
+    private let hudMinTime: Float = 0.3
+    
     private var didSetupConstraints = false
     
     // MARK: - View Lifecycle
@@ -30,10 +36,12 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        setupHud()
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
+        hud.hide(true)
         searchResults.removeAll(keepCapacity: false)
         mainView.resetSearchBar(false)
     }
@@ -45,6 +53,14 @@ class MainViewController: UIViewController {
         mainView.delegate = self
         mainView.setTranslatesAutoresizingMaskIntoConstraints(false)
         view.addSubview(mainView)
+    }
+    
+    func setupHud() {
+        hud = MBProgressHUD()
+        hud.yOffset = hudYOffset
+        hud.minShowTime = hudMinTime
+        hud.userInteractionEnabled = false
+        view.addSubview(hud)
     }
     
     override func updateViewConstraints() {
