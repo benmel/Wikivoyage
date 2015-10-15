@@ -23,7 +23,16 @@ extension MainViewController: UITableViewDataSource {
         
         // If there's a thumbnail URL set URL, otherwise it's nil
         let url = (searchResult.thumbnailURL != nil) ? NSURL(string: searchResult.thumbnailURL!) : nil
-        cell.thumbnail.sd_setImageWithURL(url, placeholderImage: placeholder)
+        cell.thumbnail.sd_setImageWithURL(url, placeholderImage: placeholder, completed: {(image: UIImage!, error: NSError!, cacheType: SDImageCacheType, imageURL: NSURL!) in
+            if image != nil && cacheType == .None {
+                cell.thumbnail.alpha = 0
+                UIView.animateWithDuration(0.3,
+                    animations: {
+                        cell.thumbnail.alpha = 1
+                    }
+                )
+            }
+        })
         
         cell.setNeedsUpdateConstraints()
         cell.updateConstraintsIfNeeded()
