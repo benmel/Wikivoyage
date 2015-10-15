@@ -19,7 +19,7 @@ extension MainViewController: UITableViewDataSource {
     
     func configureCell(cell: LocationTableViewCell, searchResult: SearchResult) {
         cell.accessoryType = .DisclosureIndicator
-        cell.title.text = searchResult.pageTitle
+        cell.title.text = (searchResult.originalTitle != nil) ? searchResult.originalTitle : searchResult.pageTitle
         
         // If there's a thumbnail URL set URL, otherwise it's nil
         let url = (searchResult.thumbnailURL != nil) ? NSURL(string: searchResult.thumbnailURL!) : nil

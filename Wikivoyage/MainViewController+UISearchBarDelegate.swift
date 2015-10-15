@@ -52,7 +52,8 @@ extension MainViewController: UISearchBarDelegate {
             "prop": "pageimages",
             "piprop": "thumbnail",
             "pithumbsize": Images.thumbnailSize,
-            "pilimit": limit
+            "pilimit": limit,
+            "redirects": ""
         ]
         
         Alamofire.request(.GET, API.baseURL, parameters: parameters).responseJSON() {
@@ -65,17 +66,35 @@ extension MainViewController: UISearchBarDelegate {
                 // Only update results using latest request
                 if requestid == self.lastRequestid {
                     self.searchResults.removeAll(keepCapacity: false)
-                    let results = json["query"]["pages"]
+                    let redirects = json["query"]["redirects"]
+                    let pages = json["query"]["pages"]
                     
-                    for (index: String, subJson: JSON) in results {
-                        if let index = subJson["index"].int, pageid = subJson["pageid"].int, title = subJson["title"].string {
-                            let thumbnail = subJson["thumbnail"]["source"].string
-                            let searchResult = SearchResult(index: index, pageId: pageid, pageTitle: title, thumbnailURL: thumbnail)
-                            self.searchResults.append(searchResult)
+                    var redirectDictionary = [String: Redirect]()
+                    for (idx: String, subJson: JSON) in redirects {
+                        if let index = subJson["index"].int, from = subJson["from"].string, to = subJson["to"].string {
+                            let redirect = Redirect(index: index, from: from, to: to)
+                            redirectDictionary[redirect.to] = redirect
                         }
                     }
                     
-                    self.searchResults.sort { $0.index < $1.index }
+                    var searchResultArray = [SearchResult]()
+                    for (idx: String, subJson: JSON) in pages {
+                        if let pageid = subJson["pageid"].int, title = subJson["title"].string {
+                            let thumbnail = subJson["thumbnail"]["source"].string
+                            if let index = subJson["index"].int {
+                                let searchResult = SearchResult(index: index, pageId: pageid, pageTitle: title, thumbnailURL: thumbnail)
+                                searchResultArray.append(searchResult)
+                            } else {
+                                if let redirect = redirectDictionary[title] {
+                                    let searchResult = SearchResult(index: redirect.index, pageId: pageid, pageTitle: redirect.to, originalTitle: redirect.from, thumbnailURL: thumbnail)
+                                    searchResultArray.append(searchResult)
+                                }
+                            }
+                        }
+                    }
+                    
+                    searchResultArray.sort { $0.index < $1.index }
+                    self.searchResults = searchResultArray
                     self.mainView.reloadTableRows()
                 }
             }

@@ -17,6 +17,7 @@
 		B521D1241BAA206F00C9EE91 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B521D1231BAA206F00C9EE91 /* WebViewController.swift */; };
 		B55CB0051BC4A0E0005A1CFF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55CB0041BC4A0E0005A1CFF /* Constants.swift */; };
 		B5A4998B1BCDF19200E24FC4 /* AttributeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A4998A1BCDF19200E24FC4 /* AttributeManager.swift */; };
+		B5A4998F1BCF3ED400E24FC4 /* Redirect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A4998E1BCF3ED400E24FC4 /* Redirect.swift */; };
 		B5A61D651BC72C0C00FD4CC7 /* EmptyBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A61D641BC72C0C00FD4CC7 /* EmptyBackgroundView.swift */; };
 		B5ACA5A11BB5F1E800B322D1 /* SavedPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5ACA5A01BB5F1E800B322D1 /* SavedPage.swift */; };
 		B5BE0FB41BB4D2CC005805F7 /* ExternalWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BE0FB31BB4D2CC005805F7 /* ExternalWebViewController.swift */; };
@@ -63,6 +64,7 @@
 		B521D1231BAA206F00C9EE91 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		B55CB0041BC4A0E0005A1CFF /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B5A4998A1BCDF19200E24FC4 /* AttributeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeManager.swift; sourceTree = "<group>"; };
+		B5A4998E1BCF3ED400E24FC4 /* Redirect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Redirect.swift; sourceTree = "<group>"; };
 		B5A61D641BC72C0C00FD4CC7 /* EmptyBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyBackgroundView.swift; sourceTree = "<group>"; };
 		B5ACA5A01BB5F1E800B322D1 /* SavedPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedPage.swift; sourceTree = "<group>"; };
 		B5BE0FB31BB4D2CC005805F7 /* ExternalWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalWebViewController.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				B5ACA5A01BB5F1E800B322D1 /* SavedPage.swift */,
+				B5A4998E1BCF3ED400E24FC4 /* Redirect.swift */,
 				B51BDCF01B9519CE00248A5D /* SearchResult.swift */,
 				E7194ED31BBF8188009054F0 /* WebHeader.swift */,
 			);
@@ -443,6 +446,7 @@
 				B55CB0051BC4A0E0005A1CFF /* Constants.swift in Sources */,
 				B5EB8A8D1B90CACC00CB9E38 /* Wikivoyage.xcdatamodeld in Sources */,
 				B5EB8A8A1B90CACC00CB9E38 /* AppDelegate.swift in Sources */,
+				B5A4998F1BCF3ED400E24FC4 /* Redirect.swift in Sources */,
 				E7852DC41BC3AFA200E34004 /* MainViewController+UISearchBarDelegate.swift in Sources */,
 				B5EB8AB71B90F0A900CB9E38 /* FavoritesTableViewController.swift in Sources */,
 			);
