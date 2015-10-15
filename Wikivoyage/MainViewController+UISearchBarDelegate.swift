@@ -37,6 +37,8 @@ extension MainViewController: UISearchBarDelegate {
     }
     
     func queryTitles(searchTerm: String) {
+        hud.show(true)
+        
         // Update lastRequestid
         lastRequestid = searchTerm
         
@@ -60,11 +62,13 @@ extension MainViewController: UISearchBarDelegate {
             (_, _, data, error) in
             if(error != nil) {
                 NSLog("Error: \(error)")
+                self.hud.hide(true)
             } else {
                 let json = JSON(data!)
                 let requestid = json["requestid"].stringValue
                 // Only update results using latest request
                 if requestid == self.lastRequestid {
+                    self.hud.hide(true)
                     self.searchResults.removeAll(keepCapacity: false)
                     let redirects = json["query"]["redirects"]
                     let pages = json["query"]["pages"]
