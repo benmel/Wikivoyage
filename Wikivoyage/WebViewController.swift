@@ -12,6 +12,7 @@ import PureLayout
 class WebViewController: UIViewController {
     
     var webView: WKWebView!
+    var configuration: WKWebViewConfiguration!
     var progressView: UIProgressView!
     @IBOutlet weak var contentsButton: UIBarButtonItem!
     
@@ -33,6 +34,8 @@ class WebViewController: UIViewController {
     
     private let popoverWidth = 180
     private let popoverHeight = 220
+    
+    private let progressViewColor = UIColor(red: 27/255, green: 163/255, blue: 156/255, alpha: 1)
 
     // MARK: - View Lifecycle
     
@@ -50,6 +53,8 @@ class WebViewController: UIViewController {
         super.viewWillAppear(animated)
         webView.addObserver(self, forKeyPath: progressKey, options: .New, context: nil)
         webView.addObserver(self, forKeyPath: titleKey, options: .New, context: nil)
+        configuration.userContentController.addScriptMessageHandler(self, name: didGetIsWikiHost)
+        configuration.userContentController.addScriptMessageHandler(self, name: didGetHeaders)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "webHeaderSelected:", name: webHeaderName, object: nil)
     }
     
@@ -57,6 +62,8 @@ class WebViewController: UIViewController {
         super.viewWillDisappear(animated)
         webView.removeObserver(self, forKeyPath: progressKey)
         webView.removeObserver(self, forKeyPath: titleKey)
+        configuration.userContentController.removeScriptMessageHandlerForName(didGetIsWikiHost)
+        configuration.userContentController.removeScriptMessageHandlerForName(didGetHeaders)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: webHeaderName, object: nil)
     }
     
@@ -80,11 +87,9 @@ class WebViewController: UIViewController {
     }
     
     func setupWebView() {
-        let config = WKWebViewConfiguration()
-        config.userContentController.addUserScript(script)
-        config.userContentController.addScriptMessageHandler(self, name: didGetIsWikiHost)
-        config.userContentController.addScriptMessageHandler(self, name: didGetHeaders)
-        webView = WKWebView(frame: CGRectZero, configuration: config)
+        configuration = WKWebViewConfiguration()
+        configuration.userContentController.addUserScript(script)
+        webView = WKWebView(frame: CGRectZero, configuration: configuration)
         
         webView.setTranslatesAutoresizingMaskIntoConstraints(false)
         webView.navigationDelegate = self
@@ -95,6 +100,7 @@ class WebViewController: UIViewController {
     func setupProgressView() {
         progressView = UIProgressView.newAutoLayoutView()
         progressView.progress = 0.0
+        progressView.tintColor = progressViewColor
         view.addSubview(progressView)
     }
     
@@ -110,11 +116,7 @@ class WebViewController: UIViewController {
     
     override func updateViewConstraints() {
         if !didSetupConstraints {
-            webView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
-            webView.autoPinToBottomLayoutGuideOfViewController(self, withInset: 0)
-            webView.autoPinEdgeToSuperviewEdge(.Leading)
-            webView.autoPinEdgeToSuperviewEdge(.Trailing)
-            
+            webView.autoPinEdgesToSuperviewEdges()
             progressView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
             progressView.autoPinEdgeToSuperviewEdge(.Leading)
             progressView.autoPinEdgeToSuperviewEdge(.Trailing)

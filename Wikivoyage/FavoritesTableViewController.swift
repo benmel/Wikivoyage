@@ -12,6 +12,7 @@ import MagicalRecord
 class FavoritesTableViewController: UITableViewController {
 
     var favoritePages = [SavedPage]()
+    var selectedPage: SavedPage!
     
     private let tableRowHeight: CGFloat = 60
     private let cellIdentifier = "FavoritePage"
@@ -109,22 +110,26 @@ class FavoritesTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let favoritePage = favoritePages[indexPath.row]
-        performSegueWithIdentifier(segueIdentifier, sender: favoritePage)
+        selectedPage = favoritePage
+        performSegueWithIdentifier(segueIdentifier, sender: self)
     }
 
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == segueIdentifier {
-            let vc = segue.destinationViewController as! LocationWebViewController
-            let favoritePage = sender as! SavedPage
-            vc.pageId = Int(favoritePage.id)
-            vc.pageTitle = favoritePage.title
-            vc.title = favoritePage.title
-            vc.delegate = self
-            vc.favoriteButton.tintColor = Color.fullButtonColor
-            vc.downloadButton.tintColor = (favoritePage.offline == true) ? Color.fullButtonColor : Color.emptyButtonColor
+            let locationWebViewController = segue.destinationViewController as! LocationWebViewController
+            configureLocationWebViewController(locationWebViewController)
         }
+    }
+    
+    func configureLocationWebViewController(locationWebViewController: LocationWebViewController) {
+        locationWebViewController.pageId = Int(selectedPage.id)
+        locationWebViewController.pageTitle = selectedPage.title
+        locationWebViewController.title = selectedPage.title
+        locationWebViewController.delegate = self
+        locationWebViewController.favoriteButton.tintColor = Color.fullButtonColor
+        locationWebViewController.downloadButton.tintColor = (selectedPage.offline == true) ? Color.fullButtonColor : Color.emptyButtonColor
     }
 }
 

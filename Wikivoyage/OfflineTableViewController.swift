@@ -12,6 +12,7 @@ import MagicalRecord
 class OfflineTableViewController: UITableViewController {
 
     var offlinePages = [SavedPage]()
+    var selectedPage: SavedPage!
     
     private let tableRowHeight: CGFloat = 60
     private let cellIdentifier = "OfflinePage"
@@ -110,21 +111,21 @@ class OfflineTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let offlinePage = offlinePages[indexPath.row]
-        performSegueWithIdentifier(segueIdentifier, sender: offlinePage)
+        selectedPage = offlinePage
+        performSegueWithIdentifier(segueIdentifier, sender: self)
     }
 
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == segueIdentifier {
-            let vc = segue.destinationViewController as! OfflineWebViewController
-            let offlinePage = sender as! SavedPage
-            if let html = offlinePage.html {
-                vc.html = html
-            } else {
-                vc.html = errorMessage
-            }
-            vc.title = offlinePage.title
+            let offlineWebViewController = segue.destinationViewController as! OfflineWebViewController
+            configureOfflineWebViewController(offlineWebViewController)
         }
+    }
+    
+    func configureOfflineWebViewController(offlineWebViewController: OfflineWebViewController) {
+        offlineWebViewController.html = (selectedPage.html != nil) ? selectedPage.html : errorMessage
+        offlineWebViewController.title = selectedPage.title
     }
 }

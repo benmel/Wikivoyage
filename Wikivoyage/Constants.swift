@@ -23,3 +23,10 @@ struct Color {
     static let emptyButtonColor = UIColor.blueColor()
     static let fullButtonColor = UIColor.redColor()
 }
+
+enum AttributeState {
+    case Unattempted
+    case Attempting
+    case Succeeded
+    case Failed
+}
