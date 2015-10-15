@@ -24,6 +24,10 @@ struct Color {
     static let fullButtonColor = UIColor.redColor()
 }
 
+struct System {
+    static let version = NSString(string: UIDevice.currentDevice().systemVersion).doubleValue
+}
+
 enum AttributeState {
     case Unattempted
     case Attempting

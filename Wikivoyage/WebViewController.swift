@@ -101,6 +101,7 @@ class WebViewController: UIViewController {
         progressView = UIProgressView.newAutoLayoutView()
         progressView.progress = 0.0
         progressView.tintColor = progressViewColor
+        progressView.setTranslatesAutoresizingMaskIntoConstraints(false)
         view.addSubview(progressView)
     }
     
@@ -116,8 +117,18 @@ class WebViewController: UIViewController {
     
     override func updateViewConstraints() {
         if !didSetupConstraints {
-            webView.autoPinEdgesToSuperviewEdges()
-            progressView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            webView.autoPinEdgeToSuperviewEdge(.Top)
+            webView.autoPinEdgeToSuperviewEdge(.Leading)
+            webView.autoPinEdgeToSuperviewEdge(.Trailing)
+            
+            // In iOS 9 need to avoid putting web view under toolbar
+            if System.version >= 9 {
+                webView.autoPinToBottomLayoutGuideOfViewController(self, withInset: 0)
+            } else {
+                webView.autoPinEdgeToSuperviewEdge(.Bottom)
+            }
+            
+            progressView.autoPinEdgeToSuperviewEdge(.Top)
             progressView.autoPinEdgeToSuperviewEdge(.Leading)
             progressView.autoPinEdgeToSuperviewEdge(.Trailing)
             
