@@ -37,6 +37,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupHud()
+        setupInfoButton()
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -63,6 +64,15 @@ class MainViewController: UIViewController {
         view.addSubview(hud)
     }
     
+    func setupInfoButton() {
+        let infoButton = UIButton.buttonWithType(.InfoLight) as! UIButton
+        infoButton.addTarget(self, action: "infoButtonClicked:", forControlEvents: .TouchUpInside)
+        let barButton = UIBarButtonItem(customView: infoButton)
+        navigationItem.leftBarButtonItem = barButton
+    }
+    
+    // MARK: - Layout
+    
     override func updateViewConstraints() {
         if !didSetupConstraints {
             mainView.autoPinEdgesToSuperviewEdges()
@@ -70,6 +80,13 @@ class MainViewController: UIViewController {
         }
         
         super.updateViewConstraints()
+    }
+    
+    // MARK: - User Interaction
+    
+    func infoButtonClicked(sender: UIButton!) {
+        let vc = InfoViewController()
+        presentViewController(vc, animated: true, completion: nil)
     }
     
     // MARK: - Navigation
