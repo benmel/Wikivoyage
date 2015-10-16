@@ -19,8 +19,8 @@ extension MainViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        searchResults.removeAll(keepCapacity: false)
-        mainView.reloadTableRows()
+        lastRequest?.cancel()
+        emptyTable()
         mainView.resetSearchBar(true)
     }
     
@@ -59,7 +59,7 @@ extension MainViewController: UISearchBarDelegate {
             "redirects": ""
         ]
         
-        Alamofire.request(.GET, API.baseURL, parameters: parameters).responseJSON() {
+        lastRequest = Alamofire.request(.GET, API.baseURL, parameters: parameters).responseJSON() {
             (_, _, data, error) in
             if(error != nil) {
                 NSLog("Error: \(error)")

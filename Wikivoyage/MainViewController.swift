@@ -9,6 +9,7 @@
 import UIKit
 import PureLayout
 import MBProgressHUD
+import Alamofire
 
 class MainViewController: UIViewController {
 
@@ -26,6 +27,7 @@ class MainViewController: UIViewController {
     let placeholder = UIImage(named: Images.placeholder)!
     var selectedSearchResult: SearchResult!
     var lastRequestid: String!
+    var lastRequest: Request?
     
     private let hudYOffset: Float = -60
     private let hudMinTime: Float = 0.3
@@ -50,8 +52,8 @@ class MainViewController: UIViewController {
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         hud.removeFromSuperview()
-        searchResults.removeAll(keepCapacity: false)
-        mainView.reloadTableRows()
+        lastRequest?.cancel()
+        emptyTable()
         mainView.resetSearchBar(false)
     }
     
@@ -122,14 +124,20 @@ class MainViewController: UIViewController {
             locationWebViewController.downloadButton.tintColor = Color.emptyButtonColor
         }
     }
+    
+    // MARK: - Helpers
+    
+    func emptyTable() {
+        searchResults.removeAll(keepCapacity: false)
+        mainView.reloadTableRows()
+    }
 }
 
 // MARK: - Main View Delegate
 
 extension MainViewController: MainViewDelegate {
     func searchButtonWasClicked(mainView: MainView, sender: UIButton!) {
-        searchResults.removeAll(keepCapacity: false)
-        mainView.reloadTableRows()
+        emptyTable()
     }
     
     func favoriteButtonWasClicked(mainView: MainView, sender: UIButton!) {
