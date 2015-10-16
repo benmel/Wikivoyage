@@ -20,6 +20,7 @@ extension MainViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         searchResults.removeAll(keepCapacity: false)
+        mainView.reloadTableRows()
         mainView.resetSearchBar(true)
     }
     
@@ -69,7 +70,7 @@ extension MainViewController: UISearchBarDelegate {
                 // Only update results using latest request
                 if requestid == self.lastRequestid {
                     self.hud.hide(true)
-                    self.searchResults.removeAll(keepCapacity: false)
+                    
                     let redirects = json["query"]["redirects"]
                     let pages = json["query"]["pages"]
                     

@@ -42,10 +42,16 @@ class MainViewController: UIViewController {
         setupInfoButton()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        view.addSubview(hud)
+    }
+    
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        hud.hide(true)
+        hud.removeFromSuperview()
         searchResults.removeAll(keepCapacity: false)
+        mainView.reloadTableRows()
         mainView.resetSearchBar(false)
     }
     
@@ -63,7 +69,6 @@ class MainViewController: UIViewController {
         hud.yOffset = hudYOffset
         hud.minShowTime = hudMinTime
         hud.userInteractionEnabled = false
-        view.addSubview(hud)
     }
     
     func setupInfoButton() {
@@ -122,6 +127,11 @@ class MainViewController: UIViewController {
 // MARK: - Main View Delegate
 
 extension MainViewController: MainViewDelegate {
+    func searchButtonWasClicked(mainView: MainView, sender: UIButton!) {
+        searchResults.removeAll(keepCapacity: false)
+        mainView.reloadTableRows()
+    }
+    
     func favoriteButtonWasClicked(mainView: MainView, sender: UIButton!) {
         performSegueWithIdentifier(favoriteSegueIdentifier, sender: sender)
     }

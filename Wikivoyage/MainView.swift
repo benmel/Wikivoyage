@@ -10,6 +10,7 @@ import UIKit
 import PureLayout
 
 protocol MainViewDelegate: class {
+    func searchButtonWasClicked(mainView: MainView, sender: UIButton!)
     func favoriteButtonWasClicked(mainView: MainView, sender: UIButton!)
     func offlineButtonWasClicked(mainView: MainView, sender: UIButton!)
 }
@@ -243,6 +244,7 @@ class MainView: UIView {
     // MARK: - User Interaction
     
     func searchClicked(sender: UIButton!) {
+        delegate?.searchButtonWasClicked(self, sender: sender)
         showSearchBar(locationSearchBar)
     }
     
@@ -280,7 +282,6 @@ extension MainView {
     func resetSearchBar(animated: Bool) {
         locationSearchBar.text = ""
         dismissSearchBar(locationSearchBar, animated: animated)
-        reloadTableRows()
     }
     
     func reloadTableRows() {
