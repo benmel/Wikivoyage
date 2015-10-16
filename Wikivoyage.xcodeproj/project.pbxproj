@@ -14,6 +14,8 @@
 		B5004B2A1BCC5F8100A840D1 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5004B291BCC5F8100A840D1 /* MainView.swift */; };
 		B504E2121BA34EC6006082E6 /* LocationWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B504E2111BA34EC6006082E6 /* LocationWebViewController.swift */; };
 		B51BDCF11B9519CE00248A5D /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51BDCF01B9519CE00248A5D /* SearchResult.swift */; };
+		B51C21B21BD05A4E008CC800 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51C21B11BD05A4E008CC800 /* InfoViewController.swift */; };
+		B51C21B41BD05AD8008CC800 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51C21B31BD05AD8008CC800 /* InfoView.swift */; };
 		B521D1241BAA206F00C9EE91 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B521D1231BAA206F00C9EE91 /* WebViewController.swift */; };
 		B55CB0051BC4A0E0005A1CFF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55CB0041BC4A0E0005A1CFF /* Constants.swift */; };
 		B5A4998B1BCDF19200E24FC4 /* AttributeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A4998A1BCDF19200E24FC4 /* AttributeManager.swift */; };
@@ -61,6 +63,8 @@
 		B5004B291BCC5F8100A840D1 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		B504E2111BA34EC6006082E6 /* LocationWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationWebViewController.swift; sourceTree = "<group>"; };
 		B51BDCF01B9519CE00248A5D /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		B51C21B11BD05A4E008CC800 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		B51C21B31BD05AD8008CC800 /* InfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		B521D1231BAA206F00C9EE91 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		B55CB0041BC4A0E0005A1CFF /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B5A4998A1BCDF19200E24FC4 /* AttributeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeManager.swift; sourceTree = "<group>"; };
@@ -217,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				B5A61D641BC72C0C00FD4CC7 /* EmptyBackgroundView.swift */,
+				B51C21B31BD05AD8008CC800 /* InfoView.swift */,
 				B5004B291BCC5F8100A840D1 /* MainView.swift */,
 				E7194ECF1BBE4407009054F0 /* LocationTableViewCell.swift */,
 			);
@@ -263,6 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				B5EB8A8E1B90CACC00CB9E38 /* MainViewController.swift */,
+				B51C21B11BD05A4E008CC800 /* InfoViewController.swift */,
 				E7852DC51BC3B03E00E34004 /* MainViewController+UITableViewDataSource.swift */,
 				E7852DC71BC3B0B800E34004 /* MainViewController+UITableViewDelegate.swift */,
 				E7852DC31BC3AFA200E34004 /* MainViewController+UISearchBarDelegate.swift */,
@@ -431,6 +437,7 @@
 				B5BE0FB41BB4D2CC005805F7 /* ExternalWebViewController.swift in Sources */,
 				B504E2121BA34EC6006082E6 /* LocationWebViewController.swift in Sources */,
 				B5ACA5A11BB5F1E800B322D1 /* SavedPage.swift in Sources */,
+				B51C21B41BD05AD8008CC800 /* InfoView.swift in Sources */,
 				B5004B261BC88CE900A840D1 /* MapViewController.swift in Sources */,
 				B5A4998B1BCDF19200E24FC4 /* AttributeManager.swift in Sources */,
 				E7852DC61BC3B03E00E34004 /* MainViewController+UITableViewDataSource.swift in Sources */,
@@ -446,6 +453,7 @@
 				B55CB0051BC4A0E0005A1CFF /* Constants.swift in Sources */,
 				B5EB8A8D1B90CACC00CB9E38 /* Wikivoyage.xcdatamodeld in Sources */,
 				B5EB8A8A1B90CACC00CB9E38 /* AppDelegate.swift in Sources */,
+				B51C21B21BD05A4E008CC800 /* InfoViewController.swift in Sources */,
 				B5A4998F1BCF3ED400E24FC4 /* Redirect.swift in Sources */,
 				E7852DC41BC3AFA200E34004 /* MainViewController+UISearchBarDelegate.swift in Sources */,
 				B5EB8AB71B90F0A900CB9E38 /* FavoritesTableViewController.swift in Sources */,
