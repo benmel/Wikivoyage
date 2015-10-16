@@ -22,7 +22,7 @@ class OfflineTableViewController: UITableViewController {
     private let emptyBackgroundColor = UIColor.groupTableViewBackgroundColor()
     private let backgroundColor = UIColor.whiteColor()
     
-    private let errorMessage = "Offline page is not available"
+    private let errorMessage = "Offline page not available"
     private let topMessage = "Offline Locations"
     private let bottomMessage = "You don't have any offline locations yet. Click the download button on a location to save it for offline reading."
     

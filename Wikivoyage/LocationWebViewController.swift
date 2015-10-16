@@ -26,12 +26,12 @@ class LocationWebViewController: WebViewController {
     var waitingForFavoriteAttributes = false
     var waitingForOfflineAttributes = false
     
-    let favoriteSuccess = "Location added to favorites"
-    let favoriteRemove = "Location removed from favorites"
-    let offlineSuccess = "Location downloaded"
-    let offlineRemove = "Offline location removed"
+    let favoriteSuccess = "Added to favorites"
+    let favoriteRemove = "Removed from favorites"
+    let offlineSuccess = "Downloaded"
+    let offlineRemove = "Removed download"
     let connectionError = "Connection error"
-    let saveError = "Failed to save location"
+    let saveError = "Failed to save"
     let otherError = "Something went wrong"
     
     @IBOutlet var favoriteButton: UIBarButtonItem!

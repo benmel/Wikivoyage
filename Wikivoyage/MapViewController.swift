@@ -17,7 +17,7 @@ class MapViewController: UIViewController {
     
     private let span = MKCoordinateSpanMake(0.4, 0.4)
     private let backgroundColor = UIColor.blackColor()
-    private let errorMessage = "Local map not available"
+    private let errorMessage = "Map not available"
     
     var didSetupConstraints = false
     
