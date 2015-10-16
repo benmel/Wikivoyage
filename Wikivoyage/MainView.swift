@@ -13,6 +13,7 @@ protocol MainViewDelegate: class {
     func searchButtonWasClicked(mainView: MainView, sender: UIButton!)
     func favoriteButtonWasClicked(mainView: MainView, sender: UIButton!)
     func offlineButtonWasClicked(mainView: MainView, sender: UIButton!)
+    func infoButtonWasClicked(mainView: MainView, sender: UIButton!)
 }
 
 class MainView: UIView {
@@ -25,6 +26,7 @@ class MainView: UIView {
     private var locationSearchBar: UISearchBar!
     private var favoriteButton, offlineButton: UIButton!
     private var searchButton: UIButton!
+    private var infoButton: UIButton!
     private var resultsTable: UITableView!
     
     // MARK: - View Constraints
@@ -68,6 +70,7 @@ class MainView: UIView {
     private let searchButtonEndingHeight: CGFloat = 44
     private let otherButtonSpacing: CGFloat = 15
     private let otherButtonHeight: CGFloat = 90
+    private let infoButtonSpacing: CGFloat = 8
     private let tableRowHeight: CGFloat = 60
     
     // MARK: - Delegate
@@ -101,6 +104,7 @@ class MainView: UIView {
         setupSearchBar()
         setupSearchButton()
         setupOtherButtons()
+        setupInfoButton()
         setupTable()
     }
     
@@ -167,6 +171,13 @@ class MainView: UIView {
         bottomView.addSubview(offlineButton)
     }
     
+    func setupInfoButton() {
+        infoButton = UIButton.buttonWithType(.InfoLight) as! UIButton
+        infoButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        infoButton.addTarget(self, action: "infoButtonClicked:", forControlEvents: .TouchUpInside)
+        addSubview(infoButton)
+    }
+    
     func setupTable() {
         resultsTable = UITableView.newAutoLayoutView()
         resultsTable.alpha = tableStartingAlpha
@@ -215,6 +226,9 @@ class MainView: UIView {
             }
             favoriteButton.autoMatchDimension(.Height, toDimension: .Height, ofView: offlineButton)
             
+            infoButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: infoButtonSpacing)
+            infoButton.autoPinEdgeToSuperviewEdge(.Right, withInset: infoButtonSpacing)
+            
             resultsTable.autoAlignAxisToSuperviewAxis(.Vertical)
             resultsTable.autoPinEdgeToSuperviewEdge(.Leading)
             resultsTable.autoPinEdgeToSuperviewEdge(.Trailing)
@@ -254,6 +268,10 @@ class MainView: UIView {
     
     func offlineClicked(sender: UIButton!) {
         delegate?.offlineButtonWasClicked(self, sender: sender)
+    }
+    
+    func infoButtonClicked(sender: UIButton!) {
+        delegate?.infoButtonWasClicked(self, sender: sender)
     }
 }
 

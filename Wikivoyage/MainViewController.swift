@@ -15,7 +15,6 @@ class MainViewController: UIViewController {
 
     var mainView: MainView!
     var hud: MBProgressHUD!
-    var infoButton: UIButton!
     
     var searchResults = [SearchResult]()
     
@@ -31,7 +30,6 @@ class MainViewController: UIViewController {
     
     private let hudYOffset: Float = -60
     private let hudMinTime: Float = 0.3
-    private let spacing: CGFloat = 8
     
     private var didSetupConstraints = false
     
@@ -41,7 +39,6 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupHud()
-        setupInfoButton()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -73,32 +70,15 @@ class MainViewController: UIViewController {
         hud.userInteractionEnabled = false
     }
     
-    func setupInfoButton() {
-        infoButton = UIButton.buttonWithType(.InfoLight) as! UIButton
-        infoButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        infoButton.addTarget(self, action: "infoButtonClicked:", forControlEvents: .TouchUpInside)
-        view.addSubview(infoButton)
-    }
-    
     // MARK: - Layout
     
     override func updateViewConstraints() {
         if !didSetupConstraints {
             mainView.autoPinEdgesToSuperviewEdges()
-            infoButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: spacing)
-            infoButton.autoPinEdgeToSuperviewEdge(.Right, withInset: spacing)
-            
             didSetupConstraints = true
         }
         
         super.updateViewConstraints()
-    }
-    
-    // MARK: - User Interaction
-    
-    func infoButtonClicked(sender: UIButton!) {
-        let vc = InfoViewController()
-        presentViewController(vc, animated: true, completion: nil)
     }
     
     // MARK: - Navigation
@@ -146,5 +126,10 @@ extension MainViewController: MainViewDelegate {
     
     func offlineButtonWasClicked(mainView: MainView, sender: UIButton!) {
         performSegueWithIdentifier(offlineSegueIdentifier, sender: sender)
+    }
+    
+    func infoButtonWasClicked(mainView: MainView, sender: UIButton!) {
+        let vc = InfoViewController()
+        presentViewController(vc, animated: true, completion: nil)
     }
 }
