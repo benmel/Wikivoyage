@@ -14,6 +14,7 @@ class MainViewController: UIViewController {
 
     var mainView: MainView!
     var hud: MBProgressHUD!
+    var infoButton: UIButton!
     
     var searchResults = [SearchResult]()
     
@@ -28,6 +29,7 @@ class MainViewController: UIViewController {
     
     private let hudYOffset: Float = -60
     private let hudMinTime: Float = 0.3
+    private let spacing: CGFloat = 8
     
     private var didSetupConstraints = false
     
@@ -65,10 +67,10 @@ class MainViewController: UIViewController {
     }
     
     func setupInfoButton() {
-        let infoButton = UIButton.buttonWithType(.InfoLight) as! UIButton
+        infoButton = UIButton.buttonWithType(.InfoLight) as! UIButton
+        infoButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         infoButton.addTarget(self, action: "infoButtonClicked:", forControlEvents: .TouchUpInside)
-        let barButton = UIBarButtonItem(customView: infoButton)
-        navigationItem.leftBarButtonItem = barButton
+        view.addSubview(infoButton)
     }
     
     // MARK: - Layout
@@ -76,6 +78,9 @@ class MainViewController: UIViewController {
     override func updateViewConstraints() {
         if !didSetupConstraints {
             mainView.autoPinEdgesToSuperviewEdges()
+            infoButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: spacing)
+            infoButton.autoPinEdgeToSuperviewEdge(.Right, withInset: spacing)
+            
             didSetupConstraints = true
         }
         

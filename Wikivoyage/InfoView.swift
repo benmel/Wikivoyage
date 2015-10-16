@@ -113,6 +113,12 @@ class InfoView: UIView {
             copyrightLabel.autoAlignAxisToSuperviewAxis(.Vertical)
             copyrightLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: spacing)
             
+            NSLayoutConstraint.autoSetPriority(1000) {
+                self.topLabel.autoSetContentCompressionResistancePriorityForAxis(.Vertical)
+                self.bottomLabel.autoSetContentCompressionResistancePriorityForAxis(.Vertical)
+                self.copyrightLabel.autoSetContentCompressionResistancePriorityForAxis(.Vertical)
+            }
+            
             didSetupConstraints = true
         }
         

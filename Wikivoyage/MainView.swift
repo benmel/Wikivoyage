@@ -66,7 +66,7 @@ class MainView: UIView {
     private let searchButtonStartingHeight: CGFloat = 60
     private let searchButtonEndingHeight: CGFloat = 44
     private let otherButtonSpacing: CGFloat = 15
-    private let otherButtonHeight: CGFloat = 100
+    private let otherButtonHeight: CGFloat = 90
     private let tableRowHeight: CGFloat = 60
     
     // MARK: - Delegate
@@ -210,7 +210,7 @@ class MainView: UIView {
             offlineButton.autoPinEdge(.Bottom, toEdge: .Top, ofView: bottomSpace)
             
             NSLayoutConstraint.autoSetPriority(750) {
-                favoriteButton.autoSetDimension(.Height, toSize: otherButtonHeight, relation: .Equal)
+                self.favoriteButton.autoSetDimension(.Height, toSize: otherButtonHeight, relation: .Equal)
             }
             favoriteButton.autoMatchDimension(.Height, toDimension: .Height, ofView: offlineButton)
             

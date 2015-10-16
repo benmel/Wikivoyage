@@ -49,7 +49,7 @@ class InfoViewController: UIViewController {
         if !didSetupConstraints {
             infoView.autoPinEdgesToSuperviewEdges()
             closeButton.autoPinEdgeToSuperviewEdge(.Top, withInset: 2*spacing)
-            closeButton.autoPinEdgeToSuperviewEdge(.Left, withInset: spacing)
+            closeButton.autoPinEdgeToSuperviewEdge(.Right, withInset: spacing)
             
             didSetupConstraints = true
         }
