@@ -20,6 +20,7 @@ class MainView: UIView {
     
     // MARK: - Views
     
+    private var backgroundView: UIImageView!
     private var topView, bottomView: UIView!
     private var topSpace, bottomSpace: UIView!
     private var imageView: UIImageView!
@@ -99,13 +100,21 @@ class MainView: UIView {
     }
     
     func setupViews() {
+        setupBackgroundImage()
         setupTopBottom()
-        setupImageView()
+//        setupImageView()
         setupSearchBar()
         setupSearchButton()
         setupOtherButtons()
         setupInfoButton()
         setupTable()
+    }
+    
+    func setupBackgroundImage() {
+        backgroundView = UIImageView.newAutoLayoutView()
+        backgroundView.image = Images.backgroundImage
+        backgroundView.contentMode = .ScaleAspectFill
+        addSubview(backgroundView)
     }
     
     func setupTopBottom() {
@@ -192,13 +201,15 @@ class MainView: UIView {
     
     override func updateConstraints() {
         if !didSetupConstraints {
+            backgroundView.autoPinEdgesToSuperviewEdges()
+            
             topView.autoMatchDimension(.Width, toDimension: .Width, ofView: self)
             bottomView.autoMatchDimension(.Width, toDimension: .Width, ofView: self)
             [topView, bottomView].autoDistributeViewsAlongAxis(.Vertical, alignedTo: .Vertical, withFixedSpacing: 0)
             
-            imageView.autoAlignAxisToSuperviewAxis(.Vertical)
-            imageView.autoPinEdge(.Top, toEdge: .Top, ofView: topView, withOffset: imageViewSpacing)
-            imageView.autoPinEdge(.Bottom, toEdge: .Bottom, ofView: topView, withOffset: -searchButtonStartingHeight-imageViewSpacing)
+//            imageView.autoAlignAxisToSuperviewAxis(.Vertical)
+//            imageView.autoPinEdge(.Top, toEdge: .Top, ofView: topView, withOffset: imageViewSpacing)
+//            imageView.autoPinEdge(.Bottom, toEdge: .Bottom, ofView: topView, withOffset: -searchButtonStartingHeight-imageViewSpacing)
             
             locationSearchBar.autoAlignAxisToSuperviewAxis(.Vertical)
             locationSearchBar.autoMatchDimension(.Width, toDimension: .Width, ofView: topView)

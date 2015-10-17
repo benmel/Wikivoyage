@@ -17,6 +17,7 @@ struct API {
 struct Images {
     static let placeholder = "placeholder"
     static let thumbnailSize = 128
+    static let backgroundImage = UIImage(named: "mountains")
 }
 
 struct Color {
