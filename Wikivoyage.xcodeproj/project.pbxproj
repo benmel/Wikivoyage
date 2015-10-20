@@ -268,10 +268,10 @@
 			isa = PBXGroup;
 			children = (
 				B5EB8A8E1B90CACC00CB9E38 /* MainViewController.swift */,
-				B51C21B11BD05A4E008CC800 /* InfoViewController.swift */,
 				E7852DC51BC3B03E00E34004 /* MainViewController+UITableViewDataSource.swift */,
 				E7852DC71BC3B0B800E34004 /* MainViewController+UITableViewDelegate.swift */,
 				E7852DC31BC3AFA200E34004 /* MainViewController+UISearchBarDelegate.swift */,
+				B51C21B11BD05A4E008CC800 /* InfoViewController.swift */,
 			);
 			name = Main;
 			sourceTree = "<group>";

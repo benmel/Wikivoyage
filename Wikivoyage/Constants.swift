@@ -26,6 +26,7 @@ struct Images {
     static let mapImage = UIImage(named: "map-toolbar")
     static let backImage = UIImage(named: "arrow-left-toolbar")
     static let forwardImage = UIImage(named: "arrow-right-toolbar")
+    static let closeImage = UIImage(named: "close")?.imageWithRenderingMode(.AlwaysTemplate)
 }
 
 struct System {
