@@ -250,11 +250,11 @@ extension LocationWebViewController {
     
     func updateButtons() {
         if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: NSNumber(integer: self.pageId)) {
-            favoriteButton.tintColor = (savedPage.favorite == true) ? Color.fullButtonColor : Color.emptyButtonColor
-            downloadButton.tintColor = (savedPage.offline == true) ? Color.fullButtonColor : Color.emptyButtonColor
+            favoriteButton.image = (savedPage.favorite == true) ? Images.starSelectedImage : Images.starImage
+            downloadButton.image = (savedPage.offline == true) ? Images.downloadSelectedImage : Images.downloadImage
         } else {
-            favoriteButton.tintColor = Color.emptyButtonColor
-            downloadButton.tintColor = Color.emptyButtonColor
+            favoriteButton.image = Images.starImage
+            downloadButton.image = Images.downloadImage
         }
     }
     

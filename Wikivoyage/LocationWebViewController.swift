@@ -17,6 +17,8 @@ class LocationWebViewController: WebViewController {
     
     var pageId: Int!
     var pageTitle: String!
+    var initialFavorite = false
+    var initialOffline = false
     weak var delegate: LocationWebViewControllerDelegate?
     var selectedURL: NSURL!
     var attributeManager: AttributeManager!
@@ -34,8 +36,9 @@ class LocationWebViewController: WebViewController {
     let saveError = "Failed to save"
     let otherError = "Something went wrong"
     
-    @IBOutlet var favoriteButton: UIBarButtonItem!
-    @IBOutlet var downloadButton: UIBarButtonItem!
+    var favoriteButton: UIBarButtonItem!
+    var downloadButton: UIBarButtonItem!
+    var mapButton: UIBarButtonItem!
     
     private let segueIdentifier = "ShowWebExternal"
     let mapIdentifier = "ShowMap"
@@ -68,6 +71,17 @@ class LocationWebViewController: WebViewController {
     
     // MARK: - Initialization
     
+    override func setupButtons() {
+        super.setupButtons()
+        let starImage = initialFavorite ? Images.starSelectedImage : Images.starImage
+        favoriteButton = UIBarButtonItem(image: starImage, style: .Plain, target: self, action: "favoriteClicked:")
+        let downloadImage = initialOffline ? Images.downloadSelectedImage : Images.downloadImage
+        downloadButton = UIBarButtonItem(image: downloadImage, style: .Plain, target: self, action: "downloadClicked:")
+        mapButton = UIBarButtonItem(image: Images.mapImage, style: .Plain, target: self, action: "mapClicked:")
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+        toolbarItems = [downloadButton, flexibleSpace, favoriteButton, flexibleSpace, mapButton]
+    }
+    
     func setupHud() {
         hud = MBProgressHUD()
         hud.userInteractionEnabled = false
@@ -84,14 +98,15 @@ class LocationWebViewController: WebViewController {
     
     // MARK: - User Interaction
     
-    @IBAction func favorite(sender: AnyObject) {
+    func favoriteClicked(sender: UIBarButtonItem) {
         favoritePage()
     }
     
-    @IBAction func download(sender: AnyObject) {
+    func downloadClicked(sender: UIBarButtonItem) {
         downloadPage()
     }
-    @IBAction func showMap(sender: AnyObject) {
+    
+    func mapClicked(sender: UIBarButtonItem) {
         checkCoordinateStatus()
     }
     

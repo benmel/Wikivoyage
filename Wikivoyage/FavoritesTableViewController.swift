@@ -128,8 +128,8 @@ class FavoritesTableViewController: UITableViewController {
         locationWebViewController.pageTitle = selectedPage.title
         locationWebViewController.title = selectedPage.title
         locationWebViewController.delegate = self
-        locationWebViewController.favoriteButton.tintColor = Color.fullButtonColor
-        locationWebViewController.downloadButton.tintColor = (selectedPage.offline == true) ? Color.fullButtonColor : Color.emptyButtonColor
+        locationWebViewController.initialFavorite = selectedPage.favorite.boolValue
+        locationWebViewController.initialOffline = selectedPage.offline.boolValue
     }
 }
 

@@ -97,11 +97,8 @@ class MainViewController: UIViewController {
         
         let id = NSNumber(integer: selectedSearchResult.pageId)
         if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
-            locationWebViewController.favoriteButton.tintColor = (savedPage.favorite == true) ? Color.fullButtonColor : Color.emptyButtonColor
-            locationWebViewController.downloadButton.tintColor = (savedPage.offline == true) ? Color.fullButtonColor : Color.emptyButtonColor
-        } else {
-            locationWebViewController.favoriteButton.tintColor = Color.emptyButtonColor
-            locationWebViewController.downloadButton.tintColor = Color.emptyButtonColor
+            locationWebViewController.initialFavorite = savedPage.favorite.boolValue
+            locationWebViewController.initialOffline = savedPage.offline.boolValue
         }
     }
     
