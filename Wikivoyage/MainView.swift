@@ -58,11 +58,11 @@ class MainView: UIView {
     
     // MARK: - Spacing
     
-    private let searchButtonWidth: CGFloat = 350
+    private let searchButtonWidth: CGFloat = 320
     private let searchButtonHeight: CGFloat = 44
     private let searchButtonSpacing: CGFloat = 10
     private let otherButtonWidth: CGFloat = 250
-    private let otherButtonHeight: CGFloat = 90
+    private let otherButtonHeight: CGFloat = 100
     private let otherButtonSpacing: CGFloat = 15
     private let infoButtonSpacing: CGFloat = 8
     private let tableRowHeight: CGFloat = 60

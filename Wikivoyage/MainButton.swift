@@ -18,7 +18,7 @@ class MainButton: UIButton {
     
     private let titleFont = UIFont(name: "Avenir-Medium", size: 20)
     private let thumbnailInset: CGFloat = 15
-    private let cornerRadius: CGFloat = 3
+    private let cornerRadius: CGFloat = 4
     private let shadowOpacity: Float = 1
     private let shadowRadius: CGFloat = 0
     private let shadowOffset = CGSize(width: 0, height: 2)
