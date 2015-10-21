@@ -25,8 +25,12 @@ class InfoView: UIView {
     private let bottomLabelWidth: CGFloat = 350
     private let viewBackgroundColor = UIColor.whiteColor()
     
+    private let topFont = UIFont(name: "Lobster1.4", size: 24)
+    private let bottomFont = UIFont.systemFontOfSize(16)
+    private let copyrightFont = UIFont.systemFontOfSize(14)
+    
     private let image = UIImage(named: Images.placeholder)
-    private let appName = "Wikivoyage"
+    private let appName = "Voyageur"
     private let attribution = "All content is available at www.wikivoyage.org.\nContent is available under the Creative Commons Attribution-ShareAlike 3.0 License unless otherwise noted."
     private let copyright = "\u{00A9} 2015 Ben Meline\nwww.benmeline.com"
     
@@ -66,17 +70,17 @@ class InfoView: UIView {
         } else {
             topLabel.text = appName
         }
-        topLabel.font = UIFont.boldSystemFontOfSize(20)
+        topLabel.font = topFont
         topLabel.numberOfLines = 0
         topLabel.textAlignment = .Center
         
         bottomLabel.text = attribution
-        bottomLabel.font = UIFont.systemFontOfSize(16)
+        bottomLabel.font = bottomFont
         bottomLabel.numberOfLines = 0
         bottomLabel.textAlignment = .Center
         
         copyrightLabel.text = copyright
-        copyrightLabel.font = UIFont.systemFontOfSize(14)
+        copyrightLabel.font = copyrightFont
         copyrightLabel.numberOfLines = 0
         copyrightLabel.textAlignment = .Center
         
