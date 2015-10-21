@@ -73,9 +73,9 @@ class LocationWebViewController: WebViewController {
     
     override func setupButtons() {
         super.setupButtons()
-        let starImage = initialFavorite ? Images.starSelectedImage : Images.starImage
+        let starImage = initialFavorite ? Images.starToolbarSelectedImage : Images.starToolbarImage
         favoriteButton = UIBarButtonItem(image: starImage, style: .Plain, target: self, action: "favoriteClicked:")
-        let downloadImage = initialOffline ? Images.downloadSelectedImage : Images.downloadImage
+        let downloadImage = initialOffline ? Images.downloadToolbarSelectedImage : Images.downloadToolbarImage
         downloadButton = UIBarButtonItem(image: downloadImage, style: .Plain, target: self, action: "downloadClicked:")
         mapButton = UIBarButtonItem(image: Images.mapImage, style: .Plain, target: self, action: "mapClicked:")
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)

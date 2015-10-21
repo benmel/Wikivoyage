@@ -18,6 +18,8 @@
 		B51C21B41BD05AD8008CC800 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51C21B31BD05AD8008CC800 /* InfoView.swift */; };
 		B521D1241BAA206F00C9EE91 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B521D1231BAA206F00C9EE91 /* WebViewController.swift */; };
 		B54A78301BD6C5E600D9FCC5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B54A782F1BD6C5E600D9FCC5 /* LaunchScreen.storyboard */; };
+		B54A78321BD6D1FA00D9FCC5 /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A78311BD6D1FA00D9FCC5 /* MainButton.swift */; };
+		B54A78341BD7136700D9FCC5 /* SearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A78331BD7136700D9FCC5 /* SearchButton.swift */; };
 		B55CB0051BC4A0E0005A1CFF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55CB0041BC4A0E0005A1CFF /* Constants.swift */; };
 		B5A4998B1BCDF19200E24FC4 /* AttributeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A4998A1BCDF19200E24FC4 /* AttributeManager.swift */; };
 		B5A4998F1BCF3ED400E24FC4 /* Redirect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A4998E1BCF3ED400E24FC4 /* Redirect.swift */; };
@@ -68,6 +70,8 @@
 		B51C21B31BD05AD8008CC800 /* InfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		B521D1231BAA206F00C9EE91 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		B54A782F1BD6C5E600D9FCC5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B54A78311BD6D1FA00D9FCC5 /* MainButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
+		B54A78331BD7136700D9FCC5 /* SearchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchButton.swift; sourceTree = "<group>"; };
 		B55CB0041BC4A0E0005A1CFF /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B5A4998A1BCDF19200E24FC4 /* AttributeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeManager.swift; sourceTree = "<group>"; };
 		B5A4998E1BCF3ED400E24FC4 /* Redirect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Redirect.swift; sourceTree = "<group>"; };
@@ -225,6 +229,8 @@
 				B5A61D641BC72C0C00FD4CC7 /* EmptyBackgroundView.swift */,
 				B51C21B31BD05AD8008CC800 /* InfoView.swift */,
 				B5004B291BCC5F8100A840D1 /* MainView.swift */,
+				B54A78311BD6D1FA00D9FCC5 /* MainButton.swift */,
+				B54A78331BD7136700D9FCC5 /* SearchButton.swift */,
 				E7194ECF1BBE4407009054F0 /* LocationTableViewCell.swift */,
 			);
 			name = Views;
@@ -450,6 +456,8 @@
 				B521D1241BAA206F00C9EE91 /* WebViewController.swift in Sources */,
 				B51BDCF11B9519CE00248A5D /* SearchResult.swift in Sources */,
 				E7852DC81BC3B0B800E34004 /* MainViewController+UITableViewDelegate.swift in Sources */,
+				B54A78341BD7136700D9FCC5 /* SearchButton.swift in Sources */,
+				B54A78321BD6D1FA00D9FCC5 /* MainButton.swift in Sources */,
 				B5EB8A8F1B90CACC00CB9E38 /* MainViewController.swift in Sources */,
 				B5004B241BC87C5C00A840D1 /* NavigationController.swift in Sources */,
 				B5A61D651BC72C0C00FD4CC7 /* EmptyBackgroundView.swift in Sources */,

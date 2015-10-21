@@ -250,11 +250,11 @@ extension LocationWebViewController {
     
     func updateButtons() {
         if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: NSNumber(integer: self.pageId)) {
-            favoriteButton.image = (savedPage.favorite == true) ? Images.starSelectedImage : Images.starImage
-            downloadButton.image = (savedPage.offline == true) ? Images.downloadSelectedImage : Images.downloadImage
+            favoriteButton.image = (savedPage.favorite == true) ? Images.starToolbarSelectedImage : Images.starToolbarImage
+            downloadButton.image = (savedPage.offline == true) ? Images.downloadToolbarSelectedImage : Images.downloadToolbarImage
         } else {
-            favoriteButton.image = Images.starImage
-            downloadButton.image = Images.downloadImage
+            favoriteButton.image = Images.starToolbarImage
+            downloadButton.image = Images.downloadToolbarImage
         }
     }
     
