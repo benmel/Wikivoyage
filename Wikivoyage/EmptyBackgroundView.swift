@@ -18,8 +18,13 @@ class EmptyBackgroundView: UIView {
     var bottomLabel = UILabel.newAutoLayoutView()
     var didSetupConstraints = false
     
+    private let topColor = UIColor.darkGrayColor()
+    private let topFont = UIFont.boldSystemFontOfSize(22)
+    private let bottomColor = UIColor.grayColor()
+    private let bottomFont = UIFont.systemFontOfSize(18)
+    
     private let spacing: CGFloat = 10
-    private let imageViewHeight: CGFloat = 200
+    private let imageViewHeight: CGFloat = 100
     private let bottomLabelWidth: CGFloat = 300
     
     required init(coder aDecoder: NSCoder) {
@@ -49,17 +54,17 @@ class EmptyBackgroundView: UIView {
     
     func setupImageView(image: UIImage) {
         imageView.image = image
-        imageView.contentMode = .ScaleAspectFit
+        imageView.tintColor = topColor
     }
     
     func setupLabels(top: String, bottom: String) {
         topLabel.text = top
-        topLabel.textColor = .darkGrayColor()
-        topLabel.font = UIFont.boldSystemFontOfSize(22)
+        topLabel.textColor = topColor
+        topLabel.font = topFont
         
         bottomLabel.text = bottom
-        bottomLabel.textColor = .grayColor()
-        bottomLabel.font = UIFont.systemFontOfSize(18)
+        bottomLabel.textColor = bottomColor
+        bottomLabel.font = bottomFont
         bottomLabel.numberOfLines = 0
         bottomLabel.textAlignment = .Center
     }

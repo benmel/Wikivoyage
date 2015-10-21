@@ -55,7 +55,7 @@ class OfflineTableViewController: UITableViewController {
     }
     
     func setupEmptyMessage() {
-        let emptyBackgroundView = EmptyBackgroundView(image: placeholder, top: topMessage, bottom: bottomMessage)
+        let emptyBackgroundView = EmptyBackgroundView(image: Images.downloadLargeImage!, top: topMessage, bottom: bottomMessage)
         emptyBackgroundView.setNeedsUpdateConstraints()
         emptyBackgroundView.updateConstraintsIfNeeded()
         tableView.backgroundView = emptyBackgroundView
