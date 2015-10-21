@@ -47,6 +47,7 @@ class MainView: UIView {
     private let searchButtonEndingAlpha: CGFloat = 0
     private let searchButtonStartingCornerRadius: CGFloat = 20
     private let searchButtonEndingCornerRadius: CGFloat = 0
+    private let infoButtonColor = UIColor(red: 27/255, green: 163/255, blue: 156/255, alpha: 1)
     
     private let placeholder = UIImage(named: Images.placeholder)!
     
@@ -164,6 +165,7 @@ class MainView: UIView {
         infoButton = UIButton.buttonWithType(.InfoLight) as! UIButton
         infoButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         infoButton.addTarget(self, action: "infoButtonClicked:", forControlEvents: .TouchUpInside)
+        infoButton.tintColor = infoButtonColor
         addSubview(infoButton)
     }
     
