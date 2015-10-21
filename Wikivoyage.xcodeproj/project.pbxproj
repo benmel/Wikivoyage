@@ -22,6 +22,7 @@
 		B54A78341BD7136700D9FCC5 /* SearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A78331BD7136700D9FCC5 /* SearchButton.swift */; };
 		B54A78381BD759DC00D9FCC5 /* NavigationTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A78371BD759DC00D9FCC5 /* NavigationTitle.swift */; };
 		B54A783A1BD75D4100D9FCC5 /* Lobster 1.4.otf in Resources */ = {isa = PBXBuildFile; fileRef = B54A78391BD75D4100D9FCC5 /* Lobster 1.4.otf */; };
+		B54A783E1BD83B8300D9FCC5 /* LeakAvoider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A783D1BD83B8300D9FCC5 /* LeakAvoider.swift */; };
 		B55CB0051BC4A0E0005A1CFF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55CB0041BC4A0E0005A1CFF /* Constants.swift */; };
 		B5A4998B1BCDF19200E24FC4 /* AttributeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A4998A1BCDF19200E24FC4 /* AttributeManager.swift */; };
 		B5A4998F1BCF3ED400E24FC4 /* Redirect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A4998E1BCF3ED400E24FC4 /* Redirect.swift */; };
@@ -76,6 +77,7 @@
 		B54A78331BD7136700D9FCC5 /* SearchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchButton.swift; sourceTree = "<group>"; };
 		B54A78371BD759DC00D9FCC5 /* NavigationTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTitle.swift; sourceTree = "<group>"; };
 		B54A78391BD75D4100D9FCC5 /* Lobster 1.4.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lobster 1.4.otf"; sourceTree = "<group>"; };
+		B54A783D1BD83B8300D9FCC5 /* LeakAvoider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeakAvoider.swift; sourceTree = "<group>"; };
 		B55CB0041BC4A0E0005A1CFF /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B5A4998A1BCDF19200E24FC4 /* AttributeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeManager.swift; sourceTree = "<group>"; };
 		B5A4998E1BCF3ED400E24FC4 /* Redirect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Redirect.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 				B5BE0FB31BB4D2CC005805F7 /* ExternalWebViewController.swift */,
 				B5BE0FB71BB4FADE005805F7 /* OfflineWebViewController.swift */,
 				E7194ED51BBF87A2009054F0 /* WebHeadersTableViewController.swift */,
+				B54A783D1BD83B8300D9FCC5 /* LeakAvoider.swift */,
 			);
 			name = Web;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				B5EB8A8F1B90CACC00CB9E38 /* MainViewController.swift in Sources */,
 				B5004B241BC87C5C00A840D1 /* NavigationController.swift in Sources */,
 				B5A61D651BC72C0C00FD4CC7 /* EmptyBackgroundView.swift in Sources */,
+				B54A783E1BD83B8300D9FCC5 /* LeakAvoider.swift in Sources */,
 				B5BE0FB81BB4FADE005805F7 /* OfflineWebViewController.swift in Sources */,
 				B55CB0051BC4A0E0005A1CFF /* Constants.swift in Sources */,
 				B5EB8A8D1B90CACC00CB9E38 /* Wikivoyage.xcdatamodeld in Sources */,

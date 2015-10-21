@@ -55,8 +55,6 @@ class WebViewController: UIViewController {
         super.viewWillAppear(animated)
         webView.addObserver(self, forKeyPath: progressKey, options: .New, context: nil)
         webView.addObserver(self, forKeyPath: titleKey, options: .New, context: nil)
-        configuration.userContentController.addScriptMessageHandler(self, name: didGetIsWikiHost)
-        configuration.userContentController.addScriptMessageHandler(self, name: didGetHeaders)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "webHeaderSelected:", name: webHeaderName, object: nil)
     }
     
@@ -64,9 +62,12 @@ class WebViewController: UIViewController {
         super.viewWillDisappear(animated)
         webView.removeObserver(self, forKeyPath: progressKey)
         webView.removeObserver(self, forKeyPath: titleKey)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: webHeaderName, object: nil)
+    }
+    
+    deinit {
         configuration.userContentController.removeScriptMessageHandlerForName(didGetIsWikiHost)
         configuration.userContentController.removeScriptMessageHandlerForName(didGetHeaders)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: webHeaderName, object: nil)
     }
     
     // MARK: - Initialization
@@ -95,6 +96,8 @@ class WebViewController: UIViewController {
     func setupWebView() {
         configuration = WKWebViewConfiguration()
         configuration.userContentController.addUserScript(script)
+        configuration.userContentController.addScriptMessageHandler(LeakAvoider(delegate: self), name: didGetIsWikiHost)
+        configuration.userContentController.addScriptMessageHandler(LeakAvoider(delegate: self), name: didGetHeaders)
         webView = WKWebView(frame: CGRectZero, configuration: configuration)
         
         webView.setTranslatesAutoresizingMaskIntoConstraints(false)
