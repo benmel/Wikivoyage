@@ -15,6 +15,8 @@ class InfoViewController: UIViewController {
     var closeButton: UIButton!
     
     private let spacing: CGFloat = 10
+    private let buttonColor = UIColor.darkGrayColor()
+    
     private var didSetupConstraints = false
     
     // MARK: - View Lifecycle
@@ -37,8 +39,8 @@ class InfoViewController: UIViewController {
     func setupButton() {
         closeButton = UIButton.buttonWithType(.Custom) as! UIButton
         closeButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        closeButton.setTitle("Close", forState: .Normal)
-        closeButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        closeButton.setImage(Images.closeImage, forState: .Normal)
+        closeButton.tintColor = buttonColor
         closeButton.addTarget(self, action: "closeClicked:", forControlEvents: .TouchUpInside)
         view.addSubview(closeButton)
     }

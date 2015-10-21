@@ -31,6 +31,7 @@ class FavoritesTableViewController: UITableViewController {
         super.viewDidLoad()
         
         setupEmptyMessage()
+        setupNavBar()
         setupTable()
         
         clearsSelectionOnViewWillAppear = false
@@ -48,13 +49,18 @@ class FavoritesTableViewController: UITableViewController {
     
     // MARK: - Initialization
     
+    func setupNavBar() {
+        navigationItem.titleView = NavigationTitle.getTitleView()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+    }
+    
     func setupTable() {
         tableView.rowHeight = tableRowHeight
         tableView.tableFooterView = UIView(frame: CGRectZero)
     }
     
     func setupEmptyMessage() {
-        let emptyBackgroundView = EmptyBackgroundView(image: placeholder, top: topMessage, bottom: bottomMessage)
+        let emptyBackgroundView = EmptyBackgroundView(image: Images.starLargeImage!, top: topMessage, bottom: bottomMessage)
         emptyBackgroundView.setNeedsUpdateConstraints()
         emptyBackgroundView.updateConstraintsIfNeeded()
         tableView.backgroundView = emptyBackgroundView
@@ -128,8 +134,8 @@ class FavoritesTableViewController: UITableViewController {
         locationWebViewController.pageTitle = selectedPage.title
         locationWebViewController.title = selectedPage.title
         locationWebViewController.delegate = self
-        locationWebViewController.favoriteButton.tintColor = Color.fullButtonColor
-        locationWebViewController.downloadButton.tintColor = (selectedPage.offline == true) ? Color.fullButtonColor : Color.emptyButtonColor
+        locationWebViewController.initialFavorite = selectedPage.favorite.boolValue
+        locationWebViewController.initialOffline = selectedPage.offline.boolValue
     }
 }
 

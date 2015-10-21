@@ -13,8 +13,9 @@ class WebViewController: UIViewController {
     
     var webView: WKWebView!
     var configuration: WKWebViewConfiguration!
+    
+    var contentsButton: UIBarButtonItem!
     var progressView: UIProgressView!
-    @IBOutlet weak var contentsButton: UIBarButtonItem!
     
     var script: WKUserScript!
     var scriptName: String!
@@ -43,9 +44,10 @@ class WebViewController: UIViewController {
         super.viewDidLoad()
         setupScriptNames()
         setupScript()
+        setupNavBar()
         setupWebView()
-        setupProgressView()
         setupButtons()
+        setupProgressView()
         requestURL()
     }
     
@@ -68,6 +70,10 @@ class WebViewController: UIViewController {
     }
     
     // MARK: - Initialization
+    
+    func setupNavBar() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+    }
     
     func setupScriptNames() {
         scriptName = "Script"
@@ -97,6 +103,12 @@ class WebViewController: UIViewController {
         view.addSubview(webView)
     }
     
+    func setupButtons() {
+        contentsButton = UIBarButtonItem(image: Images.listImage, style: .Plain, target: self, action: "showContents:")
+        contentsButton.enabled = false
+        navigationItem.rightBarButtonItem = contentsButton
+    }
+        
     func setupProgressView() {
         progressView = UIProgressView.newAutoLayoutView()
         progressView.progress = 0.0
@@ -105,10 +117,6 @@ class WebViewController: UIViewController {
         view.addSubview(progressView)
     }
     
-    func setupButtons() {
-        contentsButton.enabled = false
-    }
-        
     // Override this method
     func requestURL() {
     }
@@ -141,17 +149,15 @@ class WebViewController: UIViewController {
     
     // MARK: - User Interaction
     
-    @IBAction func contents(sender: AnyObject) {
+    func showContents(sender: UIBarButtonItem) {
         // Check that headers are loaded and button is enabled
-        let button = sender as! UIBarButtonItem
-        if webHeadersLoaded && button.enabled {
+        if webHeadersLoaded && sender.enabled {
             let vc = WebHeadersTableViewController()
-            let button = sender as! UIBarButtonItem
             vc.webHeaders = webHeaders
             vc.notificationName = webHeaderName
             vc.modalPresentationStyle = .Popover
             vc.popoverPresentationController?.delegate = self
-            vc.popoverPresentationController?.barButtonItem = button
+            vc.popoverPresentationController?.barButtonItem = sender
             vc.preferredContentSize = CGSize(width: popoverWidth, height: popoverHeight)
             presentViewController(vc, animated: true, completion: nil)
         }

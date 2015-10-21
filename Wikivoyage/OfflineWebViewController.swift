@@ -19,14 +19,14 @@ class OfflineWebViewController: WebViewController {
         applyScriptName = "ApplyOfflineScript"
     }
     
-    override func setupProgressView() {
-        super.setupProgressView()
-        progressView.hidden = true
-    }
-    
     override func setupButtons() {
         super.setupButtons()
         contentsButton.enabled = true
+    }
+    
+    override func setupProgressView() {
+        super.setupProgressView()
+        progressView.hidden = true
     }
     
     override func requestURL() {

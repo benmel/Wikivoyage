@@ -23,10 +23,9 @@ class MainView: UIView {
     private var backgroundView: UIImageView!
     private var topView, bottomView: UIView!
     private var topSpace, bottomSpace: UIView!
-    private var imageView: UIImageView!
     private var locationSearchBar: UISearchBar!
-    private var favoriteButton, offlineButton: UIButton!
-    private var searchButton: UIButton!
+    private var searchButton: SearchButton!
+    private var favoriteButton, offlineButton: MainButton!
     private var infoButton: UIButton!
     private var resultsTable: UITableView!
     
@@ -34,7 +33,7 @@ class MainView: UIView {
     
     private var searchBarTop = false
     private var searchBarDimensionConstraint, searchBarEdgeConstraint: NSLayoutConstraint?
-    private var searchButtonWidthConstraint, searchButtonHeightConstraint, searchButtonEdgeConstraint: NSLayoutConstraint?
+    private var searchButtonWidthConstraint, searchButtonEdgeConstraint, searchButtonLeadingConstraint, searchButtonTrailingConstraint: NSLayoutConstraint?
     private var didSetupConstraints = false
     
     // MARK: - Appearance
@@ -46,13 +45,9 @@ class MainView: UIView {
     private let searchBarEndingAlpha: CGFloat = 1
     private let tableEndingAlpha: CGFloat = 1
     private let searchButtonEndingAlpha: CGFloat = 0
-    
-    private let allButtonTitleColor = UIColor.darkTextColor()
-    private let allButtonStartingCornerRadius: CGFloat = 5
-    private let allButtonEndingCornerRadius: CGFloat = 0
-    
-    private let searchButtonColor = UIColor.redColor()
-    private let otherButtonColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
+    private let searchButtonStartingCornerRadius: CGFloat = 20
+    private let searchButtonEndingCornerRadius: CGFloat = 0
+    private let infoButtonColor = UIColor(red: 27/255, green: 163/255, blue: 156/255, alpha: 1)
     
     private let placeholder = UIImage(named: Images.placeholder)!
     
@@ -64,13 +59,12 @@ class MainView: UIView {
     
     // MARK: - Spacing
     
-    private let imageViewSpacing: CGFloat = 10
-    private let searchButtonWidth: CGFloat = 300
+    private let searchButtonWidth: CGFloat = 320
+    private let searchButtonHeight: CGFloat = 44
+    private let searchButtonSpacing: CGFloat = 10
     private let otherButtonWidth: CGFloat = 250
-    private let searchButtonStartingHeight: CGFloat = 60
-    private let searchButtonEndingHeight: CGFloat = 44
+    private let otherButtonHeight: CGFloat = 100
     private let otherButtonSpacing: CGFloat = 15
-    private let otherButtonHeight: CGFloat = 90
     private let infoButtonSpacing: CGFloat = 8
     private let tableRowHeight: CGFloat = 60
     
@@ -102,7 +96,6 @@ class MainView: UIView {
     func setupViews() {
         setupBackgroundImage()
         setupTopBottom()
-//        setupImageView()
         setupSearchBar()
         setupSearchButton()
         setupOtherButtons()
@@ -129,13 +122,6 @@ class MainView: UIView {
         bottomView.addSubview(bottomSpace)
     }
     
-    func setupImageView() {
-        imageView = UIImageView.newAutoLayoutView()
-        imageView.image = placeholder
-        imageView.contentMode = .ScaleAspectFit
-        topView.addSubview(imageView)
-    }
-    
     func setupSearchBar() {
         locationSearchBar = UISearchBar.newAutoLayoutView()
         locationSearchBar.showsCancelButton = true
@@ -144,38 +130,33 @@ class MainView: UIView {
     }
     
     func setupSearchButton() {
-        searchButton = UIButton.buttonWithType(.Custom) as! UIButton
+        searchButton = SearchButton.buttonWithType(.Custom) as! SearchButton
         searchButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        searchButton.setTitle(searchButtonTitle, forState: .Normal)
         searchButton.addTarget(self, action: "searchClicked:", forControlEvents: .TouchUpInside)
         
-        searchButton.setTitleColor(allButtonTitleColor, forState: .Normal)
-        searchButton.backgroundColor = searchButtonColor
-        searchButton.layer.cornerRadius = allButtonStartingCornerRadius
+        searchButton.title.text = searchButtonTitle
+        searchButton.thumbnail.image = Images.searchImage
+        searchButton.layer.cornerRadius = searchButtonStartingCornerRadius
         
         topView.addSubview(searchButton)
     }
     
     func setupOtherButtons() {
-        favoriteButton = UIButton.buttonWithType(.System) as! UIButton
+        favoriteButton = MainButton.buttonWithType(.Custom) as! MainButton
         favoriteButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        favoriteButton.setTitle(favoriteButtonTitle, forState: .Normal)
         favoriteButton.addTarget(self, action: "favoriteClicked:", forControlEvents: .TouchUpInside)
         
-        favoriteButton.setTitleColor(allButtonTitleColor, forState: .Normal)
-        favoriteButton.backgroundColor = otherButtonColor
-        favoriteButton.layer.cornerRadius = allButtonStartingCornerRadius
+        favoriteButton.title.text = favoriteButtonTitle
+        favoriteButton.thumbnail.image = Images.starImage
         
         bottomView.addSubview(favoriteButton)
         
-        offlineButton = UIButton.buttonWithType(.System) as! UIButton
+        offlineButton = MainButton.buttonWithType(.Custom) as! MainButton
         offlineButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        offlineButton.setTitle(offlineButtonTitle, forState: .Normal)
         offlineButton.addTarget(self, action: "offlineClicked:", forControlEvents: .TouchUpInside)
         
-        offlineButton.setTitleColor(allButtonTitleColor, forState: .Normal)
-        offlineButton.backgroundColor = otherButtonColor
-        offlineButton.layer.cornerRadius = allButtonStartingCornerRadius
+        offlineButton.title.text = offlineButtonTitle
+        offlineButton.thumbnail.image = Images.downloadImage
         
         bottomView.addSubview(offlineButton)
     }
@@ -184,6 +165,7 @@ class MainView: UIView {
         infoButton = UIButton.buttonWithType(.InfoLight) as! UIButton
         infoButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         infoButton.addTarget(self, action: "infoButtonClicked:", forControlEvents: .TouchUpInside)
+        infoButton.tintColor = infoButtonColor
         addSubview(infoButton)
     }
     
@@ -207,10 +189,6 @@ class MainView: UIView {
             bottomView.autoMatchDimension(.Width, toDimension: .Width, ofView: self)
             [topView, bottomView].autoDistributeViewsAlongAxis(.Vertical, alignedTo: .Vertical, withFixedSpacing: 0)
             
-//            imageView.autoAlignAxisToSuperviewAxis(.Vertical)
-//            imageView.autoPinEdge(.Top, toEdge: .Top, ofView: topView, withOffset: imageViewSpacing)
-//            imageView.autoPinEdge(.Bottom, toEdge: .Bottom, ofView: topView, withOffset: -searchButtonStartingHeight-imageViewSpacing)
-            
             locationSearchBar.autoAlignAxisToSuperviewAxis(.Vertical)
             locationSearchBar.autoMatchDimension(.Width, toDimension: .Width, ofView: topView)
             locationSearchBar.autoPinEdgeToSuperviewEdge(.Top)
@@ -224,6 +202,7 @@ class MainView: UIView {
             topSpace.autoSetDimension(.Height, toSize: otherButtonSpacing, relation: .GreaterThanOrEqual)
             topSpace.autoMatchDimension(.Height, toDimension: .Height, ofView: bottomSpace)
             
+            searchButton.autoSetDimension(.Height, toSize: searchButtonHeight)
             favoriteButton.autoSetDimension(.Width, toSize: otherButtonWidth)
             favoriteButton.autoAlignAxisToSuperviewAxis(.Vertical)
             offlineButton.autoSetDimension(.Width, toSize: otherButtonWidth)
@@ -250,17 +229,20 @@ class MainView: UIView {
         }
         
         searchButtonWidthConstraint?.autoRemove()
-        searchButtonHeightConstraint?.autoRemove()
         searchButtonEdgeConstraint?.autoRemove()
+        searchButtonLeadingConstraint?.autoRemove()
+        searchButtonTrailingConstraint?.autoRemove()
         
         if searchBarTop {
             searchButtonWidthConstraint = searchButton.autoMatchDimension(.Width, toDimension: .Width, ofView: topView)
-            searchButtonHeightConstraint = searchButton.autoSetDimension(.Height, toSize: searchButtonEndingHeight)
             searchButtonEdgeConstraint = searchButton.autoPinEdgeToSuperviewEdge(.Top)
         } else {
-            searchButtonWidthConstraint = searchButton.autoSetDimension(.Width, toSize: searchButtonWidth)
-            searchButtonHeightConstraint = searchButton.autoSetDimension(.Height, toSize: searchButtonStartingHeight)
+            NSLayoutConstraint.autoSetPriority(750) {
+                self.searchButtonWidthConstraint = self.searchButton.autoSetDimension(.Width, toSize: self.searchButtonWidth)
+            }
             searchButtonEdgeConstraint = searchButton.autoPinEdgeToSuperviewEdge(.Bottom)
+            searchButtonLeadingConstraint = searchButton.autoPinEdgeToSuperviewEdge(.Leading, withInset: searchButtonSpacing, relation: .GreaterThanOrEqual)
+            searchButtonTrailingConstraint = searchButton.autoPinEdgeToSuperviewEdge(.Trailing, withInset: searchButtonSpacing, relation: .GreaterThanOrEqual)
         }
         
         super.updateConstraints()
@@ -333,7 +315,7 @@ extension MainView {
                         searchBar.alpha = self.searchBarEndingAlpha
                         self.resultsTable.alpha = self.tableEndingAlpha
                         self.searchButton.alpha = self.searchButtonEndingAlpha
-                        self.searchButton.layer.cornerRadius = self.allButtonEndingCornerRadius
+                        self.searchButton.layer.cornerRadius = self.searchButtonEndingCornerRadius
                     }
                 )
             }
@@ -349,7 +331,7 @@ extension MainView {
                     searchBar.alpha = self.searchBarStartingAlpha
                     self.resultsTable.alpha = self.tableStartingAlpha
                     self.searchButton.alpha = self.searchButtonStartingAlpha
-                    self.searchButton.layer.cornerRadius = self.allButtonStartingCornerRadius
+                    self.searchButton.layer.cornerRadius = self.searchButtonStartingCornerRadius
                 }, completion:  { finished in
                     self.setNeedsUpdateConstraints()
                     self.updateConstraintsIfNeeded()
@@ -369,7 +351,7 @@ extension MainView {
             searchBar.alpha = searchBarStartingAlpha
             resultsTable.alpha = tableStartingAlpha
             searchButton.alpha = searchButtonStartingAlpha
-            searchButton.layer.cornerRadius = allButtonStartingCornerRadius
+            searchButton.layer.cornerRadius = searchButtonStartingCornerRadius
         }
     }
 }

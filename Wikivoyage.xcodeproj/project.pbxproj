@@ -17,6 +17,11 @@
 		B51C21B21BD05A4E008CC800 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51C21B11BD05A4E008CC800 /* InfoViewController.swift */; };
 		B51C21B41BD05AD8008CC800 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51C21B31BD05AD8008CC800 /* InfoView.swift */; };
 		B521D1241BAA206F00C9EE91 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B521D1231BAA206F00C9EE91 /* WebViewController.swift */; };
+		B54A78301BD6C5E600D9FCC5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B54A782F1BD6C5E600D9FCC5 /* LaunchScreen.storyboard */; };
+		B54A78321BD6D1FA00D9FCC5 /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A78311BD6D1FA00D9FCC5 /* MainButton.swift */; };
+		B54A78341BD7136700D9FCC5 /* SearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A78331BD7136700D9FCC5 /* SearchButton.swift */; };
+		B54A78381BD759DC00D9FCC5 /* NavigationTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A78371BD759DC00D9FCC5 /* NavigationTitle.swift */; };
+		B54A783A1BD75D4100D9FCC5 /* Lobster 1.4.otf in Resources */ = {isa = PBXBuildFile; fileRef = B54A78391BD75D4100D9FCC5 /* Lobster 1.4.otf */; };
 		B55CB0051BC4A0E0005A1CFF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55CB0041BC4A0E0005A1CFF /* Constants.swift */; };
 		B5A4998B1BCDF19200E24FC4 /* AttributeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A4998A1BCDF19200E24FC4 /* AttributeManager.swift */; };
 		B5A4998F1BCF3ED400E24FC4 /* Redirect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A4998E1BCF3ED400E24FC4 /* Redirect.swift */; };
@@ -66,6 +71,11 @@
 		B51C21B11BD05A4E008CC800 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		B51C21B31BD05AD8008CC800 /* InfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		B521D1231BAA206F00C9EE91 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		B54A782F1BD6C5E600D9FCC5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B54A78311BD6D1FA00D9FCC5 /* MainButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
+		B54A78331BD7136700D9FCC5 /* SearchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchButton.swift; sourceTree = "<group>"; };
+		B54A78371BD759DC00D9FCC5 /* NavigationTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTitle.swift; sourceTree = "<group>"; };
+		B54A78391BD75D4100D9FCC5 /* Lobster 1.4.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lobster 1.4.otf"; sourceTree = "<group>"; };
 		B55CB0041BC4A0E0005A1CFF /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B5A4998A1BCDF19200E24FC4 /* AttributeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeManager.swift; sourceTree = "<group>"; };
 		B5A4998E1BCF3ED400E24FC4 /* Redirect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Redirect.swift; sourceTree = "<group>"; };
@@ -172,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				B5EB8A881B90CACC00CB9E38 /* Info.plist */,
+				B54A78391BD75D4100D9FCC5 /* Lobster 1.4.otf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -211,6 +222,7 @@
 				B5004B231BC87C5C00A840D1 /* NavigationController.swift */,
 				B5EB8AB61B90F0A900CB9E38 /* FavoritesTableViewController.swift */,
 				B5EB8AB81B90F0BB00CB9E38 /* OfflineTableViewController.swift */,
+				B54A78371BD759DC00D9FCC5 /* NavigationTitle.swift */,
 				E7852DC91BC3C24B00E34004 /* Main */,
 				E7194EE21BC08D97009054F0 /* Web */,
 			);
@@ -223,6 +235,8 @@
 				B5A61D641BC72C0C00FD4CC7 /* EmptyBackgroundView.swift */,
 				B51C21B31BD05AD8008CC800 /* InfoView.swift */,
 				B5004B291BCC5F8100A840D1 /* MainView.swift */,
+				B54A78311BD6D1FA00D9FCC5 /* MainButton.swift */,
+				B54A78331BD7136700D9FCC5 /* SearchButton.swift */,
 				E7194ECF1BBE4407009054F0 /* LocationTableViewCell.swift */,
 			);
 			name = Views;
@@ -244,6 +258,7 @@
 				B55CB0041BC4A0E0005A1CFF /* Constants.swift */,
 				B5EB8A891B90CACC00CB9E38 /* AppDelegate.swift */,
 				B5EB8A901B90CACC00CB9E38 /* Main.storyboard */,
+				B54A782F1BD6C5E600D9FCC5 /* LaunchScreen.storyboard */,
 				B5EB8A951B90CACC00CB9E38 /* LaunchScreen.xib */,
 				B5EB8A8B1B90CACC00CB9E38 /* Wikivoyage.xcdatamodeld */,
 			);
@@ -268,10 +283,10 @@
 			isa = PBXGroup;
 			children = (
 				B5EB8A8E1B90CACC00CB9E38 /* MainViewController.swift */,
-				B51C21B11BD05A4E008CC800 /* InfoViewController.swift */,
 				E7852DC51BC3B03E00E34004 /* MainViewController+UITableViewDataSource.swift */,
 				E7852DC71BC3B0B800E34004 /* MainViewController+UITableViewDelegate.swift */,
 				E7852DC31BC3AFA200E34004 /* MainViewController+UISearchBarDelegate.swift */,
+				B51C21B11BD05A4E008CC800 /* InfoViewController.swift */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -363,6 +378,8 @@
 				E7BAD76A1BC3148000E4EF76 /* Script.js in Resources */,
 				E7BAD76C1BC31CAE00E4EF76 /* ApplyOnlineScript.js in Resources */,
 				B5EB8A921B90CACC00CB9E38 /* Main.storyboard in Resources */,
+				B54A783A1BD75D4100D9FCC5 /* Lobster 1.4.otf in Resources */,
+				B54A78301BD6C5E600D9FCC5 /* LaunchScreen.storyboard in Resources */,
 				B5EB8A971B90CACC00CB9E38 /* LaunchScreen.xib in Resources */,
 				B5EB8A941B90CACC00CB9E38 /* Images.xcassets in Resources */,
 			);
@@ -446,6 +463,8 @@
 				B521D1241BAA206F00C9EE91 /* WebViewController.swift in Sources */,
 				B51BDCF11B9519CE00248A5D /* SearchResult.swift in Sources */,
 				E7852DC81BC3B0B800E34004 /* MainViewController+UITableViewDelegate.swift in Sources */,
+				B54A78341BD7136700D9FCC5 /* SearchButton.swift in Sources */,
+				B54A78321BD6D1FA00D9FCC5 /* MainButton.swift in Sources */,
 				B5EB8A8F1B90CACC00CB9E38 /* MainViewController.swift in Sources */,
 				B5004B241BC87C5C00A840D1 /* NavigationController.swift in Sources */,
 				B5A61D651BC72C0C00FD4CC7 /* EmptyBackgroundView.swift in Sources */,
@@ -454,6 +473,7 @@
 				B5EB8A8D1B90CACC00CB9E38 /* Wikivoyage.xcdatamodeld in Sources */,
 				B5EB8A8A1B90CACC00CB9E38 /* AppDelegate.swift in Sources */,
 				B51C21B21BD05A4E008CC800 /* InfoViewController.swift in Sources */,
+				B54A78381BD759DC00D9FCC5 /* NavigationTitle.swift in Sources */,
 				B5A4998F1BCF3ED400E24FC4 /* Redirect.swift in Sources */,
 				E7852DC41BC3AFA200E34004 /* MainViewController+UISearchBarDelegate.swift in Sources */,
 				B5EB8AB71B90F0A900CB9E38 /* FavoritesTableViewController.swift in Sources */,

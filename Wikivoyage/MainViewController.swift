@@ -37,6 +37,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavBar()
         setupView()
         setupHud()
     }
@@ -55,6 +56,11 @@ class MainViewController: UIViewController {
     }
     
     // MARK: - Initialization
+    
+    func setupNavBar() {
+        navigationItem.titleView = NavigationTitle.getTitleView()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+    }
     
     func setupView() {
         mainView = MainView(searchBarDelegate: self, tableViewDataSource: self, tableViewDelegate: self, cellIdentifier: cellIdentifier)
@@ -97,11 +103,8 @@ class MainViewController: UIViewController {
         
         let id = NSNumber(integer: selectedSearchResult.pageId)
         if let savedPage = SavedPage.MR_findFirstByAttribute("id", withValue: id) {
-            locationWebViewController.favoriteButton.tintColor = (savedPage.favorite == true) ? Color.fullButtonColor : Color.emptyButtonColor
-            locationWebViewController.downloadButton.tintColor = (savedPage.offline == true) ? Color.fullButtonColor : Color.emptyButtonColor
-        } else {
-            locationWebViewController.favoriteButton.tintColor = Color.emptyButtonColor
-            locationWebViewController.downloadButton.tintColor = Color.emptyButtonColor
+            locationWebViewController.initialFavorite = savedPage.favorite.boolValue
+            locationWebViewController.initialOffline = savedPage.offline.boolValue
         }
     }
     

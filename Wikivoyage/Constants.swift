@@ -18,11 +18,20 @@ struct Images {
     static let placeholder = "placeholder"
     static let thumbnailSize = 128
     static let backgroundImage = UIImage(named: "mountains")
-}
-
-struct Color {
-    static let emptyButtonColor = UIColor.blueColor()
-    static let fullButtonColor = UIColor.redColor()
+    static let searchImage = UIImage(named: "search")?.imageWithRenderingMode(.AlwaysTemplate)
+    static let listImage = UIImage(named: "list-toolbar")
+    static let starImage = UIImage(named: "star")?.imageWithRenderingMode(.AlwaysTemplate)
+    static let starLargeImage = UIImage(named: "star-large")?.imageWithRenderingMode(.AlwaysTemplate)
+    static let starToolbarImage = UIImage(named: "star-toolbar")
+    static let starToolbarSelectedImage = UIImage(named: "star-toolbar-selected")
+    static let downloadImage = UIImage(named: "cloud-download")?.imageWithRenderingMode(.AlwaysTemplate)
+    static let downloadLargeImage = UIImage(named: "cloud-download-large")?.imageWithRenderingMode(.AlwaysTemplate)
+    static let downloadToolbarImage = UIImage(named: "cloud-download-toolbar")
+    static let downloadToolbarSelectedImage = UIImage(named: "cloud-download-toolbar-selected")
+    static let mapImage = UIImage(named: "map-toolbar")
+    static let backImage = UIImage(named: "arrow-left-toolbar")
+    static let forwardImage = UIImage(named: "arrow-right-toolbar")
+    static let closeImage = UIImage(named: "close")?.imageWithRenderingMode(.AlwaysTemplate)
 }
 
 struct System {

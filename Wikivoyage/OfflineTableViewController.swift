@@ -32,6 +32,7 @@ class OfflineTableViewController: UITableViewController {
         super.viewDidLoad()
         
         setupEmptyMessage()
+        setupNavBar()
         setupTable()
         
         clearsSelectionOnViewWillAppear = false
@@ -49,13 +50,18 @@ class OfflineTableViewController: UITableViewController {
     
     // MARK: - Initialization
     
+    func setupNavBar() {
+        navigationItem.titleView = NavigationTitle.getTitleView()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+    }
+    
     func setupTable() {
         tableView.rowHeight = tableRowHeight
         tableView.tableFooterView = UIView(frame: CGRectZero)
     }
     
     func setupEmptyMessage() {
-        let emptyBackgroundView = EmptyBackgroundView(image: placeholder, top: topMessage, bottom: bottomMessage)
+        let emptyBackgroundView = EmptyBackgroundView(image: Images.downloadLargeImage!, top: topMessage, bottom: bottomMessage)
         emptyBackgroundView.setNeedsUpdateConstraints()
         emptyBackgroundView.updateConstraintsIfNeeded()
         tableView.backgroundView = emptyBackgroundView
