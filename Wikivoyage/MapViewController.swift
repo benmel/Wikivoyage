@@ -17,6 +17,7 @@ class MapViewController: UIViewController {
     
     private let span = MKCoordinateSpanMake(0.4, 0.4)
     private let backgroundColor = UIColor.blackColor()
+    private let barTitle = "Map"
     private let errorMessage = "Map not available"
     
     var didSetupConstraints = false
@@ -25,11 +26,16 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavBar()
         setupMap()
         centerMap()
     }
     
     // MARK: - Initialization
+    
+    func setupNavBar() {
+        title = barTitle
+    }
     
     func setupMap() {
         mapView = MKMapView.newAutoLayoutView()

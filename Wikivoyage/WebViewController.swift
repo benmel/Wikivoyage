@@ -44,6 +44,7 @@ class WebViewController: UIViewController {
         super.viewDidLoad()
         setupScriptNames()
         setupScript()
+        setupNavBar()
         setupWebView()
         setupButtons()
         setupProgressView()
@@ -69,6 +70,10 @@ class WebViewController: UIViewController {
     }
     
     // MARK: - Initialization
+    
+    func setupNavBar() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+    }
     
     func setupScriptNames() {
         scriptName = "Script"

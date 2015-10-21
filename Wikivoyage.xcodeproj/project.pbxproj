@@ -20,6 +20,8 @@
 		B54A78301BD6C5E600D9FCC5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B54A782F1BD6C5E600D9FCC5 /* LaunchScreen.storyboard */; };
 		B54A78321BD6D1FA00D9FCC5 /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A78311BD6D1FA00D9FCC5 /* MainButton.swift */; };
 		B54A78341BD7136700D9FCC5 /* SearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A78331BD7136700D9FCC5 /* SearchButton.swift */; };
+		B54A78381BD759DC00D9FCC5 /* NavigationTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A78371BD759DC00D9FCC5 /* NavigationTitle.swift */; };
+		B54A783A1BD75D4100D9FCC5 /* Lobster 1.4.otf in Resources */ = {isa = PBXBuildFile; fileRef = B54A78391BD75D4100D9FCC5 /* Lobster 1.4.otf */; };
 		B55CB0051BC4A0E0005A1CFF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55CB0041BC4A0E0005A1CFF /* Constants.swift */; };
 		B5A4998B1BCDF19200E24FC4 /* AttributeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A4998A1BCDF19200E24FC4 /* AttributeManager.swift */; };
 		B5A4998F1BCF3ED400E24FC4 /* Redirect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A4998E1BCF3ED400E24FC4 /* Redirect.swift */; };
@@ -72,6 +74,8 @@
 		B54A782F1BD6C5E600D9FCC5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B54A78311BD6D1FA00D9FCC5 /* MainButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
 		B54A78331BD7136700D9FCC5 /* SearchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchButton.swift; sourceTree = "<group>"; };
+		B54A78371BD759DC00D9FCC5 /* NavigationTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTitle.swift; sourceTree = "<group>"; };
+		B54A78391BD75D4100D9FCC5 /* Lobster 1.4.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lobster 1.4.otf"; sourceTree = "<group>"; };
 		B55CB0041BC4A0E0005A1CFF /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B5A4998A1BCDF19200E24FC4 /* AttributeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeManager.swift; sourceTree = "<group>"; };
 		B5A4998E1BCF3ED400E24FC4 /* Redirect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Redirect.swift; sourceTree = "<group>"; };
@@ -178,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				B5EB8A881B90CACC00CB9E38 /* Info.plist */,
+				B54A78391BD75D4100D9FCC5 /* Lobster 1.4.otf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -217,6 +222,7 @@
 				B5004B231BC87C5C00A840D1 /* NavigationController.swift */,
 				B5EB8AB61B90F0A900CB9E38 /* FavoritesTableViewController.swift */,
 				B5EB8AB81B90F0BB00CB9E38 /* OfflineTableViewController.swift */,
+				B54A78371BD759DC00D9FCC5 /* NavigationTitle.swift */,
 				E7852DC91BC3C24B00E34004 /* Main */,
 				E7194EE21BC08D97009054F0 /* Web */,
 			);
@@ -372,6 +378,7 @@
 				E7BAD76A1BC3148000E4EF76 /* Script.js in Resources */,
 				E7BAD76C1BC31CAE00E4EF76 /* ApplyOnlineScript.js in Resources */,
 				B5EB8A921B90CACC00CB9E38 /* Main.storyboard in Resources */,
+				B54A783A1BD75D4100D9FCC5 /* Lobster 1.4.otf in Resources */,
 				B54A78301BD6C5E600D9FCC5 /* LaunchScreen.storyboard in Resources */,
 				B5EB8A971B90CACC00CB9E38 /* LaunchScreen.xib in Resources */,
 				B5EB8A941B90CACC00CB9E38 /* Images.xcassets in Resources */,
@@ -466,6 +473,7 @@
 				B5EB8A8D1B90CACC00CB9E38 /* Wikivoyage.xcdatamodeld in Sources */,
 				B5EB8A8A1B90CACC00CB9E38 /* AppDelegate.swift in Sources */,
 				B51C21B21BD05A4E008CC800 /* InfoViewController.swift in Sources */,
+				B54A78381BD759DC00D9FCC5 /* NavigationTitle.swift in Sources */,
 				B5A4998F1BCF3ED400E24FC4 /* Redirect.swift in Sources */,
 				E7852DC41BC3AFA200E34004 /* MainViewController+UISearchBarDelegate.swift in Sources */,
 				B5EB8AB71B90F0A900CB9E38 /* FavoritesTableViewController.swift in Sources */,

@@ -31,6 +31,7 @@ class FavoritesTableViewController: UITableViewController {
         super.viewDidLoad()
         
         setupEmptyMessage()
+        setupNavBar()
         setupTable()
         
         clearsSelectionOnViewWillAppear = false
@@ -47,6 +48,11 @@ class FavoritesTableViewController: UITableViewController {
     }
     
     // MARK: - Initialization
+    
+    func setupNavBar() {
+        navigationItem.titleView = NavigationTitle.getTitleView()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+    }
     
     func setupTable() {
         tableView.rowHeight = tableRowHeight

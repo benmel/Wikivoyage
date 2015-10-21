@@ -37,6 +37,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavBar()
         setupView()
         setupHud()
     }
@@ -55,6 +56,11 @@ class MainViewController: UIViewController {
     }
     
     // MARK: - Initialization
+    
+    func setupNavBar() {
+        navigationItem.titleView = NavigationTitle.getTitleView()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+    }
     
     func setupView() {
         mainView = MainView(searchBarDelegate: self, tableViewDataSource: self, tableViewDelegate: self, cellIdentifier: cellIdentifier)
