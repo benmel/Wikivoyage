@@ -17,6 +17,7 @@ struct API {
 struct Images {
     static let placeholder = "placeholder"
     static let thumbnailSize = 128
+    static let logoImage = UIImage(named: "Logo")
     static let backgroundImage = UIImage(named: "mountains")
     static let searchImage = UIImage(named: "search")?.imageWithRenderingMode(.AlwaysTemplate)
     static let listImage = UIImage(named: "list-toolbar")

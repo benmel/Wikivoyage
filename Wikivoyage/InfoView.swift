@@ -22,6 +22,9 @@ class InfoView: UIView {
     
     private let spacing: CGFloat = 10
     private let imageViewHeight: CGFloat = 200
+    private let imageViewCornerRadius: CGFloat = 10
+    private let imageViewBorderWidth: CGFloat = 2
+    private let imageViewBorderColor = UIColor.lightGrayColor().CGColor
     private let bottomLabelWidth: CGFloat = 350
     private let viewBackgroundColor = UIColor.whiteColor()
     
@@ -29,7 +32,6 @@ class InfoView: UIView {
     private let bottomFont = UIFont.systemFontOfSize(16)
     private let copyrightFont = UIFont.systemFontOfSize(14)
     
-    private let image = UIImage(named: Images.placeholder)
     private let appName = "Voyageur"
     private let attribution = "All content is available at www.wikivoyage.org.\nContent is available under the Creative Commons Attribution-ShareAlike 3.0 License unless otherwise noted."
     private let copyright = "\u{00A9} 2015 Ben Meline\nwww.benmeline.com"
@@ -59,8 +61,12 @@ class InfoView: UIView {
     }
     
     func setupImageView() {
-        imageView.image = image
+        imageView.image = Images.logoImage
         imageView.contentMode = .ScaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = imageViewCornerRadius
+        imageView.layer.borderWidth = imageViewBorderWidth
+        imageView.layer.borderColor = imageViewBorderColor
         addSubview(imageView)
     }
     
@@ -103,6 +109,7 @@ class InfoView: UIView {
             imageView.autoPinEdge(.Top, toEdge: .Bottom, ofView: topSpace)
             imageView.autoAlignAxisToSuperviewAxis(.Vertical)
             imageView.autoSetDimension(.Height, toSize: imageViewHeight, relation: .LessThanOrEqual)
+            imageView.autoMatchDimension(.Height, toDimension: .Width, ofView: imageView)
             
             topLabel.autoAlignAxisToSuperviewAxis(.Vertical)
             topLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: imageView, withOffset: spacing)
