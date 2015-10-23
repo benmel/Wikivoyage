@@ -18,7 +18,6 @@ class FavoritesTableViewController: UITableViewController {
     private let cellIdentifier = "FavoritePage"
     private let segueIdentifier = "ShowWeb"
     
-    private let placeholder = UIImage(named: Images.placeholder)!
     private let emptyBackgroundColor = UIColor.groupTableViewBackgroundColor()
     private let backgroundColor = UIColor.whiteColor()
     
@@ -88,7 +87,7 @@ class FavoritesTableViewController: UITableViewController {
         
         // If there's a thumbnail URL set URL, otherwise it's nil
         let url = (favoritePage.thumbnailURL != nil) ? NSURL(string: favoritePage.thumbnailURL!) : nil
-        cell.thumbnail.sd_setImageWithURL(url, placeholderImage: placeholder)
+        cell.thumbnail.sd_setImageWithURL(url, placeholderImage: Images.mapLocationLargeImage)
         
         cell.setNeedsUpdateConstraints()
         cell.updateConstraintsIfNeeded()

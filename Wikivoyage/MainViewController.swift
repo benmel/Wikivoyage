@@ -23,7 +23,6 @@ class MainViewController: UIViewController {
     let webSegueIdentifier = "ShowWeb"
     let cellIdentifier = "TableCell"
     
-    let placeholder = UIImage(named: Images.placeholder)!
     var selectedSearchResult: SearchResult!
     var lastRequestid: String!
     var lastRequest: Request?

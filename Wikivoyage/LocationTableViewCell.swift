@@ -15,6 +15,7 @@ class LocationTableViewCell: UITableViewCell {
     var thumbnail = UIImageView.newAutoLayoutView()
     var didSetupConstraints = false
     
+    private let thumbnailColor = UIColor.grayColor()
     private let thumbnailWidth: CGFloat = 60
     private let thumbnailInset: CGFloat = 2
     private let titleOffset: CGFloat = 20
@@ -35,6 +36,7 @@ class LocationTableViewCell: UITableViewCell {
         separatorInset = UIEdgeInsets(top: 0, left: thumbnailWidth + titleOffset, bottom: 0, right: 0)
         thumbnail.contentMode = .ScaleAspectFill
         thumbnail.clipsToBounds = true
+        thumbnail.tintColor = thumbnailColor
         
         contentView.addSubview(title)
         contentView.addSubview(thumbnail)
